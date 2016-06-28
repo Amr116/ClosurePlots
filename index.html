@@ -1,14 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Closure Plots for Basic Arithmetics</title>
-<!-- Plotly is the state of the art in data viz, dashboards, and collaborative analysis.  -->
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Closure Plots for Basic Arithmetics</title>
+	<!-- Plotly is the state of the art in data viz, dashboards, and collaborative analysis. 
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>						-->
+	<script src="plotly.min.js"></script>
+
+
 </head>
 
 <body>
+	<div>
+		<!-- onkeypress="return event.charCode >= 48 && event.charCode <= 57" -->
+		<input id="key" onblur="useValue();" onkeypress="return isNumber(event);" >
+	</div>
+	<div>
+		<input id="new" type="" name="" value="">
+	</div>
+
+    <div id="tester" style="width:600px;height:250px;"></div>
+	<script type="text/javascript">
+		TESTER = document.getElementById('tester');
+
+		Plotly.plot( TESTER, [{
+    		x: [1, 2, 3, 4, 5],
+    		y: [1, 2, 4, 8, 16] }], {
+    		margin: { t: 0 } } );
+
+		/* Current Plotly.js version */
+		console.log( Plotly.BUILD );
+
+
+		/* try tp get value from input to another input */
+    	function useValue() {
+    		var NameValue = document.getElementById('new')
+    		NameValue.value = document.getElementById('key').value;
+
+    		// use it
+    		//alert(NameValue); // just to show the new value
+		}
+
+		function isNumber(evt) {
+		    evt = (evt) ? evt : window.event;
+		    var charCode = (evt.which) ? evt.which : evt.keyCode;
+		    if (charCode == 45){
+		    	return true;
+		    }
+		    else if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		        return false;
+		    }
+		    return true;
+		}
+
+
+	</script>    
 
 </body>
+    <script>
 
+	</script>
 </html>
