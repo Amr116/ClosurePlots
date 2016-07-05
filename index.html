@@ -1,26 +1,86 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Closure Plots for Basic Arithmetics</title>
-	<!-- Plotly is the state of the art in data viz, dashboards, and collaborative analysis. 
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>						-->
-	<script src="plotly.min.js"></script>
+	<link rel="icon" type="image/png" href="image/favicon.png">
 
+	<!-- Mobile first -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name='description' content='Visualization plots to floating point for Basic Arithmetics'>
+	<meta property="og:title" content="Closure Plots for Basic Arithmetics">
+	<meta property="og:site_name" content="Closure Plots for Basic Arithmetics">
+	<meta property="og:url" content="http://">
+	<meta name='og:description' content='Visualization plots to floating point for Basic Arithmetics'>
+
+	<!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+	
+	<!-- Plotly is the state of the art in data viz, dashboards, and collaborative analysis. #<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> # -->
+
+	<script src="plotly.min.js"></script>
 
 </head>
 
 <body>
-	<div>
-		<!-- onkeypress="return event.charCode >= 48 && event.charCode <= 57" -->
-		<input id="key" onblur="useValue();" onkeypress="return isNumber(event);" >
+	<div class="jumbotron text-center">
+	  <h2>Closure Plots for Basic Arithmetics</h2>
+	  <p>This project is visualization tool for plotting the simulation of floating point with Basic Arithmetics</p>
 	</div>
-	<div>
-		<input id="new" type="" name="" value="">
-	</div>
+	<div class="container">
+	  <div class="row">
+	    <div class="col-sm-4">
+	      <h3>Column 1</h3>
+	      <p>.....................................................................</p>
+	      <p>.....................................................................</p>
+	    </div>
+	    <div class="col-sm-4">
+	      <h3>Column 2</h3>
+	      <p>.....................................................................</p>
+	      <p>.....................................................................</p>
+	    </div>
+	    <div class="col-sm-4">
+	      <h3>Column 3</h3>
+	      <p>.....................................................................</p>
+	      <p>.....................................................................</p>
+	    </div>
+	  </div>
 
-    <div id="tester" style="width:600px;height:250px;"></div>
-	<script type="text/javascript">
+	  <br>
+	  <br>
+
+
+
+
+
+	<!-- defining selection option for different precision -->
+
+		<div>
+			<select>
+				<option value="half">Half</option>
+				<option value="single">Single</option>
+				<option value="double">Double</option>
+				<option value="quad">Quad</option>
+			</select>
+		</div>
+
+
+		<div>
+			<!-- onkeypress="return event.charCode >= 48 && event.charCode <= 57" -->
+			<input id="key" onblur="useValue();" onkeypress="return isNumber(event);" >
+		</div>
+		<div>
+			<input id="new" type="" name="" value="">
+		</div>
+
+	    <div id="tester" style="width:600px;height:250px;"></div>
+
+	 </div>
+
+
+	<!-- H			-->
+    <script type="text/javascript">
 		TESTER = document.getElementById('tester');
 
 		Plotly.plot( TESTER, [{
@@ -53,8 +113,7 @@
 		    return true;
 		}
 
-
-	</script>    
+    </script>
 
 </body>
     <script>
