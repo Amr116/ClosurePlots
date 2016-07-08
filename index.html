@@ -16,10 +16,12 @@
 	<!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 	<!-- Plotly is the state of the art in data viz, dashboards, and collaborative analysis. #<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> # -->
 
-	<script src="plotly.min.js"></script>
+	<script src="js/plotly.min.js"></script>
 
 </head>
 
@@ -31,6 +33,7 @@
 	  </div>
 	</header>
 	<div class="container">
+	<!--
 	  <div class="row">
 	    <div class="col-sm-4">
 	      <h3>Column 1</h3>
@@ -48,23 +51,38 @@
 	      <p>.....................................................................</p>
 	    </div>
 	  </div>
-
-	  <br>
-	  <br>
-
-
-
+	-->
 
 
 	<!-- defining selection option for different precision -->
 
-		<div>
+		<div class="row">
+			<div class="col-md-4">
+			<p>Floating point precision</<p>
 			<select>
 				<option value="half">Half</option>
 				<option value="single">Single</option>
 				<option value="double">Double</option>
 				<option value="quad">Quad</option>
 			</select>
+			</div>
+			<div class="col-md-4">
+			<p>Arithmetics operations</<p>
+			<select>
+				<option value="addition">Addition</option>
+				<option value="subtraction">Subtraction</option>
+				<option value="multiplication">Multiplication</option>
+				<option value="division">Division</option>
+			</select>
+			</div>
+
+						
+			<div class="col-md-2">
+			  <button type="button" class="btn btn-primary" style="margin-top:1px;">Plot my requests</button>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-1"></div>
+
 		</div>
 
 
