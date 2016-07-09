@@ -28,94 +28,43 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<script type="text/javascript">
-
-	    google.charts.load('current', {'packages':['scatter']});
-      	google.charts.setOnLoadCallback(draw4bits);
-
-		function draw4bits(){
-
-							// ------- Version 2------------
-			  // Add empty rows, then populate
-			  // -----------------------------
-			  var data = new google.visualization.DataTable();
-			  // Add columns
-			  data.addColumn('string', 'Employee Name');
-			  data.addColumn('date', 'Start Date');
-
-			  // Add empty rows
-			  data.addRows(6);
-			  data.setCell(0, 0, 'Mike');
-			  data.setCell(0, 1, {v:new Date(2008,1,28), f:'February 28, 2008'});
-			  data.setCell(1, 0, 'Bob');
-			  data.setCell(1, 1, new Date(2007, 5, 1));
-			  data.setCell(2, 0, 'Alice');
-			  data.setCell(2, 1, new Date(2006, 7, 16));
-			  data.setCell(3, 0, 'Frank');
-			  data.setCell(3, 1, new Date(2007, 11, 28));
-			  data.setCell(4, 0, 'Floyd');
-			  data.setCell(4, 1, new Date(2005, 3, 13));
-			  data.setCell(5, 0, 'Fritz');
-			  data.setCell(5, 1, new Date(2007, 9, 2));
-
-			  var chart = new google.charts.Scatter(document.getElementById("test"));
-			  chart.draw(data);
-		}
-
-	</script>
-		<script type="text/javascript">
-	  google.charts.load('current', {'packages':['scatter']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart () {
-
-        var data = new google.visualization.DataTable();
-        data.addColumn('number', 'Hours Studied');
-        data.addColumn('number', 'Final');
-
-        data.addRows([
-          [0, 67], [1, 88], [2, 77],
-          [3, 93], [4, 85], [5, 91],
-          [6, 71], [7, 78], [8, 93],
-          [9, 80], [10, 82],[0, 75],
-          [5, 80], [3, 90], [1, 72],
-          [5, 75], [6, 68], [7, 98],
-          [3, 82], [9, 94], [2, 79],
-          [2, 95], [2, 86], [3, 67],
-          [4, 60], [2, 80], [6, 92],
-          [2, 81], [8, 79], [9, 83],
-          [3, 75], [1, 80], [3, 71],
-          [3, 89], [4, 92], [5, 85],
-          [6, 92], [7, 78], [6, 95],
-          [3, 81], [0, 64], [4, 85],
-          [2, 83], [3, 96], [4, 77],
-          [5, 89], [4, 89], [7, 84],
-          [4, 92], [9, 98]
+		/*google.charts.load('current', {'packages':['corechart']});*/
+		google.charts.load('current', {'packages':['corechart']});
+    	google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Age', 'Weight'],
+          [ 8,      12],
+          [ 4,      5.5],
+          [ 11,     14],
+          [ 4,      5],
+          [ 3,      3.5],
+          [ 6.5,    7]
         ]);
 
         var options = {
-          width: 800,
-          height: 500,
-          chart: {
-            title: 'Students\' Final Grades',
-            subtitle: 'based on hours studied'
-          },
-          hAxis: {title: 'Hours Studied'},
-          vAxis: {title: 'Grade'}
+          title: 'Age vs. Weight comparison',
+          hAxis: {title: 'Age', minValue: 0, maxValue: 15},
+          vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+          legend: 'none'
         };
 
-        var chart = new google.charts.Scatter(document.getElementById('scatterchart_material'));
+        var chart = new google.visualization.ScatterChart(document.getElementById('test1'));
 
-        chart.draw(data, google.charts.Scatter.convertOptions(options));
+        chart.draw(data, options);
       }
+
 
 	</script>
 </head>
 
-<body>
+<body> <!-- style="background-color: black";-->
 	<header id="overview" class="jumbotron masthead" style='background-image:url("img/yellowdotdisappear42893.gif");'> <!-- text-center -->
 	  <div class="container">
-	  <center><h2><font color="#848484">Closure Plots for Basic Arithmetics</font></h2><br>
-	  <b><font color="#848484">This is visualization tool for plotting the simulation of floating point with Basic Arithmetics</font></b></center>
+	  <center>
+	  	<h2><font color="white">Closure Plots for Basic Arithmetics</font></h2><br> <!-- #848484 -->
+	  	<p><font color="white">This is visualization tool for plotting the simulation of floating point with Basic Arithmetics</font></p>
+	  </center>
 	  </div>
 	</header>
 	<div class="container">
@@ -125,10 +74,10 @@
 
 		<div class="row">
 			<div class="col-md-4">
-			<p>Floating point precision</<p>
+			<font color="">Floating point precision</font>
 			<select>
-				<option value="half">(4 bits)</option>
-				<option value="half">(8 bits)</option>			
+				<option value="4bits">(4 bits)</option>
+				<option value="8bits">(8 bits)</option>			
 				<option value="half">Half (16 bits)</option>
 				<option value="single">Single (32 bits)</option>
 				<option value="double">Double (64 bits)</option>
@@ -137,7 +86,7 @@
 			</div>
 
 			<div class="col-md-4">
-			<p>Arithmetics operations</<p>
+			<font color="">Arithmetics operations</font>
 			<select>
 				<option value="addition">Addition</option>
 				<option value="subtraction">Subtraction</option>
@@ -145,7 +94,7 @@
 				<option value="division">Division</option>
 			</select>
 			</div>
-						
+			<div class="col-md-1"></div>			
 			<div class="col-md-2">
 			  <button type="button" class="btn btn-primary" style="margin-top:1px;">Plot my requests</button>
 			</div>
@@ -155,12 +104,10 @@
 			-->
 		</div>
 	<!--================ END ================-->
-		<div id="scatterchart_material"></div>
-		<div id="test">
-			
-		</div>
+		<div id="test1"></div>
+		<div id="test2"></div>
 
-
+	</div>
 </body>
     <script>
 
