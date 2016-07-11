@@ -55,7 +55,7 @@
 		<div class="row">
 			<div class="col-md-4">
 			<font color="">Floating point precision</font>
-			<select>
+			<select id="bits">
 				<option value="4bits">(4 bits)</option>
 				<option value="8bits">(8 bits)</option>			
 				<option value="half">Half (16 bits)</option>
@@ -67,7 +67,7 @@
 
 			<div class="col-md-4">
 			<font color="">Arithmetics operations</font>
-			<select>
+			<select id="op">
 				<option value="addition">Addition</option>
 				<option value="subtraction">Subtraction</option>
 				<option value="multiplication">Multiplication</option>
@@ -76,15 +76,108 @@
 			</div>
 			<div class="col-md-1"></div>			
 			<div class="col-md-2">
-			  <button type="button" class="btn btn-primary" style="margin-top:1px;">Plot my requests</button>
+			  <button type="button" class="btn btn-primary" onclick="myFunction()" style="margin-top:1px;">Plot my requests</button>
 			</div>
 			<!--
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
 			-->
+			<script type="text/javascript">
+				function myFunction() {
+					var bts = document.getElementById("bits").value;
+					var op  = document.getElementById("op").value;
+
+					/*  4bits logic */
+					if(bts == "4bits" && op == "addition") {
+						alert("it's fine");
+
+					} else if(bts == "4bits" && op == "subtraction") {
+						alert("4bits subtraction coming soon");
+
+					} else if(bts == "4bits" && op == "multiplication") {
+						alert("4bits multiplication coming soon");
+
+					} else if(bts == "4bits" && op == "division") {
+						alert("4bits division coming soon");
+
+						/*  8bits logic */
+					} else if(bts == "8bits" && op == "addition") {
+						alert("it's fine");
+
+					} else if(bts == "8bits" && op == "subtraction") {
+						alert("8bits subtraction coming soon");
+
+					} else if(bts == "8bits" && op == "multiplication") {
+						alert("8bits multiplication coming soon");
+
+					} else if(bts == "8bits" && op == "division") {
+						alert("8bits division coming soon");
+					
+
+						/*  (half ) 16bits logic */
+					} else if(bts == "half" && op == "addition") {
+						alert("it's fine");
+
+					} else if(bts == "half" && op == "subtraction") {
+						alert("half 16bits subtraction coming soon");
+
+					} else if(bts == "half" && op == "multiplication") {
+						alert("half 16bits multiplication coming soon");
+
+					} else if(bts == "half" && op == "division") {
+						alert("half 16bits division coming soon");
+
+						/*  (single) 32bits logic */
+					} else if(bts == "single" && op == "addition") {
+						alert("it's fine");
+
+					} else if(bts == "single" && op == "subtraction") {
+						alert("single 32bits subtraction coming soon");
+
+					} else if(bts == "single" && op == "multiplication") {
+						alert("single 32bits multiplication coming soon");
+
+					} else if(bts == "single" && op == "division") {
+						alert("single 32bits division coming soon");
+
+						/*  (double) 64bits logic */
+					} else if(bts == "double" && op == "addition") {
+						alert("it's fine");
+
+					} else if(bts == "double" && op == "subtraction") {
+						alert("double 64bits subtraction coming soon");
+
+					} else if(bts == "double" && op == "multiplication") {
+						alert("double 64bits multiplication coming soon");
+
+					} else if(bts == "double" && op == "division") {
+						alert("double 64bits division coming soon");
+
+						/*  (quad) 64bits logic */
+					} else if(bts == "quad" && op == "addition") {
+						alert("it's fine");
+
+					} else if(bts == "quad" && op == "subtraction") {
+						alert("quad 128bits subtraction coming soon");
+
+					} else if(bts == "quad" && op == "multiplication") {
+						alert("quad 128bits multiplication coming soon");
+
+					} else if(bts == "quad" && op == "division") {
+						alert("quad 128bits division coming soon");
+
+
+					}else{
+						alert("Something wrong");
+					}
+
+				}
+			</script>
 		</div>
 	<!--================ END ================-->
-		<div id="test1"></div>hello
+		<br>
+		<br>
+		<div id="test1"></div>
 		<div id="test2"></div>
 
 	</div>
