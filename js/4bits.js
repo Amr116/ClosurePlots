@@ -2,7 +2,7 @@ function draw1() {
    // Define the chart to be drawn.
    var data = new google.visualization.DataTable();
    data.addColumn('number', '');
-   data.addColumn('number', 'limited');
+   data.addColumn('number', 'correct');
    data.addColumn('number', 'overflow');
    data.addRows([
     [{v:0, f:'0000'}, {v:0, f:'0000'},null],
