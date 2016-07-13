@@ -78,12 +78,14 @@
 			<div class="col-md-1"></div>			
 			<div class="col-md-2">
 			  <button type="button" class="btn btn-primary" onclick="myFunction();" style="margin-top:1px;">Plot my requests</button>
+			  <button type="button" class="btn btn-primary" onclick="alert(decbin(777, 10));" style="margin-top:1px;">Plot my requests</button>
 			</div>
 			<!-- <div class="col-md-1"></div> <div class="col-md-1"></div> -->
 			<script type="text/javascript">
+				// function to create object of the selected options and call the appropriate function. 
 				function myFunction(){
 					var prec = document.getElementById("precision").value;
-					var op  = document.getElementById("operations").value;
+					var op   = document.getElementById("operations").value;
 
 					switch(op){
 						case "addition":
@@ -102,14 +104,24 @@
 						default:
 							alert("something wrong");
 							break;
-
 					}
 				}
+
+				// function to create the simulation of Arithmetics operation ( addition )
 				function add(obj){
 					var prec  = parseInt(obj);
 					var range = Math.pow(2, prec);
 					alert(range);
 				}
+
+				// function to convert (Decimal to Binary) with specify length of the output.
+				function decbin(dec,length){
+					var out = "";
+					while(length--)
+						out += (dec >> length ) & 1;
+					return out;
+				}
+				
 			</script>
 		</div>
 	<!--================ END ================-->
