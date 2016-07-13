@@ -285,6 +285,12 @@ function draw1() {
      },
      width: 1050,
      height: 500,
+     explorer: { 
+        actions: ['dragToZoom', 'rightClickToReset'],
+        axis: 'horizontal',
+        keepInBounds: true,
+        maxZoomIn: 4.0
+    }
      /*
      series: {
         0: {axis: 'hours studied'},
