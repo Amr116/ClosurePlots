@@ -94,19 +94,31 @@
 							//alert("add op");
 							break;
 						case "subtraction":
-							alert("sub op");
+							subt(prec);
+							//alert("sub op");
 							break;
 						case "multiplication":
-							alert("mul op");
+							mult(prec);
+							//alert("mul op");
 							break;
 						case "division":
-							alert("div op");
+							divn(prec);
+							//alert("div op");
 							break;
 						default:
 							alert("something wrong");
 							break;
 					}
 				}
+
+				// function to convert (Decimal to Binary) with specify length of the output.
+				function decbin(dec,length){
+					var out = "";
+					while(length--)
+						out += (dec >> length ) & 1;
+					return out;
+				}
+
 
 				// function to create the simulation of Arithmetics operation ( addition )
 				function add(obj){
@@ -148,12 +160,124 @@
 					drawtest(rows);
 				}
 
-				// function to convert (Decimal to Binary) with specify length of the output.
-				function decbin(dec,length){
-					var out = "";
-					while(length--)
-						out += (dec >> length ) & 1;
-					return out;
+				// function to create the simulation of Arithmetics operation ( subtraction )
+				function subt(obj){
+					var prec  = parseInt(obj);
+					// range to iteration (loop)
+					var range = Math.pow(2, prec);
+
+					var index = 0;
+					var rows  = [];
+
+					for (i = 0; i < range; i++){
+						var formatX = decbin(i, prec);
+						// initialize dictX
+						dictX = {};						
+						// {v:0, f:'0000'}
+						var dictX	= {v:i, f: formatX};
+
+						for(j=0; j < range; j++){
+							var formatY = decbin(j, prec);
+							// initialize dictY
+							var dictY = {};							
+							// {v:0, f:'0000'}
+							var dictY = {v:j, f: formatY};
+							// correct logic
+							// format is:  x index , correct , overflow
+							if ((i-j) < range){
+								rows[index] = [dictX, dictY, null];
+
+							// else overflow
+							}else{
+								rows[index] = [dictX, , dictY];
+							}
+
+							index += 1;
+						}
+
+					}
+					
+					drawtest(rows);
+				}
+
+				// function to create the simulation of Arithmetics operation ( multiplication )
+				function mult(obj){
+					var prec  = parseInt(obj);
+					// range to iteration (loop)
+					var range = Math.pow(2, prec);
+
+					var index = 0;
+					var rows  = [];
+
+					for (i = 0; i < range; i++){
+						var formatX = decbin(i, prec);
+						// initialize dictX
+						dictX = {};						
+						// {v:0, f:'0000'}
+						var dictX	= {v:i, f: formatX};
+
+						for(j=0; j < range; j++){
+							var formatY = decbin(j, prec);
+							// initialize dictY
+							var dictY = {};							
+							// {v:0, f:'0000'}
+							var dictY = {v:j, f: formatY};
+							// correct logic
+							// format is:  x index , correct , overflow
+							if ((i*j) < range){
+								rows[index] = [dictX, dictY, null];
+
+							// else overflow
+							}else{
+								rows[index] = [dictX, , dictY];
+							}
+
+							index += 1;
+						}
+
+					}
+					
+					drawtest(rows);
+				}
+
+				// function to create the simulation of Arithmetics operation ( division )
+				function divn(obj){
+					var prec  = parseInt(obj);
+					// range to iteration (loop)
+					var range = Math.pow(2, prec);
+
+					var index = 0;
+					var rows  = [];
+
+					for (i = 0; i < range; i++){
+						var formatX = decbin(i, prec);
+						// initialize dictX
+						dictX = {};						
+						// {v:0, f:'0000'}
+						var dictX	= {v:i, f: formatX};
+
+						for(j=0; j < range; j++){
+							var formatY = decbin(j, prec);
+							// initialize dictY
+							var dictY = {};							
+							// {v:0, f:'0000'}
+							var dictY = {v:j, f: formatY};
+							// correct logic
+							// format is:  x index , correct , overflow
+							if ((i/j) < range){
+								rows[index] = [dictX, dictY, null];
+
+							// else overflow
+							}else{
+								rows[index] = [dictX, , dictY];
+							}
+
+							index += 1;
+						}
+
+					}
+					
+					drawtest(rows);
 				}
 
 				function drawtest(obj) {
