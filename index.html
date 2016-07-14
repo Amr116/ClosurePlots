@@ -157,7 +157,7 @@
 
 					}
 					
-					drawtest(rows);
+					drawtest(rows, 'Overflow');
 				}
 
 				// function to create the simulation of Arithmetics operation ( subtraction )
@@ -184,7 +184,7 @@
 							var dictY = {v:j, f: formatY};
 							// correct logic
 							// format is:  x index , correct , overflow
-							if ((i-j) < range){
+							if ((i-j) >= 0 & (i-j) < range){
 								rows[index] = [dictX, dictY, null];
 
 							// else overflow
@@ -197,7 +197,7 @@
 
 					}
 					
-					drawtest(rows);
+					drawtest(rows, 'Underflow');
 				}
 
 				// function to create the simulation of Arithmetics operation ( multiplication )
@@ -237,7 +237,7 @@
 
 					}
 					
-					drawtest(rows);
+					drawtest(rows, 'overflow');
 				}
 
 				// function to create the simulation of Arithmetics operation ( division )
@@ -277,15 +277,15 @@
 
 					}
 					
-					drawtest(rows);
+					drawtest(rows, 'Inexpressible');
 				}
 
-				function drawtest(obj) {
+				function drawtest(obj, txt) {
 				   // Define the chart to be drawn.
 				   var data = new google.visualization.DataTable();
 				   data.addColumn('number', '');
 				   data.addColumn('number', 'correct');
-				   data.addColumn('number', 'overflow');
+				   data.addColumn('number', txt);
 				   data.addRows(obj);
 
 				    var options = {
