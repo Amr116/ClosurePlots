@@ -119,26 +119,30 @@
 
 					for (i = 0; i < range; i++){
 						var formatX = decbin(i, prec);
+						// initialize dictX
+						dictX = {};						
 						// {v:0, f:'0000'}
 						var dictX	= {v:i, f: formatX};
 
 						for(j=0; j < range; j++){
 							var formatY = decbin(j, prec);
+							// initialize dictY
+							var dictY = {};							
 							// {v:0, f:'0000'}
 							var dictY = {v:j, f: formatY};
 							// correct logic
 							// format is:  x index , correct , overflow
-							if ((i+j) < (range-1)){
-								rows[index] = [dictX, dictX, null];
+							if ((i+j) < range){
+								rows[index] = [dictX, dictY, null];
+
+							// else overflow
 							}else{
 								rows[index] = [dictX, , dictY];
 							}
-							// initialize dictY
-							dictY = {};
+
 							index += 1;
 						}
-						// initialize dictX
-						dictX = {};
+
 					}
 					
 					drawtest(rows);

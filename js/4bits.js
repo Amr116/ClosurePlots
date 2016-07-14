@@ -302,7 +302,7 @@ function draw1() {
       }*/
    };
    // Instantiate and draw the chart.
-   var chart = new google.charts.Scatter(document.getElementById('test2'));
+   var chart = new google.charts.Scatter(document.getElementById('test1'));
    chart.draw(data, google.charts.Scatter.convertOptions(options));
 }
 google.charts.setOnLoadCallback(draw1);
