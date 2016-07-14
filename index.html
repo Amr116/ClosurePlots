@@ -78,7 +78,8 @@
 			<div class="col-md-1"></div>			
 			<div class="col-md-2">
 			  <button type="button" class="btn btn-primary" onclick="myFunction();" style="margin-top:1px;">Plot my requests</button>
-			  <button type="button" class="btn btn-primary" onclick="alert(decbin(777, 10));" style="margin-top:1px;">Plot my requests</button>
+			  <button type="button" class="btn btn-primary" onclick="alert(typeof(decbin(777, 10)));" style="margin-top:1px;">Plot my requests</button>
+			  <button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>			  
 			</div>
 			<!-- <div class="col-md-1"></div> <div class="col-md-1"></div> -->
 			<script type="text/javascript">
@@ -110,8 +111,37 @@
 				// function to create the simulation of Arithmetics operation ( addition )
 				function add(obj){
 					var prec  = parseInt(obj);
+					// range to iteration (loop)
 					var range = Math.pow(2, prec);
-					alert(range);
+
+					var index = 0;
+					var rows  = [];
+
+					for (i = 0; i < range; i++){
+						var formatX = decbin(i, prec);
+						// {v:0, f:'0000'}
+						var dictX	= {v:i, f: formatX};
+
+						for(j=0; j < range; j++){
+							var formatY = decbin(j, prec);
+							// {v:0, f:'0000'}
+							var dictY = {v:j, f: formatY};
+							// correct logic
+							// format is:  x index , correct , overflow
+							if ((i+j) < (range-1)){
+								rows[index] = [dictX, dictX, null];
+							}else{
+								rows[index] = [dictX, , dictY];
+							}
+							// initialize dictY
+							dictY = {};
+							index += 1;
+						}
+						// initialize dictX
+						dictX = {};
+					}
+					
+					drawtest(rows);
 				}
 
 				// function to convert (Decimal to Binary) with specify length of the output.
@@ -121,13 +151,47 @@
 						out += (dec >> length ) & 1;
 					return out;
 				}
+
+				function drawtest(obj) {
+				   // Define the chart to be drawn.
+				   var data = new google.visualization.DataTable();
+				   data.addColumn('number', '');
+				   data.addColumn('number', 'correct');
+				   data.addColumn('number', 'overflow');
+				   data.addRows(obj);
+
+				    var options = {
+				    	chart: {
+				    		title: ' plotting the simulation of floating point with Basic Arithmetics',
+				        	subtitle: 'based on precision 4 bits'
+				     	},
+				     	width: 1050,
+				     	height: 500,
+				     	explorer: {
+				     		actions: ['dragToZoom', 'rightClickToReset'],
+				        	axis: 'horizontal',
+				        	keepInBounds: true,
+				        	maxZoomIn: 4.0
+				    	}
+				    };
+				    var chart = new google.charts.Scatter(document.getElementById('test2'));
+				    chart.draw(data, google.charts.Scatter.convertOptions(options));
+				}
+				function test(){
+					var lst = [];
+					var dic = {v:0, f:'0000'};
+					lst.push(dic);
+					for (var key in dic){
+						alert(typeof(dic[key]));
+					}
+				}
 				
 			</script>
 		</div>
 	<!--================ END ================-->
 		<br>
 		<br>
-		<div id="test1"></div>
+		<div id="test1"></div><br><br>
 		<div id="test2"></div>
 
 	</div>
