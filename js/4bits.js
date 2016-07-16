@@ -1,3 +1,4 @@
+/*
 function draw1() {
    // Define the chart to be drawn.
    var data = new google.visualization.DataTable();
@@ -307,6 +308,7 @@ function draw1() {
 }
 google.charts.setOnLoadCallback(draw1);
 
+*/
     /*
     [4, {v:0, f:'limited'},null],
     [4, {v:1, f:'limited'},null],
