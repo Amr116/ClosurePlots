@@ -57,6 +57,7 @@
 				<font color="">Floating point precision</font>
 				<select id="precision">
 					<option value="4">4 bits</option><!-- 4 bits -->
+					<option value="8">8 bits</option><!-- 4 bits -->
 					<!--<option value="8bits">(8 bits)</option>-->			
 					<option value="16">Half    </option><!-- half 16 bits -->
 					<option value="32">Single  </option><!-- single 32 bits -->
@@ -237,7 +238,7 @@
 
 					}
 					
-					drawtest(rows, 'overflow');
+					drawtest(rows, 'Overflow');
 				}
 
 				// function to create the simulation of Arithmetics operation ( division )
@@ -264,7 +265,7 @@
 							var dictY = {v:j, f: formatY};
 							// correct logic
 							// format is:  x index , correct , overflow
-							if ((i/j) < range){
+							if ((i/j) < range & (i/j) >= 0 ){
 								rows[index] = [dictX, dictY, null];
 
 							// else overflow
@@ -302,7 +303,7 @@
 				        	maxZoomIn: 4.0
 				    	}
 				    };
-				    var chart = new google.charts.Scatter(document.getElementById('test2'));
+				    var chart = new google.charts.Scatter(document.getElementById('test1'));
 				    chart.draw(data, google.charts.Scatter.convertOptions(options));
 				}
 				function test(){
@@ -319,8 +320,12 @@
 	<!--================ END ================-->
 		<br>
 		<br>
+	<!--</div>
+	<div id="container-fluid">
+	  <center></center>-->
 		<div id="test1"></div><br><br>
 		<div id="test2"></div>
+	  
 
 	</div>
 </body>
