@@ -300,7 +300,7 @@ function draw1() {
      axes: {
       x: {'final grade': {label: 'Final Exam Grade'} },
       y: {'hours studied': {label: 'Hours lll Studied'} }
-      }*/
+      }
    };
    // Instantiate and draw the chart.
    var chart = new google.charts.Scatter(document.getElementById('test1'));
