@@ -57,6 +57,9 @@
 				<font color="">Floating point precision</font>
 				<select id="precision">
 					<option value="4">4 bits</option><!-- 4 bits -->
+					<option value="5">5 bits</option><!-- 4 bits -->
+					<option value="6">6 bits</option><!-- 4 bits -->
+					<option value="7">7 bits</option><!-- 4 bits -->					
 					<option value="8">8 bits</option><!-- 4 bits -->
 					<!--<option value="8bits">(8 bits)</option>-->			
 					<option value="16">Half    </option><!-- half 16 bits -->
@@ -78,9 +81,11 @@
 
 			<div class="col-md-1"></div>			
 			<div class="col-md-2">
-			  <button type="button" class="btn btn-primary" onclick="myFunction();" style="margin-top:1px;">Plot my requests</button>
-			  <button type="button" class="btn btn-primary" onclick="alert(typeof(decbin(777, 10)));" style="margin-top:1px;">Plot my requests</button>
-			  <button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>			  
+			  <button type="button" class="btn btn-primary" onclick="myFunction();" style="margin-top:1px;">
+			  	<strong color="">Plot my requests</strong>
+			  </button>
+			  <!--<button type="button" class="btn btn-primary" onclick="alert(typeof(decbin(777, 10)));" style="margin-top:1px;">Plot my requests</button>
+			  <button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>-->			  
 			</div>
 			<!-- <div class="col-md-1"></div> <div class="col-md-1"></div> -->
 			<script type="text/javascript">
@@ -103,7 +108,7 @@
 							//alert("mul op");
 							break;
 						case "division":
-							divn(prec);
+							divi(prec);
 							//alert("div op");
 							break;
 						default:
@@ -158,7 +163,7 @@
 
 					}
 					
-					drawtest(rows, 'Overflow');
+					drawtest(rows, ['Overflow']);
 				}
 
 				// function to create the simulation of Arithmetics operation ( subtraction )
@@ -198,7 +203,7 @@
 
 					}
 					
-					drawtest(rows, 'Underflow');
+					drawtest(rows, ['Underflow']);
 				}
 
 				// function to create the simulation of Arithmetics operation ( multiplication )
@@ -238,11 +243,11 @@
 
 					}
 					
-					drawtest(rows, 'Overflow');
+					drawtest(rows, ['Overflow']);
 				}
 
 				// function to create the simulation of Arithmetics operation ( division )
-				function divn(obj){
+				function divi(obj){
 					var prec  = parseInt(obj);
 					// range to iteration (loop)
 					var range = Math.pow(2, prec);
@@ -264,35 +269,46 @@
 							// {v:0, f:'0000'}
 							var dictY = {v:j, f: formatY};
 							// correct logic
-							// format is:  x index , correct , overflow
-							if ((i/j) < range & (i/j) >= 0 ){
-								rows[index] = [dictX, dictY, null];
+							if((i/j) % 1 == 0 ){ // does (1/3) which is 0.33.. mod 1  equal to zero 
+								rows[index] = [dictX, dictY, null, null];
 
-							// else overflow
+							// check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0 
+							}else if(isNaN(i/j) || !(isFinite(i/j))){
+								rows[index] = [dictX, null, null, dictY];
+
+							// else Inexpressible
 							}else{
-								rows[index] = [dictX, , dictY];
+								rows[index] = [dictX, , dictY, null];
 							}
 
 							index += 1;
 						}
-
 					}
-					
-					drawtest(rows, 'Inexpressible');
+					drawtest(rows, ['Inexpressible', 'Infinity']);
 				}
 
-				function drawtest(obj, txt) {
-				   // Define the chart to be drawn.
-				   var data = new google.visualization.DataTable();
-				   data.addColumn('number', '');
-				   data.addColumn('number', 'correct');
-				   data.addColumn('number', txt);
-				   data.addRows(obj);
+				function drawtest(obj, arg) {
+					// Define the chart to be drawn. 
+					var data = new google.visualization.DataTable();
+					data.addColumn('number', '');
+					data.addColumn('number', 'correct');
+
+					if (arg.length == 2){
+						// numbers do not divide evenly  (Inexpressible) 
+						data.addColumn('number', arg[0]);
+						// divide by zero
+						data.addColumn('number', arg[1]);
+					} else{
+
+						data.addColumn('number', arg[0]);
+					}
+				   
+				   	data.addRows(obj);
 
 				    var options = {
 				    	chart: {
-				    		title: ' plotting the simulation of floating point with Basic Arithmetics',
-				        	subtitle: 'based on precision 4 bits'
+				    		title: ' Plotting the simulation of floating point with Basic Arithmetics',
+				        	subtitle: 'Based on precision 4 bits'
 				     	},
 				     	width: 1050,
 				     	height: 500,
@@ -306,6 +322,67 @@
 				    var chart = new google.charts.Scatter(document.getElementById('test1'));
 				    chart.draw(data, google.charts.Scatter.convertOptions(options));
 				}
+
+/*
+				function drawtest(obj, txt) {
+				   // Define the chart to be drawn.
+				   var data = new google.visualization.DataTable();
+				   data.addColumn('number', '');
+				   data.addColumn('number', 'correct');
+				   data.addColumn('number', txt);
+				   data.addRows(obj);
+
+				    var options = {
+				    	chart: {
+				    		title: ' Plotting the simulation of floating point with Basic Arithmetics',
+				        	subtitle: 'Based on precision 4 bits'
+				     	},
+				     	width: 1050,
+				     	height: 500,
+				     	explorer: {
+				     		actions: ['dragToZoom', 'rightClickToReset'],
+				        	axis: 'horizontal',
+				        	keepInBounds: true,
+				        	maxZoomIn: 4.0
+				    	}
+				    };
+				    var chart = new google.charts.Scatter(document.getElementById('test1'));
+				    chart.draw(data, google.charts.Scatter.convertOptions(options));
+				}
+
+				function drawtest2(obj, txt1, txt2) {
+				   // Define the chart to be drawn.
+				   var data = new google.visualization.DataTable();
+				   data.addColumn('number', '');
+				   data.addColumn('number', 'correct');
+				   data.addColumn('number', txt1);
+				   data.addColumn('number', txt2);
+
+				   data.addRows(obj);
+
+				    var options = {
+				    	chart: {
+				    		title: ' Plotting the simulation of floating point with Basic Arithmetics',
+				        	subtitle: 'Based on precision 4 bits'
+				     	},
+				     	//width: '100%',//8200,//1050,
+				     	//height: '100%',//4000,//500,
+				     	explorer: {
+				     		actions: ['dragToZoom', 'rightClickToReset'],
+				        	axis: 'horizontal',
+				        	keepInBounds: true,
+				        	maxZoomIn: 4.0
+				    	}
+				    };
+				    var chart = new google.charts.Scatter(document.getElementById('test1'));
+				    chart.draw(data, google.charts.Scatter.convertOptions(options));
+				    // And then:
+					$(window).smartresize(function () {
+						chart.draw(data, options);
+					});
+
+				}
+*
 				function test(){
 					var lst = [];
 					var dic = {v:0, f:'0000'};
@@ -314,7 +391,7 @@
 						alert(typeof(dic[key]));
 					}
 				}
-				
+*/				
 			</script>
 		</div>
 	<!--================ END ================-->
@@ -323,9 +400,7 @@
 	<!--</div>
 	<div id="container-fluid">
 	  <center></center>-->
-		<div id="test1"></div><br><br>
-		<div id="test2"></div>
-	  
+		<div id="test1"></div>
 
 	</div>
 </body>
