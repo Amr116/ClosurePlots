@@ -84,8 +84,8 @@
 			  <button type="button" class="btn btn-primary" onclick="myFunction();" style="margin-top:1px;">
 			  	<strong color="">Plot my requests</strong>
 			  </button>
-			  <button type="button" class="btn btn-primary" onclick="alert((decbin(-10, 10)));" style="margin-top:1px;">Plot my requests</button>
-			  <!--<button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>-->			  
+			  <!--<button type="button" class="btn btn-primary" onclick="alert((decbin(-10, 10)));" style="margin-top:1px;">Plot my requests</button>
+			  <button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>-->			  
 			</div>
 			<!-- <div class="col-md-1"></div> <div class="col-md-1"></div> -->
 			<script type="text/javascript">
@@ -162,8 +162,8 @@
 						}
 
 					}
-					
-					drawtest(rows, ['Overflow']);
+					document.getElementById("test1").innerHTML = rows;
+					//drawtest(rows, ['Overflow']);
 				}
 
 				// function to create the simulation of Arithmetics operation ( subtraction )
@@ -262,7 +262,7 @@
 						// {v:0, f:'0000'}
 						var dictX	= {v:i, f: formatX};
 
-						for(j=0; j < range; j++){
+						for(j= 0; j < range; j++){
 							var formatY = decbin(j, prec);
 							// initialize dictY
 							var dictY = {};							
@@ -317,7 +317,7 @@
 				        	axis: 'horizontal',
 				        	keepInBounds: true,
 				        	maxZoomIn: 4.0
-				    	}
+				    	},
 				    };
 				    var chart = new google.charts.Scatter(document.getElementById('test1'));
 				    chart.draw(data, google.charts.Scatter.convertOptions(options));
