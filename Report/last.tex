@@ -1,0 +1,216 @@
+\documentclass[11pt]{article}
+\RequirePackage{mmap}%
+\usepackage[a4paper, hmargin={2.8cm, 2.8cm}, vmargin={2.5cm, 2.5cm}]{geometry}
+\usepackage{eso-pic} % \AddToShipoutPicture
+\usepackage{graphicx} % \includegraphicsud over
+\usepackage[utf8]{inputenc} % æøå
+\usepackage[T1]{fontenc} % mere æøå
+\usepackage{verbatim} % så man kan skrive ren tekst
+\usepackage{listings} % kode
+\usepackage[round]{natbib} %citationer i chicago format
+\usepackage{amsmath} % flere matematikkommandoer
+\usepackage[danish]{babel} % orddeling
+\usepackage[all]{xy} % den sidste (avancerede) formel i dokumentet
+\usepackage{graphicx} %for billedhåndtering
+\usepackage{listings} %algoritmer og programming language
+\usepackage{fancyhdr} %header, footer
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{multibib}
+
+\newcommand{\citat}[2]{\begin{justify}\textit{``#1''}\hspace{0.1cm}\footnote{#2}\end{justify}}
+\author{
+ \textsc{\Large{Valdas Zabulionis}}\\\\
+ \textsc{\Large{Rune Franch Pedersen}}\\\\
+ \textsc{\Large{Amr El Sayed}}\\}
+\title{
+  \vspace{3cm}
+  \textsc{\Huge{Bachelor Project\\}}
+%  \textsc{\Large{Algorithm tutor through/using web-based visualization}}\\
+  \textsc{\Large{Web-Based Pseudo-code Visualization\\ for Algorithm Learning}}\\
+  \textsc{\Huge{\\Synopsis}}\\
+ \textsc{\Large{2016 block 3-4}}
+}
+\begin{document}
+
+%% Change `ku-farve` to `nat-farve` to use SCIENCE's old colors or
+%% `natbio-farve` to use SCIENCE's new colors and logo.
+\AddToShipoutPicture*{\put(0,0){\includegraphics*[viewport=0 0 700 600]{ku-farve}}}
+\AddToShipoutPicture*{\put(0,602){\includegraphics*[viewport=0 600 700 1600]{ku-farve}}}
+
+%% Change `ku-en` to `nat-en` to use the `Faculty of Science` header
+\AddToShipoutPicture*{\put(0,0){\includegraphics*{kuen}}}
+
+\clearpage\maketitle
+\thispagestyle{empty}
+\newpage
+\begin{center}{\huge\textbf{Online Algorithm Tutor}}\newline \textit{\\DIKU - Bachelor Project}\end{center}
+\hfill \break
+\begin{tabular}{l l l }
+\textbf{Studens Names} &: &Valdas Zabulionis - LHN100\\\\
+&: &Rune Franch Pedersen - VQR730\\\\
+&: &Amr Elsayed - VWJ159\\\\
+\textbf{University} &:& University of Copenhagen\\\\
+\textbf{Institution} &:& Department of Computer Science DIKU\\\\
+\textbf{Supervisor} &:& Oleksandr Shturmov\\\\
+\textbf{Period} &:& Block 3 - block 4\\\\
+\textbf{Years} &:& 2016\\\\
+\textbf{Pages} &:& \\
+\end{tabular}
+\\\\\\\\\\\\\\\\\\\\
+\begin{center}{\huge\textbf{Certificate}}\end{center}
+
+This is to certify that the work contained in the thesis entitled "Online Algorithm Tutor: Web-Based Algorithm Visualization for Algorithm Learning" by Valdas Zabulionis, Rune Franch Pedersen and Amr El sayed, has been carried out under our supervision and that this work has not been submitted elsewhere.\\\\\\\\\\\\
+\begin{center}\noindent\rule{8cm}{0.4pt}%\end{center}
+
+\begin{center}
+\textbf{Supervisor}\\
+Oleksandr Shturmov \\
+oleks@di.ku.dk \\
+Department of Computer Science DIKU \\
+University of Copenhagen
+\end{center}
+\newpage
+\tableofcontents
+\end{center}
+\newpage
+\section*{Project Title}
+\addcontentsline{toc}{section}{Project Title}
+Algorithm tutor through/using web-based visualization\\
+Web-Based Pseudo-code Visualization for Algorithm Learning
+
+\section*{Problem definition}
+\addcontentsline{toc}{section}{Problem definition}
+Is it possible to create a program which helps students, who are relatively unfamiliar with algorithms and datastructures, to implement their own basic algorithms and visualize how they work.
+
+PROBLEM DEFINITION SKAL LAVES OM
+
+For students, who are relatively unfamiliar with algorithms and programming, getting a comprehensive understanding of algorithm can be very difficult.\\
+
+
+\section*{Background}
+\addcontentsline{toc}{section}{Background}
+The reason for us choosing this project is that we would like to help new computer science students to learn how algorithms work. Many students have a hard time learning about algorithms and datastructures, and this can be seen at the amount of students that fail the introductory algorithm course or get a low grade. We believe that algorithms are a very important part of Computer Science, thus it is important that students learn the basics well from the very beginning. We think that creating a teaching tool to help students visualize how algorithms work would help improve their learning experience, thus improving their studies, and quality of future computer scientists. At the same time we think that creating such a program for our final project is a good way to use what we have learned in our studies. By combining algorithms and datastructures, a bit of compiler design, human-computer interaction, and system development methodologies this becomes a project that will be of great interest as a teaching tool.
+\\\\
+We have decided that the program would let the user create algorithms using pseudo code, which would be built up from our pre-defined building blocks. The users would have the ability to run the pseudo code, to see what happens when an algorithm is run step by step in a run-time state. We could avoid infinite loops by limiting the run time to 200 or less iterations. The project would be scalable, so that it could be easily upgraded in the future - this would be made possible by object oriented programming, where most elements are objects that are easily manipulated, program components are relatively easy to manage, and that they are gathered into a single hierarchy. That way it would be simple to implement new buttons or animations, add new algorithms, or upgrade parts of the backend.
+\\\\
+We think creating a system that would use several parts to visualize and run an algorithm step by step would be a fun challenge. We have decided to implement the back-end using python, and front-end would be implemented using JavaScript/HTML/CSS. A challenge we would have to overcome is how to get the back-end work together with the visualization methods on the front-end.\\
+We would have to use some of what we have learned in compiler design to implement building blocks for our program to parse the information input from the user. We will use a parser-like method to implement buttons for inserting code.\\
+To make the project a success, we would have to make the front-end intuitive and easy to use, using some of the methodologies that we have learned by studying human-computer interaction. We will have to implement simple and easy to understand visuals, and helpful error messages if something were to go wrong.\\
+
+\section*{Project scope}
+\addcontentsline{toc}{section}{Project limitations}
+We will only implement a few of the algorithms shown in the algorithm book(\cite{algbog}), more could always be added at a later date.\\
+We will not compute the running time of the students' pseudo-code algorithms, although it could be a part of the project. We have decided that we would leave the computation of running time to the students to find on their own, since it is an important part of algorithm design.\\
+The program will not be able to execute algorithms, which were not built using building blocks that are defined in our program. So to import a pseudo-code algorithm, it will have to be written in a way that is recognized by our program.\\
+We will not write documentation or a user manual for the program, even though it is a good idea to document one's project. This can always be done at a later time. \\
+We will only perform internal testing of the program, and will not include any outside users or resources for testing of the functionality.
+
+\newpage
+\section*{Time schedule and work tasks}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\begin{center}\textbf{Work assignments}\end{center}
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+
+\noindent\textbf{Definition}: Interface\\
+\textbf{Product}: graphics and backend for the application interface.\\
+\textbf{Resource Requirement}: open source language ( python, java script, HTML, CSS ) to implement the product, and browser to visualize the product. \\
+\textbf{Dependencies}: This work task can be completed without any of the other work tasks having been implemented.\\
+\textbf{Time Required}: 2-3 work days.\\
+\textbf{Dead line}: 1 / 04/ 2016\\
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+\noindent\textbf{Definition}:  Parser \\
+\textbf{product} : definition of the building blocks syntax\\
+\textbf{Resource Requirement}: Introduction to Compiler Design - Torben Ægidius Mogensen\\
+\textbf{Dependencies}: This work task can be completed without any of the other work tasks having been implemented.\\
+\textbf{Time Required}: 1-2 work days\\
+\textbf{Dead line}: 1/ 04/ 2016\\
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+\noindent\textbf{Definition}: Building Blocks \\
+\textbf{Product}: graphics and backend for the buttons used for creating the algorithms as well as implementing them in the interface.\\
+\textbf{Resource Requirement}: open source language ( python, java script, HTML, CSS ) to implement the product, and browser to visualize the product. \\
+\textbf{Dependencies}: This work task needs the finished implementation of the interface and the parser to be completed.\\
+\textbf{Time Required}: 5-6 work days\\
+\textbf{Dead line}: 20/ 04/ 2016\\
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+\noindent\textbf{Definition}:  Step by Step Simulation\\
+\textbf{product}: graphics and backend for the step by step  algorithms simulation, as well as implementing them in the interface.\\
+\textbf{Resource Requirement}: open source language ( python, java script, HTML, CSS ) to implement the product, and browser to visualize the product. \\
+\textbf{Dependencies}: This work task needs the finished implementation of the interface to be completed.\\
+\textbf{Time Required}: 5-6 work days\\
+\textbf{Dead line}: 15/ 05/ 2016\\
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+\noindent\textbf{Definition}:  Pretty Print\\
+\textbf{product}: graphics and backend for printing the variables results and the return results of the functions, as well as implementing them in the interface.\\
+\textbf{resource requirement}: open source language ( python, java script, HTML, CSS ) to implement the product, and browser to visualize the product. \\
+\textbf{Dependencies}: This work task needs the finished implementation of the interface to be completed.\\
+\textbf{Time Required}: 8-10 work days\\
+\textbf{Dead line}: 01/ 06/ 2016\\
+\addcontentsline{toc}{section}{Time schedule and work tasks}
+
+\section*{References}
+%\addcontentsline{toc}{section}{References}
+%\bibliographystyle{unsrtnat}
+%\bibliography{synopsis}
+%\url{http://pgbovine.net/publications/Online-Python-Tutor-web-based-program-visualization_SIGCSE-2013.pdf}\\
+%\url{https://scratch.mit.edu/}\\
+%\url{http://pythontutor.com/}\\
+
+\begin{thebibliography}{9}
+%\bibitem{latexcompanion} 
+%Michel Goossens, Frank Mittelbach, and Alexander Samarin. 
+%\textit{The \LaTeX\ Companion}. 
+%Addison-Wesley, Reading, Massachusetts, 1993.
+ 
+%\bibitem{einstein} 
+%Albert Einstein. 
+%\textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
+%[\textit{On the electrodynamics of moving bodies}]. 
+%Annalen der Physik, 322(10):891–921, 1905.
+ 
+%\bibitem{knuthwebsite} 
+%Knuth: Computers and Typesetting,
+%\\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+
+@inproceedings{Guo:2013:OPT:2445196.2445368,
+ author = {Guo, Philip J.},
+ title = {Online Python Tutor: Embeddable Web-based Program Visualization for Cs Education},
+ booktitle = {Proceeding of the 44th ACM Technical Symposium on Computer Science Education},
+ series = {SIGCSE '13},
+ year = {2013},
+ isbn = {978-1-4503-1868-6},
+ location = {Denver, Colorado, USA},
+ pages = {579--584},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/2445196.2445368},
+ doi = {10.1145/2445196.2445368},
+ acmid = {2445368},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {CS1, program visualization, python},
+} 
+
+@book{algbog,
+  title={Introduction to algorithms},
+  author={Cormen, Thomas H},
+  year={2009},
+  publisher={MIT press}
+}
+
+@book{mogensen2011introduction,
+  title={Introduction to Compiler Design},
+  author={Mogensen, Torben {\AE}gidius},
+  year={2011},
+  publisher={Springer Science \& Business Media}
+}
+\end{thebibliography}
+
+\end{document}
