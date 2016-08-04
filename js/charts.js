@@ -204,17 +204,30 @@ function drawChart(obj, arg) {
     var chart = new google.charts.Scatter(document.getElementById('chart_div1'));
     chart.draw(data, google.charts.Scatter.convertOptions(options));
 
+//    var test = chart.getSelection()[0].row;
+
 
 	// Listen for the 'select' event, and call my function selectHandler() when
 	// the user selects something on the chart.
 
-    google.visualization.events.addListener(chart, 'select', selectHandler);
+    google.visualization.events.addListener(chart, 'ready', selectHandler);
 
+    function selectHandler(){
+    	var selection = chart.getSelection()[0].row;
+    	alert("selection")
+    }
+
+/*
+select
+    // This function to get the index of the selected element of chart.
 	function selectHandler() {
 		var selection = chart.getSelection()[0].row;
-		alert(selection);
+		if (selection != null){
+			alert(selection);
+		}
+		
 	};
-
+*/
 }
 
 
