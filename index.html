@@ -27,6 +27,11 @@
 
 	<!---->
 	<script type="text/javascript" src="js/charts.js"> </script>
+	<script type="text/javascript">
+		/*showService(){
+
+		}*/
+	</script>
 </head>
 
 <body> <!-- style="background-color: black";-->
@@ -70,7 +75,7 @@
 
 			<div class="col-md-1"></div>			
 			<div class="col-md-2">
-			  <button type="button" class="btn btn-primary" onclick="getRequest();" style="margin-top:1px;">
+			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();" style="margin-top:1px;">
 			  	<strong color="">Plot my requests</strong>
 			  </button>
 			  <!--<button type="button" class="btn btn-primary" onclick="alert((decbin(-10, 10)));" style="margin-top:1px;">Plot my requests</button>
@@ -79,9 +84,35 @@
 			<!-- <div class="col-md-1"></div> <div class="col-md-1"></div> -->
 
 		</div>
+		<br>
+		<br>
+
+		<div class="row" id="service" style="display:none;">
+			<div class="col-md-3 col-md-offset-9">
+				<div class="col-md-1" style="margin-right:3px;">
+					<button type="button" class="btn btn-primary btn-circle ">
+						
+					</button>
+				</div>
+				<div class="col-md-1" style="margin-right:3px;">
+					<button type="button" class="btn btn-primary btn-circle ">
+						
+					</button>
+				</div>
+				<div class="col-md-1">
+					<button type="button" class="btn btn-primary btn-circle ">
+						
+					</button>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function showService() {
+				document.getElementById('service').style.display = "block";
+			}			
+		</script>
 	<!--================ END ================-->
-		<br>
-		<br>
+
 	<!--</div>
 	<div id="container-fluid">
 	  <center></center>-->
