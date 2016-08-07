@@ -19,7 +19,8 @@
 
  	<!-- jquery lib -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
 	<!-- Google Charts -->
 	
 	<script type="text/javascript" src="js/loader.js"></script>
@@ -32,6 +33,9 @@
 
 		}*/
 	</script>
+
+<!--  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
 </head>
 
 <body> <!-- style="background-color: black";-->
@@ -84,23 +88,25 @@
 			<!-- <div class="col-md-1"></div> <div class="col-md-1"></div> -->
 
 		</div>
+
 		<br>
 		<br>
 
 		<div class="row" id="service" style="display:none;">
-			<div class="col-md-3 col-md-offset-9">
-				<div class="col-md-1" style="margin-right:5px;">
-					<button type="button" class="btn btn-link btn-circle" onclick="alert('love you');">
+			<div class="col-md-2 col-md-offset-10">
+				<div class="col-md-1" style="margin-right:10px;">
+					<button data-toggle="tooltip" data-placement="top" title="Back!" type="button" class="btn btn-link btn-circle" onclick="alert('love you');">
 						<img style="width: 43px; height: 43px;margin:-11px 2px 0px -6px;" src="img/playback.ico">
 					</button>
 				</div>
+				<!--
 				<div class="col-md-1" style="margin-right:5px;">
 					<button type="button" class="btn btn-link btn-circle" onclick="alert('hate you');">
 						<img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/playforward.ico">
 					</button>
-				</div>
+				</div>-->
 				<div class="col-md-1">
-					<button type="button" class="btn btn-link btn-circle" onclick="alert('come you');">
+					<button data-toggle="tooltip" data-placement="top" title="Reset!" type="button" class="btn btn-link btn-circle" onclick="alert('come you');">
 						<img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/reset.ico">
 					</button>
 				</div>
@@ -111,6 +117,13 @@
 				document.getElementById('service').style.display = "block";
 			}			
 		</script>
+		<!-- Popup on hover function -->
+		<script>
+			$(document).ready(function(){
+    		$('[data-toggle="tooltip"]').tooltip();   
+			});
+		</script>
+
 	<!--================ END ================-->
 
 	<!--</div>
