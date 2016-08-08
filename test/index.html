@@ -28,6 +28,7 @@
 
 	<!---->
 	<script type="text/javascript" src="js/charts.js"> </script>
+	<script type="text/javascript" src="js/interactWithChar.js"> </script>	
 	<script type="text/javascript">
 		/*showService(){
 
@@ -79,9 +80,13 @@
 
 			<div class="col-md-1"></div>			
 			<div class="col-md-2">
-			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();" style="margin-top:1px;">
+			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();resetCounter();" style="margin-top:1px;">
 			  	<strong color="">Plot my requests</strong>
 			  </button>
+			  <button type="button" class="btn btn-primary" onclick="overLoop();" style="margin-top:1px;">
+			  	<strong color="">overLoop</strong>
+			  </button>
+
 			  <!--<button type="button" class="btn btn-primary" onclick="alert((decbin(-10, 10)));" style="margin-top:1px;">Plot my requests</button>
 			  <button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>-->			  
 			</div>
@@ -95,7 +100,7 @@
 		<div class="row" id="service" style="display:none;">
 			<div class="col-md-2 col-md-offset-10">
 				<div class="col-md-1" style="margin-right:10px;">
-					<button data-toggle="tooltip" data-placement="top" title="Back!" type="button" class="btn btn-link btn-circle" onclick="alert('love you');">
+					<button data-toggle="tooltip" data-placement="top" title="Back!" type="button" class="btn btn-link btn-circle" onclick="countDown();printResult();">
 						<img style="width: 43px; height: 43px;margin:-11px 2px 0px -6px;" src="img/playback.ico">
 					</button>
 				</div>
@@ -106,7 +111,7 @@
 					</button>
 				</div>-->
 				<div class="col-md-1">
-					<button data-toggle="tooltip" data-placement="top" title="Reset!" type="button" class="btn btn-link btn-circle" onclick="alert('come you');">
+					<button data-toggle="tooltip" data-placement="top" title="Reset!" type="button" class="btn btn-link btn-circle" onclick="getRequest();">
 						<img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/reset.ico">
 					</button>
 				</div>
