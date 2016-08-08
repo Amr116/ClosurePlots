@@ -1,9 +1,16 @@
 google.charts.load('current', {packages: ['corechart','scatter']});
 
-// function to create object of the selected options and call the appropriate function. 
+// function to create object of the selected options and call the appropriate function.
+var prec;
+var op; 
 function getRequest(){
-	var prec = document.getElementById("precision").value;
-	var op   = document.getElementById("operations").value;
+	//alert(prec);
+	if((typeof(prec) && typeof(op)) == "undefined"){
+		alert("inside if statement");
+		prec = document.getElementById("precision").value;
+		op   = document.getElementById("operations").value;
+	}//else{alert("else statement");}
+
 	switch(op){
 		case "addition":
 			add(prec);
@@ -172,6 +179,11 @@ function divi(obj){
 	drawChart(rows, ['Inexpressible', 'Infinity']);
 }
 
+// Declare global variable  
+var globalChart;
+var globalData;
+var globalOptions;
+var amr;
 function drawChart(obj, arg) {
 	// Define the chart to be drawn. 
 	var data = new google.visualization.DataTable();
@@ -202,8 +214,14 @@ function drawChart(obj, arg) {
     	},
     };
     var chart = new google.charts.Scatter(document.getElementById('chart_div1'));
-    chart.draw(data, google.charts.Scatter.convertOptions(options));
 
+    // Sign the gloabl variable to chart
+    globalChart = chart;
+    globalData  = data;
+    globalOptions = options;
+
+    chart.draw(data, google.charts.Scatter.convertOptions(options));
+    amr = chart.draw(data, google.charts.Scatter.convertOptions(options));
 //    var test = chart.getSelection()[0].row;
 
 
@@ -214,9 +232,18 @@ function drawChart(obj, arg) {
 
     // This function to get the index of the selected element of chart.
 	function selectHandler() {
-		var selection = chart.getSelection()[0].row;
-		if (selection != null){
-			alert(selection);
+		var selectedItemRow = chart.getSelection()[0].row;
+		var selectedItemCol = chart.getSelection()[0].column;
+		if (selectedItemRow != null){
+			alert("Index: "+selectedItemRow);
+			alert("groupNr: "+selectedItemCol);
+			alert("axisValue: "+data.getValue(selectedItemRow, 0));//selectedItemCol));
+			alert("ayisValue: "+data.getValue(selectedItemRow, selectedItemCol));			
+/*
+			var value = chart.getValue(selectedItem.row, 0);//, selectedItem.column);
+			alert('The user selected ' + value);
+*/
+			//document.getElementById("test1").innerHTML = glo;
 		}
 		
 	};
