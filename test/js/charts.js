@@ -237,8 +237,8 @@ function drawChart(obj, arg) {
 		if (selectedItemRow != null){
 			alert("Index: "+selectedItemRow);
 			alert("groupNr: "+selectedItemCol);
-			alert("axisValue: "+data.getValue(selectedItemRow, 0));//selectedItemCol));
-			alert("ayisValue: "+data.getValue(selectedItemRow, selectedItemCol));			
+			alert("x-axis Value: "+data.getValue(selectedItemRow, 0));//selectedItemCol));
+			alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));			
 /*
 			var value = chart.getValue(selectedItem.row, 0);//, selectedItem.column);
 			alert('The user selected ' + value);
