@@ -10,13 +10,15 @@ google.charts.load('current', {packages: ['corechart','scatter']});
 var prec;
 var op; 
 function getRequest(){
+/*
 	//alert(prec);
 	if((typeof(prec) && typeof(op)) == "undefined"){
-		alert("inside if statement");
+		alert("First call to getRequest function!");
 		prec = document.getElementById("precision").value;
 		op   = document.getElementById("operations").value;
-	}//else{alert("else statement");}
-
+	}//else{alert("else statement");} */
+	prec = document.getElementById("precision").value;
+	op   = document.getElementById("operations").value;
 	switch(op){
 		case "testTry":
 			//alert(decbin(340282366920938463463374607431768211456,129 ));
@@ -62,6 +64,7 @@ function decbin(dec,length){
 }
 
 /*============================ Test START HERE =========================*/
+/*
 var mobile = 0;
 var halfArr = [4095, 255, 15];
 
@@ -71,30 +74,33 @@ function testAmr(obj){
 	var range = Math.pow(2, prec);
 	var index = 0;
 	var rows  = [];
-	for (i = 0; i < range; i += halfArr[mobile]+1 ){
+	for(x = 0; x < range; x += 4095){
+
+	}
+	for (i = 0; i < range; i += 4095 ){ //halfArr[mobile]
 		// initialize dictX
 		dictX = {};						
 
-		if(i== 0){
+		if(i == 0){
 			var formatX = decbin(0, prec);
 			// {v:0, f:'0000'}
 			var dictX	= {v:0, f: formatX};
 		}else{
-			var formatX = decbin(i+1, prec);
+			var formatX = decbin(i, prec);
 			var dictX	= {v:i+1, f: formatX};			
 		}
 	
 
-		for(j=0; j < range; j += halfArr[mobile]){
+		for(j=0; j < range; j += 4095 ){ //halfArr[mobile]
 			// initialize dictY
 			var dictY = {};
 
-			if(j== 0){
+			if(j == 0){
 				var formatY = decbin(0, prec);
 			// {v:0, f:'0000'}				
 				var dictY = {v:0, f: formatY};
 			}else{
-				var formatY = decbin(j+1, prec);
+				var formatY = decbin(j, prec);
 				var dictY = {v:j+1, f: formatY};				
 			}			
 
@@ -108,10 +114,68 @@ function testAmr(obj){
 				rows[index] = [dictX, , dictY];
 			}
 			index += 1;
+			//j += 1;
 		}
+		//i += 1;
 	}
 	alert("Index is :"+index);
 	drawChart(rows, ['Overflow']);
+}
+*/
+var mobile = 0;
+var halfArr = [4095, 255, 15];
+
+function testAmr(obj){
+	var prec  = parseInt(obj);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+	var index = 0;
+	var rows  = [];
+	
+	var getPixel = function(x, y, width, height, dictX, dictY) {
+		var correct = 0;
+		var overflow = 0;
+		
+		var check = function(x,y) {
+			if (x + y < range) { correct += 1; } else { overflow += 1; }	
+		}
+		
+		check(x, y);
+		check(x, y + width);
+		check(x + height, y);
+	    check(x + height, y + width);
+        //console.log(x,y,correct, overflow, dictX, dictY, index);
+	    if (correct > 0 && overflow == 0) {
+			rows[index] = [dictX, dictY, null, null];
+			//rows[index] = [dictX, dictY, null];
+		} else if(overflow > 0 && correct == 0) {
+			// Overflow
+			rows[index] = [dictX, null, dictY, null];
+		} else {
+			// Mix
+			console.log("mix");
+			rows[index] = [dictX, null, null, dictY];
+		}
+	}
+
+	for(var x = 0, i = 0; i < 16; i++, x += 4096){
+
+		var dictX = {};
+		dictX = {v:i, f:"happened"};//'Range of '+x+' to '+x+4095};
+
+		for(var y = 0, j = 0; j < 16; j++, y += 4096){
+			
+			dictY = {};
+			var dictY = {v:j, f:"something"};//'Range of '+y+' to '+y+4095};
+			
+			getPixel(x, y, 4096, 4096, dictX, dictY);
+			index += 1;
+		}
+	}
+//	alert(rows.length);
+//	alert(rows);
+//	alert(y);
+	drawChart(rows, ['Overflow', 'Mix']);
 }
 /*============================ Test END HERE =========================*/
 
@@ -131,7 +195,7 @@ function add(obj){
 		for(j=0; j < range; j++){
 			var formatY = decbin(j, prec);
 			// initialize dictY
-			var dictY = {};							
+			dictY = {};							
 			// {v:0, f:'0000'}
 			var dictY = {v:j, f: formatY};
 			// correct logic
