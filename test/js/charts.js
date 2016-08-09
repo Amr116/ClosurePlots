@@ -1,6 +1,12 @@
+/*	all web pages with Google Charts should include the following
+ *	line in the of the web page to load the Google Chart libraries.
+ */
 google.charts.load('current', {packages: ['corechart','scatter']});
 
-// function to create object of the selected options and call the appropriate function.
+
+/*	function to create object of the selected options and call the appropriate function depending on user request.
+*/
+
 var prec;
 var op; 
 function getRequest(){
@@ -12,28 +18,42 @@ function getRequest(){
 	}//else{alert("else statement");}
 
 	switch(op){
+		case "testTry":
+			//alert(decbin(340282366920938463463374607431768211456,129 ));
+			testAmr(prec);
+			break;
+
 		case "addition":
 			add(prec);
-			//alert("add op");
 			break;
+
 		case "subtraction":
 			subt(prec);
-			//alert("sub op");
 			break;
+
 		case "multiplication":
 			mult(prec);
-			//alert("mul op");
 			break;
+
 		case "division":
 			divi(prec);
-			//alert("div op");
 			break;
+
 		default:
-			alert("something wrong");
+			alert('▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'
+				+ 'Something went wrong!\n'
+				+ 'Please contact the publisher and let the author know about bug.\n'
+				+ 'amr11682@hotmail.com');
 			break;
 	}
 }
-// function to convert (Decimal to Binary) with specify length of the output.
+
+/*	function to convert (Decimal to Binary) with specify length of the output.
+ *	The function take 2 arguments ( dec, length)
+ *	dec   : is the decimal number, which need to be convert to binary
+ *	length: is the desirable precision 
+ *	The function convert positive decimal as well as negative decimal 
+ */
 function decbin(dec,length){
 	var out = "";
 	while(length--)
@@ -41,6 +61,59 @@ function decbin(dec,length){
 	return out;
 }
 
+/*============================ Test START HERE =========================*/
+var mobile = 0;
+var halfArr = [4095, 255, 15];
+
+function testAmr(obj){
+	var prec  = parseInt(obj);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+	var index = 0;
+	var rows  = [];
+	for (i = 0; i < range; i += halfArr[mobile]+1 ){
+		// initialize dictX
+		dictX = {};						
+
+		if(i== 0){
+			var formatX = decbin(0, prec);
+			// {v:0, f:'0000'}
+			var dictX	= {v:0, f: formatX};
+		}else{
+			var formatX = decbin(i+1, prec);
+			var dictX	= {v:i+1, f: formatX};			
+		}
+	
+
+		for(j=0; j < range; j += halfArr[mobile]){
+			// initialize dictY
+			var dictY = {};
+
+			if(j== 0){
+				var formatY = decbin(0, prec);
+			// {v:0, f:'0000'}				
+				var dictY = {v:0, f: formatY};
+			}else{
+				var formatY = decbin(j+1, prec);
+				var dictY = {v:j+1, f: formatY};				
+			}			
+
+
+			// correct logic
+			// format is:  x index , correct , overflow
+			if ((i+j) < range){
+				rows[index] = [dictX, dictY, null];
+			// else overflow
+			}else{
+				rows[index] = [dictX, , dictY];
+			}
+			index += 1;
+		}
+	}
+	alert("Index is :"+index);
+	drawChart(rows, ['Overflow']);
+}
+/*============================ Test END HERE =========================*/
 
 // function to create the simulation of Arithmetics operation ( addition )
 function add(obj){
@@ -72,7 +145,7 @@ function add(obj){
 			index += 1;
 		}
 	}
-	//document.getElementById("test1").innerHTML = rows;
+
 	drawChart(rows, ['Overflow']);
 }
 
@@ -183,7 +256,7 @@ function divi(obj){
 var globalChart;
 var globalData;
 var globalOptions;
-var amr;
+
 function drawChart(obj, arg) {
 	// Define the chart to be drawn. 
 	var data = new google.visualization.DataTable();
@@ -221,9 +294,7 @@ function drawChart(obj, arg) {
     globalOptions = options;
 
     chart.draw(data, google.charts.Scatter.convertOptions(options));
-    amr = chart.draw(data, google.charts.Scatter.convertOptions(options));
-//    var test = chart.getSelection()[0].row;
-
+ 
 
 	// Listen for the 'select' event, and call my function selectHandler() when
 	// the user selects something on the chart.
@@ -237,20 +308,34 @@ function drawChart(obj, arg) {
 		if (selectedItemRow != null){
 			alert("Index: "+selectedItemRow);
 			alert("groupNr: "+selectedItemCol);
-			alert("x-axis Value: "+data.getValue(selectedItemRow, 0));//selectedItemCol));
-			alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));			
+			alert("x-axis Value: "+data.getValue(selectedItemRow, 0));
+			alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));
+		}
+	};
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 			var value = chart.getValue(selectedItem.row, 0);//, selectedItem.column);
 			alert('The user selected ' + value);
 */
 			//document.getElementById("test1").innerHTML = glo;
-		}
-		
-	};
-
-}
-
-
 
 
 

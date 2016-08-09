@@ -22,6 +22,7 @@ function overLoop(){
 	}
 	document.getElementById("test1").innerHTML = data;
 }
+
 //globalData, globalChart, globalOptions
 function firstStage(){
 //	var data = new google.visualization.DataTable();
@@ -34,6 +35,7 @@ function firstStage(){
 	chart.draw(data, google.charts.Scatter.convertOptions(options));
 }
 
+// This function to  avoid scientific notation for large numbers
 function toFixed(x) {
     var result = '';
     var xStr = x.toString(10);
