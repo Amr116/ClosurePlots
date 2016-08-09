@@ -161,20 +161,19 @@ function testAmr(obj){
 	for(var x = 0, i = 0; i < 16; i++, x += 4096){
 
 		var dictX = {};
-		dictX = {v:i, f:"happened"};//'Range of '+x+' to '+x+4095};
+		var toX = x + 4096;
+		dictX = {v:x, f:'X '+x+' to '+toX};
 
 		for(var y = 0, j = 0; j < 16; j++, y += 4096){
 			
 			dictY = {};
-			var dictY = {v:j, f:"something"};//'Range of '+y+' to '+y+4095};
+			var toY = x + 4096;			
+			var dictY = {v:y, f:'Y '+y+' to '+toY};
 			
 			getPixel(x, y, 4096, 4096, dictX, dictY);
 			index += 1;
 		}
 	}
-//	alert(rows.length);
-//	alert(rows);
-//	alert(y);
 	drawChart(rows, ['Overflow', 'Mix']);
 }
 /*============================ Test END HERE =========================*/
