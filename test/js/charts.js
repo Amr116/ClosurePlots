@@ -4,12 +4,28 @@
 google.charts.load('current', {packages: ['corechart','scatter']});
 
 
-/*	function to create object of the selected options and call the appropriate function depending on user request.
-*/
+
+/*	decBin function is to convert (Decimal to Binary) with specify length of the output.
+ *	The function take 2 arguments ( dec, length)
+ *	dec   : is the decimal number, which need to be convert to binary
+ *	length: is the desirable precision 
+ *	The function convert positive decimal as well as negative decimal 
+ */
+function decBin(dec,length){
+	var out = "";
+	while(length--)
+		out += (dec >> length ) & 1;
+	return out;
+}
+
+/*	getRequest function is to create object of the selected options
+ *	and call the appropriate function depending on user request.
+ */
 
 var prec;
 var op; 
 function getRequest(){
+
 /*
 	//alert(prec);
 	if((typeof(prec) && typeof(op)) == "undefined"){
@@ -21,114 +37,53 @@ function getRequest(){
 	op   = document.getElementById("operations").value;
 	switch(op){
 		case "testTry":
-			//alert(decbin(340282366920938463463374607431768211456,129 ));
 			testAmr(prec);
 			break;
-
 		case "addition":
 			add(prec);
 			break;
-
 		case "subtraction":
 			subt(prec);
 			break;
-
 		case "multiplication":
 			mult(prec);
 			break;
-
 		case "division":
 			divi(prec);
 			break;
-
 		default:
 			alert('▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'
 				+ 'Something went wrong!\n'
-				+ 'Please contact the publisher and let the author know about bug.\n'
+				+ 'Please contact the publisher and let the author know about the bug.\n'
 				+ 'amr11682@hotmail.com');
 			break;
 	}
 }
 
-/*	function to convert (Decimal to Binary) with specify length of the output.
- *	The function take 2 arguments ( dec, length)
- *	dec   : is the decimal number, which need to be convert to binary
- *	length: is the desirable precision 
- *	The function convert positive decimal as well as negative decimal 
- */
-function decbin(dec,length){
-	var out = "";
-	while(length--)
-		out += (dec >> length ) & 1;
-	return out;
-}
-
 /*============================ Test START HERE =========================*/
-/*
+
 var mobile = 0;
-var halfArr = [4095, 255, 15];
+var precArr = [];
+function getPrecision(){
+	precArr = [];
+	mobile  = 0;
+	var temp = Math.pow(2, document.getElementById("precision").value);
 
-function testAmr(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for(x = 0; x < range; x += 4095){
-
+	while((temp / 16) >= 1){
+		temp /= 16;
+		precArr.push(temp-1); 
 	}
-	for (i = 0; i < range; i += 4095 ){ //halfArr[mobile]
-		// initialize dictX
-		dictX = {};						
-
-		if(i == 0){
-			var formatX = decbin(0, prec);
-			// {v:0, f:'0000'}
-			var dictX	= {v:0, f: formatX};
-		}else{
-			var formatX = decbin(i, prec);
-			var dictX	= {v:i+1, f: formatX};			
-		}
-	
-
-		for(j=0; j < range; j += 4095 ){ //halfArr[mobile]
-			// initialize dictY
-			var dictY = {};
-
-			if(j == 0){
-				var formatY = decbin(0, prec);
-			// {v:0, f:'0000'}				
-				var dictY = {v:0, f: formatY};
-			}else{
-				var formatY = decbin(j, prec);
-				var dictY = {v:j+1, f: formatY};				
-			}			
-
-
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i+j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-			index += 1;
-			//j += 1;
-		}
-		//i += 1;
-	}
-	alert("Index is :"+index);
-	drawChart(rows, ['Overflow']);
+	console.log(precArr);
 }
-*/
-var mobile = 0;
-var halfArr = [4095, 255, 15];
 
 function testAmr(obj){
 	var prec  = parseInt(obj);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
 	var index = 0;
 	var rows  = [];
 	
@@ -139,21 +94,21 @@ function testAmr(obj){
 		var check = function(x,y) {
 			if (x + y < range) { correct += 1; } else { overflow += 1; }	
 		}
-		
-		check(x, y);
-		check(x, y + width);
-		check(x + height, y);
-	    check(x + height, y + width);
-        //console.log(x,y,correct, overflow, dictX, dictY, index);
+	    check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+	    check(x + width, y + height);
+        console.log(x,y,correct, overflow, dictX, dictY, index);
 	    if (correct > 0 && overflow == 0) {
+	    	// Correct data
 			rows[index] = [dictX, dictY, null, null];
-			//rows[index] = [dictX, dictY, null];
+
 		} else if(overflow > 0 && correct == 0) {
-			// Overflow
+			// Overflow data
 			rows[index] = [dictX, null, dictY, null];
+
 		} else {
-			// Mix
-			console.log("mix");
+			// Mix data
 			rows[index] = [dictX, null, null, dictY];
 		}
 	}
@@ -170,7 +125,7 @@ function testAmr(obj){
 			var toY = x + 4096;			
 			var dictY = {v:y, f:'Y '+y+' to '+toY};
 			
-			getPixel(x, y, 4096, 4096, dictX, dictY);
+			getPixel(x, y, 4095, 4095, dictX, dictY);
 			index += 1;
 		}
 	}
@@ -186,13 +141,13 @@ function add(obj){
 	var index = 0;
 	var rows  = [];
 	for (i = 0; i < range; i++){
-		var formatX = decbin(i, prec);
+		var formatX = decBin(i, prec);
 		// initialize dictX
 		dictX = {};						
 		// {v:0, f:'0000'}
 		var dictX	= {v:i, f: formatX};
 		for(j=0; j < range; j++){
-			var formatY = decbin(j, prec);
+			var formatY = decBin(j, prec);
 			// initialize dictY
 			dictY = {};							
 			// {v:0, f:'0000'}
@@ -220,13 +175,13 @@ function subt(obj){
 	var index = 0;
 	var rows  = [];
 	for (i = 0; i < range; i++){
-		var formatX = decbin(i, prec);
+		var formatX = decBin(i, prec);
 		// initialize dictX
 		dictX = {};						
 		// {v:0, f:'0000'}
 		var dictX	= {v:i, f: formatX};
 		for(j=0; j < range; j++){
-			var formatY = decbin(j, prec);
+			var formatY = decBin(j, prec);
 			// initialize dictY
 			var dictY = {};							
 			// {v:0, f:'0000'}
@@ -254,13 +209,13 @@ function mult(obj){
 	var index = 0;
 	var rows  = [];
 	for (i = 0; i < range; i++){
-		var formatX = decbin(i, prec);
+		var formatX = decBin(i, prec);
 		// initialize dictX
 		dictX = {};						
 		// {v:0, f:'0000'}
 		var dictX	= {v:i, f: formatX};
 		for(j=0; j < range; j++){
-			var formatY = decbin(j, prec);
+			var formatY = decBin(j, prec);
 			// initialize dictY
 			var dictY = {};							
 			// {v:0, f:'0000'}
@@ -288,13 +243,13 @@ function divi(obj){
 	var index = 0;
 	var rows  = [];
 	for (i = 0; i < range; i++){
-		var formatX = decbin(i, prec);
+		var formatX = decBin(i, prec);
 		// initialize dictX
 		dictX = {};						
 		// {v:0, f:'0000'}
 		var dictX	= {v:i, f: formatX};
 		for(j= 0; j < range; j++){
-			var formatY = decbin(j, prec);
+			var formatY = decBin(j, prec);
 			// initialize dictY
 			var dictY = {};							
 			// {v:0, f:'0000'}
@@ -391,7 +346,12 @@ function drawChart(obj, arg) {
 
 
 
-
+		/*
+		Oleks logic !
+		check(x, y);
+		check(x, y + width);
+		check(x + height, y);
+	    check(x + height, y + width); */
 
 
 /*
@@ -420,4 +380,63 @@ $(window).resize(function(){
   	drawChart();
 });
 
+*/
+
+/*
+var mobile = 0;
+var halfArr = [4095, 255, 15];
+
+function testAmr(obj){
+	var prec  = parseInt(obj);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+	var index = 0;
+	var rows  = [];
+	for(x = 0; x < range; x += 4095){
+
+	}
+	for (i = 0; i < range; i += 4095 ){ //halfArr[mobile]
+		// initialize dictX
+		dictX = {};						
+
+		if(i == 0){
+			var formatX = decBin(0, prec);
+			// {v:0, f:'0000'}
+			var dictX	= {v:0, f: formatX};
+		}else{
+			var formatX = decBin(i, prec);
+			var dictX	= {v:i+1, f: formatX};			
+		}
+	
+
+		for(j=0; j < range; j += 4095 ){ //halfArr[mobile]
+			// initialize dictY
+			var dictY = {};
+
+			if(j == 0){
+				var formatY = decBin(0, prec);
+			// {v:0, f:'0000'}				
+				var dictY = {v:0, f: formatY};
+			}else{
+				var formatY = decBin(j, prec);
+				var dictY = {v:j+1, f: formatY};				
+			}			
+
+
+			// correct logic
+			// format is:  x index , correct , overflow
+			if ((i+j) < range){
+				rows[index] = [dictX, dictY, null];
+			// else overflow
+			}else{
+				rows[index] = [dictX, , dictY];
+			}
+			index += 1;
+			//j += 1;
+		}
+		//i += 1;
+	}
+	alert("Index is :"+index);
+	drawChart(rows, ['Overflow']);
+}
 */

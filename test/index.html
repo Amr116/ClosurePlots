@@ -39,7 +39,7 @@
 
 </head>
 
-<body> <!-- style="background-color: black";-->
+<body onload="getPrecision();"> <!-- style="background-color: black";-->
 	<header id="overview" class="jumbotron masthead" style='background-image:url("img/yellowdotdisappear42893.gif");'> <!-- text-center -->
 	  <div class="container">
 	  	<center>
@@ -54,16 +54,18 @@
 		<div class="row">
 			<div class="col-md-4">
 				<font color="">Floating point precision</font>
-				<select id="precision">
-					<option value="4">4 bits</option><!-- 4 bits -->					
-					<option value="5">5 bits</option><!-- 4 bits -->
-					<option value="6">6 bits</option><!-- 4 bits -->
-					<option value="7">7 bits</option><!-- 4 bits -->					
+				<select id="precision" onchange="getPrecision();">
+				<!--
+					<option value="4">4 bits</option><!-- 4 bits --					
+					<option value="5">5 bits</option><!-- 4 bits --
+					<option value="6">6 bits</option><!-- 4 bits --
+					<option value="7">7 bits</option><!-- 4 bits --					
 					<option value="8">8 bits</option><!-- 4 bits -->
 					<!--<option value="8bits">(8 bits)</option>-->			
 					<option value="16">Half    </option><!-- half 16 bits -->
 					<option value="32">Single  </option><!-- single 32 bits -->
-					<option value="64">Double  </option><!-- double 64 bits -->
+					<!--
+					<option value="64">Double  </option><!-- double 64 bits --
 					<option value="128">Quadruple</option><!-- quad 128 bits -->
 				</select>
 			</div>
@@ -121,7 +123,7 @@
 		</div>
 		<script>
 			function showService() {
-				document.getElementById('service').style.display = "block";
+				document.getElementById("service").style.display = "block";
 			}			
 		</script>
 
