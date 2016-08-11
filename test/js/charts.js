@@ -25,7 +25,6 @@ function decBin(dec,length){
 var prec;
 var op; 
 function getRequest(){
-
 /*
 	//alert(prec);
 	if((typeof(prec) && typeof(op)) == "undefined"){
@@ -33,11 +32,11 @@ function getRequest(){
 		prec = document.getElementById("precision").value;
 		op   = document.getElementById("operations").value;
 	}//else{alert("else statement");} */
-	prec = document.getElementById("precision").value;
+	//prec = document.getElementById("precision").value;
 	op   = document.getElementById("operations").value;
 	switch(op){
 		case "testTry":
-			testAmr(prec);
+			testAmr();//(prec);
 			break;
 		case "addition":
 			add(prec);
@@ -76,8 +75,8 @@ function getPrecision(){
 	console.log(precArr);
 }
 
-function testAmr(obj){
-	var prec  = parseInt(obj);
+function testAmr(){
+	var prec  = parseInt(document.getElementById("precision").value);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
 
@@ -86,8 +85,11 @@ function testAmr(obj){
 
 	var index = 0;
 	var rows  = [];
-	
-	var getPixel = function(x, y, width, height, dictX, dictY) {
+
+	var f1; // axis data format 
+	var f2; // axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
 		var correct = 0;
 		var overflow = 0;
 		
@@ -112,20 +114,17 @@ function testAmr(obj){
 			rows[index] = [dictX, null, null, dictY];
 		}
 	}
+	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
 
-	for(var x = 0, i = 0; i < 16; i++, x += 4096){
+	for(var x = 0, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
 
-		var dictX = {};
-		var toX = x + 4096;
-		dictX = {v:x, f:'X '+x+' to '+toX};
-
-		for(var y = 0, j = 0; j < 16; j++, y += 4096){
-			
-			dictY = {};
-			var toY = x + 4096;			
-			var dictY = {v:y, f:'Y '+y+' to '+toY};
-			
-			getPixel(x, y, 4095, 4095, dictX, dictY);
+		for(var y = 0, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
 	}
@@ -295,7 +294,7 @@ function drawChart(obj, arg) {
     		title: ' Plotting the simulation of floating point with Basic Arithmetics',
         	subtitle: 'Based on precision 4 bits'
      	},
-     	width: 1050,
+     	width: 1150,
      	height: 500,
      	explorer: {
      		actions: ['dragToZoom', 'rightClickToReset'],
