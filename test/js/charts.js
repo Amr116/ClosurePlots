@@ -17,14 +17,23 @@ function decBin(dec,length){
 		out += (dec >> length ) & 1;
 	return out;
 }
+/*
+var currentlyPrec;
+var currentlyOp; 
+function getBack(){
+	getRequest(currentlyPrec, currentlyOp)
+}
+procParam, opParam
+	if((typeof(procParam) && typeof(opParam)) == "undefined"){
+		op   = document.getElementById("operations").value;
 
+	}
+*/
 /*	getRequest function is to create object of the selected options
  *	and call the appropriate function depending on user request.
  */
-
-var prec;
-var op; 
 function getRequest(){
+
 /*
 	//alert(prec);
 	if((typeof(prec) && typeof(op)) == "undefined"){
@@ -75,7 +84,7 @@ function getPrecision(){
 	console.log(precArr);
 }
 
-function testAmr(){
+function testAmr(xValue, yValue){
 	var prec  = parseInt(document.getElementById("precision").value);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
@@ -114,14 +123,17 @@ function testAmr(){
 			rows[index] = [dictX, null, null, dictY];
 		}
 	}
+	var xV;
+	var yV;
+	if((typeof(xValue) && typeof(yValue)) == "undefined"){xV=0; yV=0}else{xV =xValue; yV = yValue;}
 	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
 	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
-
-	for(var x = 0, i = 0; i < 16; i++, x += width+1){
+	//var x = 0
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
 		getFormat(x);
 		var dictX = {v:x, f:'X: '+f1+' to '+f2};
-
-		for(var y = 0, j = 0; j < 16; j++, y += height+1){
+		//var y = 0
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
 			getFormat(y);
 			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
 			getPixel(x, y, height, width, dictX, dictY);
@@ -320,13 +332,18 @@ function drawChart(obj, arg) {
 
     // This function to get the index of the selected element of chart.
 	function selectHandler() {
+		mobile += 1;
 		var selectedItemRow = chart.getSelection()[0].row;
 		var selectedItemCol = chart.getSelection()[0].column;
 		if (selectedItemRow != null){
-			alert("Index: "+selectedItemRow);
-			alert("groupNr: "+selectedItemCol);
-			alert("x-axis Value: "+data.getValue(selectedItemRow, 0));
-			alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));
+			//alert("Index: "+selectedItemRow);
+			//alert("groupNr: "+selectedItemCol);
+			//alert("x-axis Value: "+data.getValue(selectedItemRow, 0));
+			//alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));
+			//alert(typeof(data.getValue(selectedItemRow, 0)));
+			var xValue = data.getValue(selectedItemRow, 0);
+			var yValue = data.getValue(selectedItemRow, selectedItemCol);
+			testAmr(xValue, yValue);
 		}
 	};
 }
