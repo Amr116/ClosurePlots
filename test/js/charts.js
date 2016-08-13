@@ -17,21 +17,53 @@ function decBin(dec,length){
 		out += (dec >> length ) & 1;
 	return out;
 }
-/*
-var currentlyPrec;
-var currentlyOp; 
-function getBack(){
-	getRequest(currentlyPrec, currentlyOp)
-}
-procParam, opParam
-	if((typeof(procParam) && typeof(opParam)) == "undefined"){
-		op   = document.getElementById("operations").value;
 
-	}
-*/
+/* checkIndex function is to check if the mobile variable has not run out of range. */
+function checkIndex(){
+	if(mobile < precArr.length){return true;}else{return false;}
+}
+
+/* reset function is to reset all the interactive action from user with chart.
+ * set the mobile variable to zero index ( the start of precArr )
+ */
+function reset(){
+	mobile = 0;
+	getRequest();
+}
+
+function getBack(){
+	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
+	var op   = document.getElementById("operations").value;
+	switch(op){
+		case "testTry":
+			testAmr();//(prec);
+			break;
+		case "addition":
+			add(prec);
+			break;
+		case "subtraction":
+			subt(prec);
+			break;
+		case "multiplication":
+			mult(prec);
+			break;
+		case "division":
+			divi(prec);
+			break;
+		default:
+			alert('▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'
+				+ 'Something went wrong!\n'
+				+ 'Please contact the publisher and let the author know about the bug.\n'
+				+ 'amr11682@hotmail.com');
+			break;
+	}	
+}
+// Global variable to save the requested arithmetic operation
+var arOp;
 /*	getRequest function is to create object of the selected options
  *	and call the appropriate function depending on user request.
  */
+
 function getRequest(){
 
 /*
@@ -42,7 +74,8 @@ function getRequest(){
 		op   = document.getElementById("operations").value;
 	}//else{alert("else statement");} */
 	//prec = document.getElementById("precision").value;
-	op   = document.getElementById("operations").value;
+
+	var op   = document.getElementById("operations").value;
 	switch(op){
 		case "testTry":
 			testAmr();//(prec);
@@ -336,14 +369,13 @@ function drawChart(obj, arg) {
 		var selectedItemRow = chart.getSelection()[0].row;
 		var selectedItemCol = chart.getSelection()[0].column;
 		if (selectedItemRow != null){
-			//alert("Index: "+selectedItemRow);
-			//alert("groupNr: "+selectedItemCol);
-			//alert("x-axis Value: "+data.getValue(selectedItemRow, 0));
-			//alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));
-			//alert(typeof(data.getValue(selectedItemRow, 0)));
 			var xValue = data.getValue(selectedItemRow, 0);
 			var yValue = data.getValue(selectedItemRow, selectedItemCol);
-			testAmr(xValue, yValue);
+			var valid  = checkIndex();
+
+			if(valid){
+				testAmr(xValue, yValue);
+			}
 		}
 	};
 }
@@ -356,6 +388,11 @@ function drawChart(obj, arg) {
 
 
 
+			//alert("Index: "+selectedItemRow);
+			//alert("groupNr: "+selectedItemCol);
+			//alert("x-axis Value: "+data.getValue(selectedItemRow, 0));
+			//alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));
+			//alert(typeof(data.getValue(selectedItemRow, 0)));
 
 
 
@@ -376,7 +413,18 @@ function drawChart(obj, arg) {
 */
 			//document.getElementById("test1").innerHTML = glo;
 
+/*
+var currentlyPrec;
+var currentlyOp; 
+function getBack(){
+	getRequest(currentlyPrec, currentlyOp)
+}
+procParam, opParam
+	if((typeof(procParam) && typeof(opParam)) == "undefined"){
+		op   = document.getElementById("operations").value;
 
+	}
+*/
 
 /*
 function selectHandler(e) {
