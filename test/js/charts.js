@@ -28,6 +28,9 @@ function checkIndex(){
  */
 function reset(){
 	mobile = 0;
+	xValue = null;
+	yValue = null;
+	clickIndex = 0;
 	getRequest();
 }
 
@@ -62,9 +65,17 @@ var clickedY = [];
 var clickIndex = 0;
 function getBack(){
 	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
-	if(clickIndex == 0 || clickIndex == 1){xValue= null; yValue=null;}else{xValue=clickedX[clickIndex-2]; yValue=clickedY[clickIndex-2];}
-	clickIndex -= 1;
-	getRequest();	
+
+	if(clickIndex == 0 || clickIndex == 1){
+		xValue= null;
+		yValue=null;
+		clickIndex = 0;
+	}else{
+		xValue=clickedX[clickIndex-2]; 
+		yValue=clickedY[clickIndex-2];
+		clickIndex -= 1;
+	}
+	getRequest();
 }
 
 // Global variable to save the requested arithmetic operation
@@ -79,16 +90,16 @@ function getRequest(){
 			testAmr();//xValue, yValue);//(prec);
 			break;
 		case "addition":
-			add(prec);
+			add();
 			break;
 		case "subtraction":
-			subt(prec);
+			sub();
 			break;
 		case "multiplication":
-			mult(prec);
+			mult();
 			break;
 		case "division":
-			divi(prec);
+			divi();
 			break;
 		default:
 			alert('▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'
@@ -99,9 +110,8 @@ function getRequest(){
 	}
 }
 
-/*============================ Test START HERE =========================*/
-
-function testAmr(){//xValue, yValue){
+// function to create the simulation of Arithmetics operation ( addition )
+function add(){//xValue, yValue){
 	var prec  = parseInt(document.getElementById("precision").value);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
@@ -160,44 +170,79 @@ function testAmr(){//xValue, yValue){
 	}
 	drawChart(rows, ['Overflow', 'Mix']);
 }
-/*============================ Test END HERE =========================*/
 
 // function to create the simulation of Arithmetics operation ( addition )
-function add(obj){
-	var prec  = parseInt(obj);
+function sub(){//xValue, yValue){
+	var prec  = parseInt(document.getElementById("precision").value);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
 	var index = 0;
 	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j=0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
+
+	var f1; // axis data format 
+	var f2; // axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
+		var correct = 0;
+		var overflow = 0;
 			// correct logic
 			// format is:  x index , correct , overflow
-			if ((i+j) < range){
+			if ((i-j) >= 0 & (i-j) < range){
 				rows[index] = [dictX, dictY, null];
 			// else overflow
 			}else{
 				rows[index] = [dictX, , dictY];
 			}
+
+
+		var check = function(x,y) {
+			if ((x - y) >=0 && (x - y) < range) { correct += 1; } else { overflow += 1; }	
+		}
+	    check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+	    check(x + width, y + height);
+        console.log(x,y,correct, overflow, dictX, dictY, index);
+	    if (correct > 0 && overflow == 0) {
+	    	// Correct data
+			rows[index] = [dictX, dictY, null, null];
+
+		} else if(overflow > 0 && correct == 0) {
+			// Overflow data
+			rows[index] = [dictX, null, dictY, null];
+
+		} else {
+			// Mix data
+			rows[index] = [dictX, null, null, dictY];
+		}
+	}
+	var xV;
+	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
+	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+	//var x = 0
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		//var y = 0
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
 	}
-
-	drawChart(rows, ['Overflow']);
+	drawChart(rows, ['Underflow', 'Mix']);
 }
 
 // function to create the simulation of Arithmetics operation ( subtraction )
-function subt(obj){
+function subt_old(obj){
 	var prec  = parseInt(obj);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
@@ -490,6 +535,46 @@ function testAmr(obj){
 		//i += 1;
 	}
 	alert("Index is :"+index);
+	drawChart(rows, ['Overflow']);
+}
+*/
+
+
+/*============================ Test START HERE =========================*/
+/*============================ Test END HERE =========================*/
+
+// function to create the simulation of Arithmetics operation ( addition )
+/*
+function add(obj){
+	var prec  = parseInt(obj);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+	var index = 0;
+	var rows  = [];
+	for (i = 0; i < range; i++){
+		var formatX = decBin(i, prec);
+		// initialize dictX
+		dictX = {};						
+		// {v:0, f:'0000'}
+		var dictX	= {v:i, f: formatX};
+		for(j=0; j < range; j++){
+			var formatY = decBin(j, prec);
+			// initialize dictY
+			dictY = {};							
+			// {v:0, f:'0000'}
+			var dictY = {v:j, f: formatY};
+			// correct logic
+			// format is:  x index , correct , overflow
+			if ((i+j) < range){
+				rows[index] = [dictX, dictY, null];
+			// else overflow
+			}else{
+				rows[index] = [dictX, , dictY];
+			}
+			index += 1;
+		}
+	}
+
 	drawChart(rows, ['Overflow']);
 }
 */
