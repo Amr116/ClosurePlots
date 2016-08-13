@@ -18,7 +18,7 @@ function decBin(dec,length){
 	return out;
 }
 
-/* checkIndex function is to check if the mobile variable has not run out of range. */
+/* checkIndex function is to check if the mobile variable has not run out of range to precArr length. */
 function checkIndex(){
 	if(mobile < precArr.length){return true;}else{return false;}
 }
@@ -55,34 +55,16 @@ function getPrecision(){
  */
 
  // Those global variable get thier sign value from drawChart function, only if the user has interacted with chart ( click on (x,y) ). 
-var xValue;
-var yValue;
+var xValue = null;
+var yValue = null;
+var clickedX = [];
+var clickedY = [];
+var clickIndex = 0;
 function getBack(){
 	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
-	var op   = document.getElementById("operations").value;
-	switch(op){
-		case "testTry":
-			testAmr();//(prec);
-			break;
-		case "addition":
-			add(prec);
-			break;
-		case "subtraction":
-			subt(prec);
-			break;
-		case "multiplication":
-			mult(prec);
-			break;
-		case "division":
-			divi(prec);
-			break;
-		default:
-			alert('▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n'
-				+ 'Something went wrong!\n'
-				+ 'Please contact the publisher and let the author know about the bug.\n'
-				+ 'amr11682@hotmail.com');
-			break;
-	}	
+	if(clickIndex == 0 || clickIndex == 1){xValue= null; yValue=null;}else{xValue=clickedX[clickIndex-2]; yValue=clickedY[clickIndex-2];}
+	clickIndex -= 1;
+	getRequest();	
 }
 
 // Global variable to save the requested arithmetic operation
@@ -91,20 +73,10 @@ var arOp;
  *	and call the appropriate function depending on user request.
  */
 function getRequest(){
-
-/*
-	//alert(prec);
-	if((typeof(prec) && typeof(op)) == "undefined"){
-		alert("First call to getRequest function!");
-		prec = document.getElementById("precision").value;
-		op   = document.getElementById("operations").value;
-	}//else{alert("else statement");} */
-	//prec = document.getElementById("precision").value;
-
-	var op   = document.getElementById("operations").value;
+	var op = document.getElementById("operations").value;
 	switch(op){
 		case "testTry":
-			testAmr(xValue, yValue);//(prec);
+			testAmr();//xValue, yValue);//(prec);
 			break;
 		case "addition":
 			add(prec);
@@ -129,7 +101,7 @@ function getRequest(){
 
 /*============================ Test START HERE =========================*/
 
-function testAmr(xValue, yValue){
+function testAmr(){//xValue, yValue){
 	var prec  = parseInt(document.getElementById("precision").value);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
@@ -169,8 +141,9 @@ function testAmr(xValue, yValue){
 		}
 	}
 	var xV;
-	var yV;
-	if((typeof(xValue) && typeof(yValue)) == "undefined"){xV=0; yV=0}else{xV =xValue; yV = yValue;}
+	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
+	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
 	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
 	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
 	//var x = 0
@@ -381,12 +354,16 @@ function drawChart(obj, arg) {
 		var selectedItemRow = chart.getSelection()[0].row;
 		var selectedItemCol = chart.getSelection()[0].column;
 		if (selectedItemRow != null){
-			var xValue = data.getValue(selectedItemRow, 0);
-			var yValue = data.getValue(selectedItemRow, selectedItemCol);
+			//alert(data.getValue(selectedItemRow, 0));
+			xValue = data.getValue(selectedItemRow, 0);
+			yValue = data.getValue(selectedItemRow, selectedItemCol);
 			var valid  = checkIndex();
 
 			if(valid){
-				testAmr(xValue, yValue);
+				clickIndex += 1;
+				//clickedX.push(xValue);
+				//clickedY.push(yValue);
+				getRequest();//xValue, yValue);
 			}
 		}
 	};
