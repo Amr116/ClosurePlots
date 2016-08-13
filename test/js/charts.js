@@ -31,6 +31,30 @@ function reset(){
 	getRequest();
 }
 
+/* getPrecision Function is to create array of the different dimensional to chart.
+ * The function has to reset mobile variable to zero, which will point to the start of precArr.
+ * The function will be execute onload of the body tag and when a user changes the selected option of a <select> element.
+ */
+var mobile = 0;
+var precArr = [];
+
+function getPrecision(){
+	precArr = [];
+	mobile  = 0;
+	var temp = Math.pow(2, document.getElementById("precision").value);
+
+	while((temp / 16) >= 1){
+		temp /= 16;
+		precArr.push(temp-1); 
+	}
+	console.log(precArr);
+}
+
+/* getBack function provide to the user the previous event of chart. 
+ * The function provide event points to the appropriate function (current )
+ */
+var xValue;
+var yValue;
 function getBack(){
 	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
 	var op   = document.getElementById("operations").value;
@@ -58,12 +82,12 @@ function getBack(){
 			break;
 	}	
 }
+
 // Global variable to save the requested arithmetic operation
 var arOp;
 /*	getRequest function is to create object of the selected options
  *	and call the appropriate function depending on user request.
  */
-
 function getRequest(){
 
 /*
@@ -78,7 +102,7 @@ function getRequest(){
 	var op   = document.getElementById("operations").value;
 	switch(op){
 		case "testTry":
-			testAmr();//(prec);
+			testAmr(xValue, yValue);//(prec);
 			break;
 		case "addition":
 			add(prec);
@@ -102,20 +126,6 @@ function getRequest(){
 }
 
 /*============================ Test START HERE =========================*/
-
-var mobile = 0;
-var precArr = [];
-function getPrecision(){
-	precArr = [];
-	mobile  = 0;
-	var temp = Math.pow(2, document.getElementById("precision").value);
-
-	while((temp / 16) >= 1){
-		temp /= 16;
-		precArr.push(temp-1); 
-	}
-	console.log(precArr);
-}
 
 function testAmr(xValue, yValue){
 	var prec  = parseInt(document.getElementById("precision").value);
