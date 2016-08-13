@@ -53,6 +53,8 @@ function getPrecision(){
 /* getBack function provide to the user the previous event of chart. 
  * The function provide event points to the appropriate function (current )
  */
+
+ // Those global variable get thier sign value from drawChart function, only if the user has interacted with chart ( click on (x,y) ). 
 var xValue;
 var yValue;
 function getBack(){
