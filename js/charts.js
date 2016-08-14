@@ -43,7 +43,7 @@ var precArr = [];
 function getPrecision(){
 	precArr = [];
 	mobile  = 0;
-	var temp = Math.pow(2, document.getElementById("precision").value);
+	var temp= Math.pow(2, document.getElementById("precision").value);
 
 	while((temp / 16) >= 1){
 		temp /= 16;
@@ -52,16 +52,19 @@ function getPrecision(){
 	console.log(precArr);
 }
 
-/* getBack function provide to the user the previous event of chart. 
- * The function provide event points to the appropriate function (current )
- */
 
- // Those global variable get thier sign value from drawChart function, only if the user has interacted with chart ( click on (x,y) ). 
+// Declare global variable, which will get thier sign value from drawChart function, 
+// only if the user has interacted with chart ( click on (x,y) ). 
 var xValue = null;
 var yValue = null;
+
 var clickedX = [];
 var clickedY = [];
 var clickIndex = 0;
+
+/* getBack function provide to the user the previous event of chart. 
+ * The function provide event points to the appropriate function (current )
+ */
 function getBack(){
 	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
 
@@ -70,15 +73,14 @@ function getBack(){
 		yValue=null;
 		clickIndex = 0;
 	}else{
+		clickIndex -= 1;
 		xValue=clickedX[clickIndex-1]; 
 		yValue=clickedY[clickIndex-1];
-		clickIndex -= 1;
+		
 	}
 	getRequest();
 }
 
-// Global variable to save the requested arithmetic operation
-var arOp;
 /*	getRequest function is to create object of the selected options
  *	and call the appropriate function depending on user request.
  */
@@ -150,10 +152,10 @@ function add(){//xValue, yValue){
 		}
 	}
 	var xV;
-	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
-	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
 	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	
 	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
 	//var x = 0
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
@@ -220,10 +222,10 @@ function sub(){//xValue, yValue){
 		}
 	}
 	var xV;
-	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
-	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
 	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	
 	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
 	//var x = 0
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
@@ -281,12 +283,12 @@ function mult(){//xValue, yValue){
 		}
 	}
 	var xV;
-	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
-	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
 	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	
 	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
-	//var x = 0
+	
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
 		getFormat(x);
 		var dictX = {v:x, f:'X: '+f1+' to '+f2};
@@ -347,16 +349,16 @@ function divi(){//xValue, yValue){
 		}
 	}
 	var xV;
-	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
-	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
 	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	
 	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
-	//var x = 0
+	
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
 		getFormat(x);
 		var dictX = {v:x, f:'X: '+f1+' to '+f2};
-		//var y = 0
+	
 		for(var y = yV, j = 0; j < 16; j++, y += height+1){
 			getFormat(y);
 			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
@@ -367,10 +369,6 @@ function divi(){//xValue, yValue){
 	drawChart(rows, ['Inexpressible', 'infinity','Mix']);
 }
 
-// Declare global variable  
-var globalChart;
-var globalData;
-var globalOptions;
 
 function drawChart(obj, arg) {
 	// Define the chart to be drawn. 
@@ -385,7 +383,9 @@ function drawChart(obj, arg) {
 		// Mixed
 		data.addColumn('number', arg[2]);
 	} else{
+		// Overflow or Underflow
 		data.addColumn('number', arg[0]);
+		// Mixed
 		data.addColumn('number', arg[1]);
 	}
    
@@ -405,11 +405,6 @@ function drawChart(obj, arg) {
     	},
     };
     var chart = new google.charts.Scatter(document.getElementById('chart_div1'));
-
-    // Sign the gloabl variable to chart
-    globalChart = chart;
-    globalData  = data;
-    globalOptions = options;
 
     chart.draw(data, google.charts.Scatter.convertOptions(options));
  
@@ -440,273 +435,19 @@ function drawChart(obj, arg) {
 	};
 }
 
-
-
-
-
-
-
-
-
-			//alert("Index: "+selectedItemRow);
-			//alert("groupNr: "+selectedItemCol);
-			//alert("x-axis Value: "+data.getValue(selectedItemRow, 0));
-			//alert("y-axis Value: "+data.getValue(selectedItemRow, selectedItemCol));
-			//alert(typeof(data.getValue(selectedItemRow, 0)));
-
-
-
-
-
-
-		/*
-		Oleks logic !
-		check(x, y);
-		check(x, y + width);
-		check(x + height, y);
-	    check(x + height, y + width); */
-
-
 /*
-			var value = chart.getValue(selectedItem.row, 0);//, selectedItem.column);
-			alert('The user selected ' + value);
-*/
-			//document.getElementById("test1").innerHTML = glo;
-
-/*
-var currentlyPrec;
-var currentlyOp; 
-function getBack(){
-	getRequest(currentlyPrec, currentlyOp)
-}
-procParam, opParam
-	if((typeof(procParam) && typeof(opParam)) == "undefined"){
-		op   = document.getElementById("operations").value;
-
+var param_1 = [];
+var param_2 = [];
+var idx = 0;
+function test(){
+	if(idx > 0){
+		drawChart(param_1[idx-1],param_2[idx-1]);
+		param_1.splice(idx-1);
+		param_2.splice(idx-1);
+		idx -= 1;
+	}else{
+		drawChart(param_1[0],param_2[0]);
 	}
-*/
-
-/*
-function selectHandler(e) {
-  alert('A table row was selected ');//+ chart.getSelection().rows);
-}
-*/
-/*
-$('circle').each(function(index,elem){
-  
-   alert("cx :"+elem.getAttribute("cx")+"...cy :"+elem.getAttribute("cy")); //using JavaScript
-
-}
-*/
-/*
-// Resize function to diffrent midea 
-$(window).resize(function(){
-  	drawChart();
-});
-
-*/
-
-/*
-var mobile = 0;
-var halfArr = [4095, 255, 15];
-
-function testAmr(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for(x = 0; x < range; x += 4095){
-
-	}
-	for (i = 0; i < range; i += 4095 ){ //halfArr[mobile]
-		// initialize dictX
-		dictX = {};						
-
-		if(i == 0){
-			var formatX = decBin(0, prec);
-			// {v:0, f:'0000'}
-			var dictX	= {v:0, f: formatX};
-		}else{
-			var formatX = decBin(i, prec);
-			var dictX	= {v:i+1, f: formatX};			
-		}
-	
-
-		for(j=0; j < range; j += 4095 ){ //halfArr[mobile]
-			// initialize dictY
-			var dictY = {};
-
-			if(j == 0){
-				var formatY = decBin(0, prec);
-			// {v:0, f:'0000'}				
-				var dictY = {v:0, f: formatY};
-			}else{
-				var formatY = decBin(j, prec);
-				var dictY = {v:j+1, f: formatY};				
-			}			
-
-
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i+j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-			index += 1;
-			//j += 1;
-		}
-		//i += 1;
-	}
-	alert("Index is :"+index);
-	drawChart(rows, ['Overflow']);
-}
-*/
-
-
-/*============================ Test START HERE =========================*/
-/*============================ Test END HERE =========================*/
-
-// function to create the simulation of Arithmetics operation ( addition )
-/*
-function add(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j=0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i+j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-			index += 1;
-		}
-	}
-
-	drawChart(rows, ['Overflow']);
-}
-
-// function to create the simulation of Arithmetics operation ( subtraction )
-function subt_old(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j=0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			var dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i-j) >= 0 & (i-j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-			index += 1;
-		}
-	}
-	
-	drawChart(rows, ['Underflow']);
-}
-
-// function to create the simulation of Arithmetics operation ( multiplication )
-function mult_old(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j=0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			var dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i*j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-			index += 1;
-		}
-	}
-	
-	drawChart(rows, ['Overflow']);
-}
-
-
-
-// function to create the simulation of Arithmetics operation ( division )
-function divi_old(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j= 0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			var dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
-			// correct logic
-			if((i/j) % 1 == 0 ){ // does (1/3) which is 0.33.. mod 1  equal to zero 
-				rows[index] = [dictX, dictY, null, null];
-			// check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0 
-			}else if(isNaN(i/j) || !(isFinite(i/j))){
-				rows[index] = [dictX, null, null, dictY];
-			// else Inexpressible
-			}else{
-				rows[index] = [dictX, , dictY, null];
-			}
-			index += 1;
-		}
-	}
-	drawChart(rows, ['Inexpressible', 'Infinity']);
 }
 
 */

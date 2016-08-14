@@ -56,12 +56,14 @@ function getPrecision(){
  * The function provide event points to the appropriate function (current )
  */
 
- // Those global variable get thier sign value from drawChart function, only if the user has interacted with chart ( click on (x,y) ). 
+ // Those global variable get thier sign value from drawChart function, only if the user has interacted with chart ( click on (x,y) point ). 
 var xValue = null;
 var yValue = null;
+
 var clickedX = [];
 var clickedY = [];
 var clickIndex = 0;
+
 function getBack(){
 	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
 
@@ -85,9 +87,6 @@ var arOp;
 function getRequest(){
 	var op = document.getElementById("operations").value;
 	switch(op){
-		case "testTry":
-			testAmr();//xValue, yValue);//(prec);
-			break;
 		case "addition":
 			add();
 			break;

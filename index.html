@@ -29,13 +29,7 @@
 	<!---->
 	<script type="text/javascript" src="js/charts.js"> </script>
 	<script type="text/javascript" src="js/interactWithChar.js"> </script>	
-	<script type="text/javascript">
-		/*showService(){
 
-		}*/
-	</script>
-
-<!--  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 </head>
 
@@ -54,14 +48,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<font color="">Floating point precision</font>
-				<select id="precision" onchange="getPrecision();">
-				<!--
-					<option value="4">4 bits</option><!-- 4 bits --					
-					<option value="5">5 bits</option><!-- 4 bits --
-					<option value="6">6 bits</option><!-- 4 bits --
-					<option value="7">7 bits</option><!-- 4 bits --					
-					<option value="8">8 bits</option><!-- 4 bits -->
-					<!--<option value="8bits">(8 bits)</option>-->			
+				<select id="precision" onchange="getPrecision();">			
 					<option value="16">Half    </option><!-- half 16 bits -->
 					<option value="32">Single  </option><!-- single 32 bits -->
 					<!--
@@ -82,20 +69,11 @@
 			</div>
 
 			<div class="col-md-1"></div>			
-			<div class="col-md-2">
-			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();resetCounter();" style="margin-top:1px;">
+			<div class="col-md-2"><!--;showService();resetCounter();-->
+			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();" style="margin-top:1px;">
 			  	<strong color="">Plot my requests</strong>
 			  </button>
-			  <!--
-			  <button type="button" class="btn btn-primary" onclick="overLoop();" style="margin-top:1px;">
-			  	<strong color="">overLoop</strong>
-			  </button> -->
-
-			  <!--<button type="button" class="btn btn-primary" onclick="alert((decbin(-10, 10)));" style="margin-top:1px;">Plot my requests</button>
-			  <button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>-->			  
 			</div>
-			<!-- <div class="col-md-1"></div> <div class="col-md-1"></div> -->
-
 		</div>
 
 		<br>
@@ -104,18 +82,14 @@
 		<div class="row" id="service" style="display:none;">
 			<div class="col-md-2 col-md-offset-10">
 				<div class="col-md-1" style="margin-right:10px;">
-					<button data-toggle="tooltip" data-placement="top" title="Back!" type="button" class="btn btn-link btn-circle" onclick="getBack();printResult();">
+				<!--getBack()-->
+					<button data-toggle="tooltip" data-placement="top" title="Back" type="button" class="btn btn-link btn-circle" onclick="getBack();">
 						<img style="width: 43px; height: 43px;margin:-11px 2px 0px -6px;" src="img/playback.ico">
 					</button>
 				</div>
-				<!--
-				<div class="col-md-1" style="margin-right:5px;">
-					<button type="button" class="btn btn-link btn-circle" onclick="alert('hate you');">
-						<img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/playforward.ico">
-					</button>
-				</div>-->
+
 				<div class="col-md-1">
-					<button data-toggle="tooltip" data-placement="top" title="Reset!" type="button" class="btn btn-link btn-circle" onclick="reset();">
+					<button data-toggle="tooltip" data-placement="top" title="Reset" type="button" class="btn btn-link btn-circle" onclick="reset();">
 						<img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/reset.ico">
 					</button>
 				</div>
@@ -127,22 +101,10 @@
 			}			
 		</script>
 
-		<!-- Popup on hover function -->
-		<script>
-		/*
-			$(document).ready(function(){
-    		$('[data-toggle="tooltip"]');//.tooltip();   
-			});
-			*/
-		</script>
-
 	<!--================ END ================-->
 
-	<!--</div>
-	<div id="container-fluid">
-	  <center></center>-->
 		<div id="chart_div1"></div>
-		<div id="test1"></div>
+
 	</div>
 </body>
 </html>
