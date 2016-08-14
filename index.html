@@ -17,17 +17,18 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
- 	<!-- jquery lib -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ 	<!-- jquery lib 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	
 	<!-- Google Charts -->
 	
 	<script type="text/javascript" src="js/loader.js"></script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
 
 	<!---->
 	<script type="text/javascript" src="js/charts.js"> </script>
+	<script type="text/javascript" src="js/interactWithChar.js"> </script>	
 	<script type="text/javascript">
 		/*showService(){
 
@@ -38,7 +39,7 @@
 
 </head>
 
-<body> <!-- style="background-color: black";-->
+<body onload="getPrecision();"> <!-- style="background-color: black";-->
 	<header id="overview" class="jumbotron masthead" style='background-image:url("img/yellowdotdisappear42893.gif");'> <!-- text-center -->
 	  <div class="container">
 	  	<center>
@@ -53,23 +54,26 @@
 		<div class="row">
 			<div class="col-md-4">
 				<font color="">Floating point precision</font>
-				<select id="precision">
-					<option value="4">4 bits</option><!-- 4 bits -->					
-					<option value="5">5 bits</option><!-- 4 bits -->
-					<option value="6">6 bits</option><!-- 4 bits -->
-					<option value="7">7 bits</option><!-- 4 bits -->					
+				<select id="precision" onchange="getPrecision();">
+				<!--
+					<option value="4">4 bits</option><!-- 4 bits --					
+					<option value="5">5 bits</option><!-- 4 bits --
+					<option value="6">6 bits</option><!-- 4 bits --
+					<option value="7">7 bits</option><!-- 4 bits --					
 					<option value="8">8 bits</option><!-- 4 bits -->
 					<!--<option value="8bits">(8 bits)</option>-->			
 					<option value="16">Half    </option><!-- half 16 bits -->
 					<option value="32">Single  </option><!-- single 32 bits -->
-					<option value="64">Double  </option><!-- double 64 bits -->
+					<!--
+					<option value="64">Double  </option><!-- double 64 bits --
 					<option value="128">Quadruple</option><!-- quad 128 bits -->
 				</select>
 			</div>
 
 			<div class="col-md-4">
 				<font color="">Arithmetics operations</font>
-				<select id="operations" >
+				<select id="operations" ><!--
+					<option value="testTry">testTry</option>-->				
 					<option value="addition">Addition</option>
 					<option value="subtraction">Subtraction</option>
 					<option value="multiplication">Multiplication</option>
@@ -79,9 +83,14 @@
 
 			<div class="col-md-1"></div>			
 			<div class="col-md-2">
-			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();" style="margin-top:1px;">
+			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();resetCounter();" style="margin-top:1px;">
 			  	<strong color="">Plot my requests</strong>
 			  </button>
+			  <!--
+			  <button type="button" class="btn btn-primary" onclick="overLoop();" style="margin-top:1px;">
+			  	<strong color="">overLoop</strong>
+			  </button> -->
+
 			  <!--<button type="button" class="btn btn-primary" onclick="alert((decbin(-10, 10)));" style="margin-top:1px;">Plot my requests</button>
 			  <button type="button" class="btn btn-primary" onclick="test()" style="margin-top:1px;">Plot my requests</button>-->			  
 			</div>
@@ -95,7 +104,7 @@
 		<div class="row" id="service" style="display:none;">
 			<div class="col-md-2 col-md-offset-10">
 				<div class="col-md-1" style="margin-right:10px;">
-					<button data-toggle="tooltip" data-placement="top" title="Back!" type="button" class="btn btn-link btn-circle" onclick="alert('love you');">
+					<button data-toggle="tooltip" data-placement="top" title="Back!" type="button" class="btn btn-link btn-circle" onclick="getBack();printResult();">
 						<img style="width: 43px; height: 43px;margin:-11px 2px 0px -6px;" src="img/playback.ico">
 					</button>
 				</div>
@@ -106,22 +115,25 @@
 					</button>
 				</div>-->
 				<div class="col-md-1">
-					<button data-toggle="tooltip" data-placement="top" title="Reset!" type="button" class="btn btn-link btn-circle" onclick="alert('come you');">
+					<button data-toggle="tooltip" data-placement="top" title="Reset!" type="button" class="btn btn-link btn-circle" onclick="reset();">
 						<img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/reset.ico">
 					</button>
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
+		<script>
 			function showService() {
-				document.getElementById('service').style.display = "block";
+				document.getElementById("service").style.display = "block";
 			}			
 		</script>
+
 		<!-- Popup on hover function -->
 		<script>
+		/*
 			$(document).ready(function(){
-    		$('[data-toggle="tooltip"]').tooltip();   
+    		$('[data-toggle="tooltip"]');//.tooltip();   
 			});
+			*/
 		</script>
 
 	<!--================ END ================-->

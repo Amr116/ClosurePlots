@@ -393,7 +393,7 @@ function drawChart(obj, arg) {
     var options = {
     	chart: {
     		title: ' Plotting the simulation of floating point with Basic Arithmetics',
-        	subtitle: 'Based on precision 4 bits'
+        	//subtitle: 'Based on precision 4 bits'
      	},
      	width: 1150,
      	height: 500,
