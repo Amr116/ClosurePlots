@@ -87,9 +87,6 @@ function getBack(){
 function getRequest(){
 	var op = document.getElementById("operations").value;
 	switch(op){
-		case "testTry":
-			testAmr();//xValue, yValue);//(prec);
-			break;
 		case "addition":
 			add();
 			break;
@@ -370,26 +367,26 @@ function divi(){//xValue, yValue){
 }
 
 
-function drawChart(obj, arg) {
+function drawChart(arg1, arg2) {
 	// Define the chart to be drawn. 
 	var data = new google.visualization.DataTable();
 	data.addColumn('number', '');
 	data.addColumn('number', 'correct');
-	if (arg.length == 3){
+	if (arg2.length == 3){
 		// numbers do not divide evenly  (Inexpressible) 
-		data.addColumn('number', arg[0]);
+		data.addColumn('number', arg2[0]);
 		// divide by zero
-		data.addColumn('number', arg[1]);
+		data.addColumn('number', arg2[1]);
 		// Mixed
-		data.addColumn('number', arg[2]);
+		data.addColumn('number', arg2[2]);
 	} else{
 		// Overflow or Underflow
-		data.addColumn('number', arg[0]);
+		data.addColumn('number', arg2[0]);
 		// Mixed
-		data.addColumn('number', arg[1]);
+		data.addColumn('number', arg2[1]);
 	}
    
-   	data.addRows(obj);
+   	data.addRows(arg1);
     var options = {
     	chart: {
     		title: ' Plotting the simulation of floating point with Basic Arithmetics',
@@ -416,13 +413,17 @@ function drawChart(obj, arg) {
 
     // This function to get the index of the selected element of chart.
 	function selectHandler() {
+
 		mobile += 1;
+
 		var selectedItemRow = chart.getSelection()[0].row;
 		var selectedItemCol = chart.getSelection()[0].column;
+
 		if (selectedItemRow != null){
 			//alert(data.getValue(selectedItemRow, 0));
 			xValue = data.getValue(selectedItemRow, 0);
 			yValue = data.getValue(selectedItemRow, selectedItemCol);
+
 			var valid  = checkIndex();
 
 			if(valid){
