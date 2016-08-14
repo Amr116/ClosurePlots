@@ -4,7 +4,6 @@
 google.charts.load('current', {packages: ['corechart','scatter']});
 
 
-
 /*	decBin function is to convert (Decimal to Binary) with specify length of the output.
  *	The function take 2 arguments ( dec, length)
  *	dec   : is the decimal number, which need to be convert to binary
@@ -71,8 +70,8 @@ function getBack(){
 		yValue=null;
 		clickIndex = 0;
 	}else{
-		xValue=clickedX[clickIndex-2]; 
-		yValue=clickedY[clickIndex-2];
+		xValue=clickedX[clickIndex-1]; 
+		yValue=clickedY[clickIndex-1];
 		clickIndex -= 1;
 	}
 	getRequest();
@@ -171,7 +170,7 @@ function add(){//xValue, yValue){
 	drawChart(rows, ['Overflow', 'Mix']);
 }
 
-// function to create the simulation of Arithmetics operation ( addition )
+// function to create the simulation of Arithmetics operation ( subtraction )
 function sub(){//xValue, yValue){
 	var prec  = parseInt(document.getElementById("precision").value);
 	// range to iteration (loop)
@@ -188,7 +187,7 @@ function sub(){//xValue, yValue){
 
 	var getPixel = function(x, y, height, width, dictX, dictY) {
 		var correct = 0;
-		var overflow = 0;
+		var underflow = 0;
 			// correct logic
 			// format is:  x index , correct , overflow
 			if ((i-j) >= 0 & (i-j) < range){
@@ -200,7 +199,68 @@ function sub(){//xValue, yValue){
 
 
 		var check = function(x,y) {
-			if ((x - y) >=0 && (x - y) < range) { correct += 1; } else { overflow += 1; }	
+			if ((x - y) >=0 && (x - y) < range) { correct += 1; } else { underflow += 1; }	
+		}
+	    check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+	    check(x + width, y + height);
+        console.log(x,y,correct, underflow, dictX, dictY, index);
+	    if (correct > 0 && underflow == 0) {
+	    	// Correct data
+			rows[index] = [dictX, dictY, null, null];
+
+		} else if(underflow > 0 && correct == 0) {
+			// Overflow data
+			rows[index] = [dictX, null, dictY, null];
+
+		} else {
+			// Mix data
+			rows[index] = [dictX, null, null, dictY];
+		}
+	}
+	var xV;
+	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
+	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+	//var x = 0
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		//var y = 0
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
+			index += 1;
+		}
+	}
+	drawChart(rows, ['Underflow', 'Mix']);
+}
+
+// function to create the simulation of Arithmetics operation ( multiplication )
+function mult(){//xValue, yValue){
+	var prec  = parseInt(document.getElementById("precision").value);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
+	var index = 0;
+	var rows  = [];
+
+	var f1; // axis data format 
+	var f2; // axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
+		var correct = 0;
+		var overflow = 0;
+
+		var check = function(x,y) {
+			if (x * y < range) { correct += 1; } else { overflow += 1; }	
 		}
 	    check(x, y);
 		check(x, y + height);
@@ -238,110 +298,73 @@ function sub(){//xValue, yValue){
 			index += 1;
 		}
 	}
-	drawChart(rows, ['Underflow', 'Mix']);
-}
-
-// function to create the simulation of Arithmetics operation ( subtraction )
-function subt_old(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j=0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			var dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i-j) >= 0 & (i-j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-			index += 1;
-		}
-	}
-	
-	drawChart(rows, ['Underflow']);
-}
-
-// function to create the simulation of Arithmetics operation ( multiplication )
-function mult(obj){
-	var prec  = parseInt(obj);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-	var index = 0;
-	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j=0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			var dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i*j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-			index += 1;
-		}
-	}
-	
-	drawChart(rows, ['Overflow']);
+	drawChart(rows, ['Overflow', 'Mix']);
 }
 
 // function to create the simulation of Arithmetics operation ( division )
-function divi(obj){
-	var prec  = parseInt(obj);
+function divi(){//xValue, yValue){
+	var prec  = parseInt(document.getElementById("precision").value);
 	// range to iteration (loop)
 	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
 	var index = 0;
 	var rows  = [];
-	for (i = 0; i < range; i++){
-		var formatX = decBin(i, prec);
-		// initialize dictX
-		dictX = {};						
-		// {v:0, f:'0000'}
-		var dictX	= {v:i, f: formatX};
-		for(j= 0; j < range; j++){
-			var formatY = decBin(j, prec);
-			// initialize dictY
-			var dictY = {};							
-			// {v:0, f:'0000'}
-			var dictY = {v:j, f: formatY};
-			// correct logic
-			if((i/j) % 1 == 0 ){ // does (1/3) which is 0.33.. mod 1  equal to zero 
-				rows[index] = [dictX, dictY, null, null];
-			// check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0 
-			}else if(isNaN(i/j) || !(isFinite(i/j))){
-				rows[index] = [dictX, null, null, dictY];
-			// else Inexpressible
-			}else{
-				rows[index] = [dictX, , dictY, null];
-			}
+
+	var f1; // axis data format 
+	var f2; // axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
+		var correct = 0;
+		var infi    = 0;
+		var Inexpressible = 0;
+
+		var check = function(x,y) {
+			if ((x/y) % 1 == 0) { correct += 1; }else if(isNaN(x/y) || !(isFinite(x/y))) { infi += 1;}else{ Inexpressible += 1; }	
+		}
+	    check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+	    check(x + width, y + height);
+        console.log(x,y,correct, Inexpressible, infi, dictX, dictY, index);
+	    if (correct > 0 && Inexpressible == 0 && infi == 0) {
+	    	// Correct data: does (1/3) which is 0.33.. mod 1  equal to zero
+			rows[index] = [dictX, dictY, null, null, null];
+
+		} else if(Inexpressible > 0 && correct == 0 && infi == 0) {
+			// Inexpressible data
+			rows[index] = [dictX, null, dictY, null, null];
+
+		}else if(infi > 0 && correct == 0 && Inexpressible == 0) {
+			// check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0
+			rows[index] = [dictX, null, null, dictY, null];
+
+		} else {
+			// Mix data
+			rows[index] = [dictX, null, null, null, dictY];
+		}
+	}
+	var xV;
+	var yV; // "(typeof(xValue) && typeof(yValue)) == null undefined"
+	if(xValue == null && yValue == null){xV=0; yV=0}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+	//if((param+height) == range){f2 = decBin(param+height-1, prec);} f2 = decBin(param+height, prec);
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+	//var x = 0
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		//var y = 0
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
 	}
-	drawChart(rows, ['Inexpressible', 'Infinity']);
+	drawChart(rows, ['Inexpressible', 'infinity','Mix']);
 }
 
 // Declare global variable  
@@ -354,13 +377,16 @@ function drawChart(obj, arg) {
 	var data = new google.visualization.DataTable();
 	data.addColumn('number', '');
 	data.addColumn('number', 'correct');
-	if (arg.length == 2){
+	if (arg.length == 3){
 		// numbers do not divide evenly  (Inexpressible) 
 		data.addColumn('number', arg[0]);
 		// divide by zero
 		data.addColumn('number', arg[1]);
+		// Mixed
+		data.addColumn('number', arg[2]);
 	} else{
 		data.addColumn('number', arg[0]);
+		data.addColumn('number', arg[1]);
 	}
    
    	data.addRows(obj);
@@ -577,4 +603,110 @@ function add(obj){
 
 	drawChart(rows, ['Overflow']);
 }
+
+// function to create the simulation of Arithmetics operation ( subtraction )
+function subt_old(obj){
+	var prec  = parseInt(obj);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+	var index = 0;
+	var rows  = [];
+	for (i = 0; i < range; i++){
+		var formatX = decBin(i, prec);
+		// initialize dictX
+		dictX = {};						
+		// {v:0, f:'0000'}
+		var dictX	= {v:i, f: formatX};
+		for(j=0; j < range; j++){
+			var formatY = decBin(j, prec);
+			// initialize dictY
+			var dictY = {};							
+			// {v:0, f:'0000'}
+			var dictY = {v:j, f: formatY};
+			// correct logic
+			// format is:  x index , correct , overflow
+			if ((i-j) >= 0 & (i-j) < range){
+				rows[index] = [dictX, dictY, null];
+			// else overflow
+			}else{
+				rows[index] = [dictX, , dictY];
+			}
+			index += 1;
+		}
+	}
+	
+	drawChart(rows, ['Underflow']);
+}
+
+// function to create the simulation of Arithmetics operation ( multiplication )
+function mult_old(obj){
+	var prec  = parseInt(obj);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+	var index = 0;
+	var rows  = [];
+	for (i = 0; i < range; i++){
+		var formatX = decBin(i, prec);
+		// initialize dictX
+		dictX = {};						
+		// {v:0, f:'0000'}
+		var dictX	= {v:i, f: formatX};
+		for(j=0; j < range; j++){
+			var formatY = decBin(j, prec);
+			// initialize dictY
+			var dictY = {};							
+			// {v:0, f:'0000'}
+			var dictY = {v:j, f: formatY};
+			// correct logic
+			// format is:  x index , correct , overflow
+			if ((i*j) < range){
+				rows[index] = [dictX, dictY, null];
+			// else overflow
+			}else{
+				rows[index] = [dictX, , dictY];
+			}
+			index += 1;
+		}
+	}
+	
+	drawChart(rows, ['Overflow']);
+}
+
+
+
+// function to create the simulation of Arithmetics operation ( division )
+function divi_old(obj){
+	var prec  = parseInt(obj);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+	var index = 0;
+	var rows  = [];
+	for (i = 0; i < range; i++){
+		var formatX = decBin(i, prec);
+		// initialize dictX
+		dictX = {};						
+		// {v:0, f:'0000'}
+		var dictX	= {v:i, f: formatX};
+		for(j= 0; j < range; j++){
+			var formatY = decBin(j, prec);
+			// initialize dictY
+			var dictY = {};							
+			// {v:0, f:'0000'}
+			var dictY = {v:j, f: formatY};
+			// correct logic
+			if((i/j) % 1 == 0 ){ // does (1/3) which is 0.33.. mod 1  equal to zero 
+				rows[index] = [dictX, dictY, null, null];
+			// check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0 
+			}else if(isNaN(i/j) || !(isFinite(i/j))){
+				rows[index] = [dictX, null, null, dictY];
+			// else Inexpressible
+			}else{
+				rows[index] = [dictX, , dictY, null];
+			}
+			index += 1;
+		}
+	}
+	drawChart(rows, ['Inexpressible', 'Infinity']);
+}
+
 */
