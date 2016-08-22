@@ -95,8 +95,8 @@ This is to certify that the work contained in the thesis entitled "Closure Plots
 \end{center}
 \newpage
 \section{Abstract}
-However, simulations with rounded arithmetic are simply guesses and guidance, not proof of anything.\\
-The floating point has computation lacks mathematical rigor, and the simulations with rounded arithmetic are simply guesses and guidance, not proof of anything, and since a rounded number is by definition the substitution of an incorrect number for the correct one. Therefore The purpose of " Closure Plots for Basic Arithmetics"  is to create visualization tool for illustrate basic arithmetics simulation to floating point during, and then highlight the bits lacks to those elementary operations.\\
+%However, simulations with rounded arithmetic are simply guesses and guidance, not proof of anything.\\
+%The floating point has computation lacks mathematical rigor, and the simulations with rounded arithmetic are simply guesses and guidance, not proof of anything, and since a rounded number is by definition the substitution of an incorrect number for the correct one. Therefore The purpose of " Closure Plots for Basic Arithmetics"  is to create visualization tool for illustrate basic arithmetics simulation to floating point during, and then highlight the bits lacks to those elementary operations.\\
 \section*{Resume}
 
 \newpage
@@ -110,32 +110,41 @@ This paper covers the development process of Closure Plots for Basic Arithmetics
 
 The purpose of this project is to create a visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).\\
 
-Floating-point arithmetic is considered an esoteric subject by many people. This is rather surprising because floating-point is ubiquitous in computer systems. Almost every language has a floating-point datatype, computers from PCs to supercomputers have floating-point accelerators, most compilers will be called upon to compile floating-point algorithms from time to time, and virtually every operating system must respond to floating-point exceptions such as Overflow, Undeflow, Infinity, and Inexpressible.\\
+Floating-point arithmetic is considered an esoteric subject by many people. This is rather surprising because floating-point is ubiquitous in computer systems. Almost every language has a floating-point datatype, computers from PCs to supercomputers have floating-point accelerators, most compilers will be called upon to compile floating-point algorithms from time to time, and virtually every operating system must respond to floating-point exceptions such as Overflow, Undeflow, Infinity and Inexpressible.\\
 
-In ny goal-oriented activity requiring, benefiting from, or creating a mathematical sequence of steps known as an algorithm(e.g. designing, developing and building hardware and software systems, processing, structuring, and managing various kinds of information, doing scientific research on and with computers, making computer systems behave intelligently, and creating and using communications and entertainment media), floating point is the formulaic representation that approximates a \textbf{real number} so as to support a trade-off between range and precision. A number is, in general, represented approximately to a fixed number of significant digits (the significand) and scaled using an exponent in some fixed base, the base for the scaling is normally two, ten, or sixteen. A number that can be represented exactly is of the following form:\\
+In computing\footnote{Computing is any goal-oriented activity requiring, benefiting from, or creating a mathematical sequence of steps known as an algorithm — e.g. through computers. Computing includes designing, developing and building hardware and software systems, processing, structuring, and managing various kinds of information, doing scientific research on and with computers, making computer systems behave intelligently, and creating and using communications and entertainment media.}, floating point is the formulaic representation that approximates a \textbf{real number}, that include all the rational numbers, such as the integer -5 and the fraction 4/3, and all the irrational numbers, such as $\sqrt{2}$ (1.41421356…, the square root of 2, an irrational algebraic number). Included within the irrationals are the transcendental numbers, such as $\pi$ (3.14159265…), so as to support a trade-off between range and precision. A number is, in general, represented approximately to a fixed number of significant digits (the significand) and scaled using an exponent in some fixed base.\\
 
+The most popular code for representing real numbers is called the IEEE Floating-Point Standard, that have three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and need not be stored.\\
+%\textit{The sign} bit is as simple as it gets. 0 denotes a positive number, and 1 denotes a negative number. Flipping the value of this bit flips the sign of the number.\\
+%\textit{The exponent} field needs to represent both positive and negative exponents. To do this, a bias is added to the actual exponent in order to get the stored exponent. For single-precision floats, this value is 127. Thus, an exponent of zero means that 127 is stored in the exponent field. A stored value of 200 indicates an exponent of (200-127), or 73. For reasons discussed later, exponents of -127 (all 0s) and +128 (all 1s) are reserved for special numbers. For double precision, the exponent field is 11 bits, and has a bias of 1023.
 
+%the base for the scaling is normally two, ten, or sixteen. A number that can be represented exactly is of the following form:\\
+This project is based on the principle of float in the floating point, which is derived from the fact that there is no fixed number of digits before and after the decimal point; that is, the decimal point can float, therefore the implementing of this project focuses on create a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and also create the infrastructure that will allow for future development to representing different code for floating point eg. IEEE Floating-Point Standard or something else on this approach.\\\\
+%There are also representations in which the number of digits before and after the decimal point is set, called fixed-pointrepresentations.\\
+This report is divided into four parts ( Analysis, Design ,Implementation and Testing ).\\
+For the analysis part, I will discuss the requirements that are needed to implement the project and compare to some of the technology, which can achieve the goals of this project, and to show the strengths and weaknesses of this technology.\\\\
+For the design part, I will introduce tools and techniques that have been chosen to implement the project and to clarify whether it is possible to achieve all the objectives of this project through the chosen technologies.\\\\
+For the implementation part, I will explain the method of execution to achieve the specification of this project based on the design part, and i will explain each function and method separately.\\\\
+For the test part, I will an investigation conducted to provide with information about the quality of the product ( application ) with the intent of finding bugs (errors or other defects), and It would achieve the benefit of the development in the future.\\
 
-\section{Analysis \& Design}
-\subsection{Analysis}
+\newpage
+\section{Analysis}
 
-\subsection{Design}
-
-\section{Inspiration}
-
+\section{Design}
 
 \section{Implementation}
 
-
 \section{Future Development}
 
-\section{Work progress}
+%\section{Work progress}
 
 
-\section{Conclusion}
+%\section{Conclusion}
 
 \section*{Footnotes}
-
+\begin{itemize}
+\item \url{http://steve.hollasch.net/cgindex/coding/ieeefloat.html}
+\end{itemize}
 \addcontentsline{toc}{section}{appendices}
 \appendix
 \begin{appendices}
