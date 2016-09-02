@@ -111,13 +111,25 @@ As computer systems continue to grow rapidly in both complexity and scale, devel
 I am a third year computer science student at the University of Copenhagen, I'm enrolled in the undergraduate (bachelor) part of the education. This report is the final product of a 1-block Project Outside the Course Scope. This paper covers the development process of Closure Plots for Basic Arithmetics on those aspects of floating-point that have a direct impact on designers of computer systems.
 
 \subsection{Purpose}
-This document will help the developers to further developing the application, and also it will help instructors and Computer Science students at Department of Computer Science - University of Copenhagen to understand the application and how to interact with e.g. by adding some variables in the mathematical operations or understand the data presented in the application. %Closure Plots
+The purpose of this document is divided into two purposes:\\
+
+The first purpose is to describe the UI to Closure Plots for Basic Arithmetics application for instructors and Computer Science students at Department of Computer Science - University of Copenhagen, so they can easily interact with the application.\\
+
+The second purpose is explain the requirement specifications for Closure Plots for Basic Arithmetics application and explain the steps of implement this project to help the developers to further developing this application.
+
+
+%The purpose of this document is to describe the requirement specifications for Closure Plots for Basic Arithmetics application for instructors and Computer Science students at Department of Computer Science - University of Copenhagen, and to explain the steps of implement and design this project to help the developers to further developing this application.
+
+%help the developers to further developing the application, and also it will help instructors and Computer Science students at Department of Computer Science - University of Copenhagen to understand the application and how to interact with e.g. by adding some variables in the mathematical operations or understand the data presented in the application. %Closure Plots
 
 \subsection{Intended Audience and Reading Suggestions}
-This document is intended for readers who have studied Computer Science or similar, or are simply interested in the field of IT. Readers are assumed to have basic programming knowledge and some familiarity with web development.
+This document is intended for readers who have studied Computer Science or similar, or are simply interested in the field of IT. Readers are assumed to have basic programming knowledge and some familiarity with web development technologies.
 
 \subsection{Project Scope}
-The software is web-based a visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).
+The software to be produced is a Closure Plots for Basic Arithmetics, which will be referred to as "CPBA" thorough this document.\\
+
+Closure Plots for Basic Arithmetics is web-based a visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).
+
 
 
 
@@ -157,14 +169,16 @@ The software is used mainly to illustrating the behaviour of basic arithmetic op
 This software is based on the principle of float in the floating point, which is derived from the fact that there is no fixed number of digits before and after the decimal point; that is, the decimal point can float, therefore the implementing of this project focuses on create a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and also create the infrastructure that will allow for future development to representing different code for floating point eg. IEEE Floating-Point Standard or something else on this approach.
 
 \section{Analysis}
-%This Section 
-\subsection{What?}
-\subsection{How?}
-\subsection{Why?}
+In this section we will be analysing the problem described above. The analysis will be focused on narrowing in special areas of the problem domain that will be central to designing and implementing a working prototype.
+\subsection{Number of bits}% to represent a number
+\subsection{Pixel}% to represent a number
 
 \section{Design}
 To make this application easily accessible for the students, I decided that it should be web-based: meaning that it should be accessed via internet by using a standard web browser. This way there would be no need to distribute the program and all of the required packages for it to run, which we would need if we had to make a program that was not web-based. By making the application web-based, I ensure the accessibility of it for most, if not all, users. The solution will not target mobile/tablet users specifically, but they should be able to use the website nonetheless.
 %Since i decided on a web-based application i needed a server, and this presented some challenges of it's own.
+\subsection{What?}
+\subsection{How?}
+\subsection{Why?}
 \section{Implementation}
 
 \section{Testing}
