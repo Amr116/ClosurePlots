@@ -95,8 +95,9 @@ This is to certify that the work contained in the thesis entitled "Closure Plots
 \end{center}
 \newpage
 \section{Abstract}
-As computer systems continue to grow rapidly in both complexity and scale, developers need tools to help them understand the behavior and performance of these systems.  While information visualization is a promising technique, most existing computer systems visualizations have focused on very specific problems and data sources, limiting their applicability.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%As computer systems continue to grow rapidly in both complexity and scale, developers need tools to help them understand the behavior and performance of these systems.  While information visualization is a promising technique, most existing computer systems visualizations have focused on very specific problems and data sources, limiting their applicability.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %However, simulations with rounded arithmetic are simply guesses and guidance, not proof of anything.\\
 %The floating point has computation lacks mathematical rigor, and the simulations with rounded arithmetic are simply guesses and guidance, not proof of anything, and since a rounded number is by definition the substitution of an incorrect number for the correct one. Therefore The purpose of " Closure Plots for Basic Arithmetics"  is to create visualization tool for illustrate basic arithmetics simulation to floating point during, and then highlight the bits lacks to those elementary operations.\\
 \section*{Resume}
@@ -128,8 +129,9 @@ This document is intended for readers who have studied Computer Science or simil
 \subsection{Project Scope}
 The software to be produced is a Closure Plots for Basic Arithmetics, which will be referred to as "CPBA" thorough this document.\\
 
-Closure Plots for Basic Arithmetics is web-based a visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).
+CPBA will allow students to learn about the behaviour of basic arithmetic operations in floating point arithmetic with different precision through interaction with UI. The CPBA will also allow the instructors and creative students to modify the variables in arithmetic operations to monitor behaviour of floating point.\\
 
+The objective of CPBA application is to be visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).\\
 
 
 
@@ -170,9 +172,46 @@ This software is based on the principle of float in the floating point, which is
 
 \section{Analysis}
 In this section we will be analysing the problem described above. The analysis will be focused on narrowing in special areas of the problem domain that will be central to designing and implementing a working prototype.
-\subsection{Number of bits}% to represent a number
-\subsection{Pixel}% to represent a number
+\subsection{Different precision}% to represent a number
+%One obvious weakness when designing the application that is different precision to floating point. As human, we can represent those different precisions by their arithmetic definition.
+Different precision in floating point is one of the obvious shortcomings when designing the application, if we could not represent those precision with their actual digit length.\\
+We can see the mathematical notation to those precisions as:
+%Manual representation by human can represent those precisions as:
+\begin{itemize}
+\item{Half-precision is $2^{16}$}
+\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to 65535.}\end{itemize}
+\item{Single-precision is $2^{32}$}
+\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to 4294967295.}\end{itemize}
+\item{Double-precision is $2^{64}$}
+\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to 18446744073709551615.}\end{itemize}
+\item{Quadruple-precision is $2^{128}$}
+\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to \\340282366920938463374607431768211455.}\end{itemize}
+\end{itemize}
 
+But, does programming languages represent those precisions such as the way in which it represented in mathematical notation?\\
+Some programming languages have maximum length of digit with different precisions, and if those digits has overflow the maximum length, then it representing in scientific notation or in rounding format\footnote{Rounding means making a number simpler but keeping its value close to what it was. }. This scientific notation will require redefining the length of those digit to be able to participation in arithmetic operations, otherwise we will get wrong results.\\\\
+The below table\ref{max}  showing represent digit length for different precisions to different languages. From this table we can see the similarities and differences in the representation of length for different precisions. This difference will be among the main reasons for choosing the design and implementation of this project.\\
+\begin{table}[h]
+\centering
+\small
+\label{max}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multirow{2}{*}{\diagbox[width=5em]{DP}{PL}}
+          & \multirow{2}{*}{JavaScript} & \multirow{2}{*}{Python}                 &\multirow{2}{*} {GO} \\ 
+          &                             &                                         &   \\ \hline
+Half      & 65536                       & 65536                                   &  65536\\ \hline
+Single    & 4294967296                  & 4294967296                              &  4.294967296e+09 \\ \hline
+Double    & 18446744073709552000        & 18446744073709551616                    &  1.8446744073709552e+19 \\ \hline
+Quadruple & 3.402823669209385e+38       & 340282366920938463463374607431768211456 &  3.402823669209385e+38  \\ \hline
+\end{tabular}
+\caption{Representation of maximum digit length with different precisions at some programming language}
+\end{table}\\
+%Some of programming langauges have maximum length to represent digits with different precisions, until it gets to represent those numbers in scientific notation, and I will not be happy for that, because it will required some extra work to represent big numbers, and to do some arithmetic operation with scientific notation numbers.\\
+%fx. If we will take JavaScript as primary programming language to CPBA project, then we can see what is the maximum length to represent Double and Quadruple precisions, which are scientific notation numbers.
+
+\subsection{Viewport Size vs bit Pixel}% to represent a number
+The browser viewport is the size of the rectangle that a web page fills on your screen. It’s basically the size of the browser window, less the toolbars and scrollbars. It’s the bit of the screen we are actually using to show the webpage.\\
 \section{Design}
 To make this application easily accessible for the students, I decided that it should be web-based: meaning that it should be accessed via internet by using a standard web browser. This way there would be no need to distribute the program and all of the required packages for it to run, which we would need if we had to make a program that was not web-based. By making the application web-based, I ensure the accessibility of it for most, if not all, users. The solution will not target mobile/tablet users specifically, but they should be able to use the website nonetheless.
 %Since i decided on a web-based application i needed a server, and this presented some challenges of it's own.
@@ -180,7 +219,11 @@ To make this application easily accessible for the students, I decided that it s
 \subsection{How?}
 \subsection{Why?}
 \section{Implementation}
-
+In this section, I will explain the steps involved to implement CPBA application. The Implementation steps is split up into two different parts:
+\begin{itemize}
+\item UI
+\item Back-end
+\end{itemize}
 \section{Testing}
 %\section{Future Development}
 
