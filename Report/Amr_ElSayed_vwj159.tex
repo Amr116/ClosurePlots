@@ -212,12 +212,87 @@ Quadruple & 3.402823669209385e+38       & 34028236692093846346337460743176821145
 
 \subsection{Viewport Size vs bit Pixel}% to represent a number
 The browser viewport is the size of the rectangle that a web page fills on your screen. It’s basically the size of the browser window, less the toolbars and scrollbars. It’s the bit of the screen we are actually using to show the webpage.\\
+%But, how is possible the visualization tool for illustrating the behaviour of basic arithmetic operations can show all those elements in the screen.
+Is it possible the CPBA application to illustrating the behaviour of basic arithmetic operations in the viewport size !?\\
+%We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least need two variables, that is mean if variable X and Y have Single precision, then we will need to represent the result of arithmetic operations  to X and Y, which will give us $65536^{2} = 4294967296$ element, that need to be apparent to user in the Viewport.
+We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least two variables, that is mean if variables X and Y have Single precision, so we will need to represent the result of this arithmetic operations, which will give us $65536^{2} = 4294967296$ elements.\\\\
+This huge number of elements can not be shown in the Viewport while maintaining achieve a clear vision for each element separately. So we need some way to allow us to achieve a clear vision for each element and also allows the user to take advantage of this visualization tool for illustrating the behaviour of basic arithmetic operations.\\
 \section{Design}
-To make this application easily accessible for the students, I decided that it should be web-based: meaning that it should be accessed via internet by using a standard web browser. This way there would be no need to distribute the program and all of the required packages for it to run, which we would need if we had to make a program that was not web-based. By making the application web-based, I ensure the accessibility of it for most, if not all, users. The solution will not target mobile/tablet users specifically, but they should be able to use the website nonetheless.
+To make this application easily accessible for the students, I decided that it should be web-based: meaning that it should be accessed via internet by using a standard web browser or students can get to the project files from  a physical source (e.g. flash memory). This way there would be no need to distribute the program and all of the required packages for it to run, which we would need if i had to make a program that was not web-based. By making the application web-based, I ensure the accessibility of it for most, if not all, users.
+The solution will not target mobile/tablet users specifically.\\
+
+Since this project should be web-based application, so i need to use HTML and CSS, because they are two of the core technologies for building Web pages, but to build the functionality of this project i can choose between many programming languages, but only JavaScript is the only ones that fit the CPBA requirement, because users can get access to CPBA via internet or offline if they get the project like physical source.\\\\
+%To make this application easily accessible for the students, I decided that it should be web-based: meaning that it should be accessed via internet by using a standard web browser. This way there would be no need to distribute the program and all of the required packages for it to run, which we would need if we had to make a program that was not web-based. By making the application web-based, I ensure the accessibility of it for most, if not all, users. The solution will not target mobile/tablet users specifically, but they should be able to use the website nonetheless.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Since i decided on a web-based application i needed a server, and this presented some challenges of it's own.
-\subsection{What?}
-\subsection{How?}
-\subsection{Why?}
+The above section (Analysis) I’ve discussed some of the problems that will confront us in the design and implementation of this project, therefore in the below subsection, i will re-presentation of these problems and explain my ideas for the design and implementation of the solution to these problems.\\
+\subsection{Arithmetic operations \& Different precision}
+The user need a simple way to illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) with different precision (Half, Single, Double, Quadruple), therefore the project should give the possibility for user to select and choice between different arithmetic operations and different precision. For this reason, i decided the front-end design of CPBA should include  two  <select> tags, which create a drop-down list, and thereby I collect user input from the selected option.
+\subsection{Mathematical notation}
+where have been chosen javascript as primary programming language to the functionality of this project, because it will provide access possibility of user via online or offline, but does Javascript represent precisions such as the way in which it represent in mathematical notation. Unfortunately, The answer is No, because the maximum integer can be represent of JavaScript is $2^{31} -1$, or $2147483647$, otherwise the integer will be represent in scientific notation. That's why I decided to make CPBA is limited to precisions Half and Single only.
+\subsection{Elements}
+To represent precisions Half and Single, that will give huge number of elements, which need to be shown in viewport, but to represent all those elements at once will not give the possibility to users to see and illustrating the behaviour of basic arithmetic operations, therefore in CPBA I need to summarize the those elements to miniature form.\\
+This form differs from precision to other precision in the number of stages. In other words for example in addition operation for precision Half, we have $2^{16}$ element for variable X and $2^{16}$ for variable Y, so the sum of those two variables is $2^{32}$ elements.\\
+I decide to show 256 elements of this result at each stage, where each element represents 4 edges from the real results as shows in figure \ref{edges}.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{edges}
+    \caption{summarize form shows how each element represents in CPBA}
+    \label{edges}
+\end{figure}\\
+The precision Half will have four stages. At the first stage width and height will be equal to 4095, at the second stage will be equal to 255, at the third stage will be equal to 15,  and at the fourth (last stage) will be be equal to 0.\\\\
+The below examples is Illustrative examples to prove of concept in addition operation of half precision at first stage form:\\\\
+X = 4096, Y=53248\\
+\scalebox{0.9}{
+\begin{tabular}{lllll}
+Leftmost bottom: &  4096  + 53248  &= 57344                  & ,57344  is less then $2^{16}$    & Correct\\
+Rightmost bottom:& (4096 + 4095)  + 53248 &= 61439           & ,61439  is less then $2^{16}$    & Correct\\
+Leftmost upper:  & 4096   + (53248 + 4095) &= 61439          & ,61439  is less then $2^{16}$    & Correct \\
+Rightmost upper: & (4096  + 4095)  + (53248 + 4095) &= 65534 & ,65534  is less then $2^{16}$    & Correct\\
+\end{tabular}
+}\\\\
+There are 4 correct and 0 Overflow, therefor i will show single Correct element represent this above range.\\\\
+X = 4096, Y=57344\\
+\scalebox{0.9}{
+\begin{tabular}{lllll}
+Leftmost bottom: &  4096  + 57344  & = 61440                  & ,61440  is less then $2^{16}$    & Correct\\
+Rightmost bottom:& (4096 + 4095)  + 57344 & = 65535           & ,65535  is less then $2^{16}$    & Correct\\
+Leftmost upper:  & 4096   + (57344 + 4095) & = 65535          & ,65535  is less then $2^{16}$    & Correct \\
+Rightmost upper: & (4096  + 4095)  + (57344 + 4095) & = 69630 & ,69630  is more then $2^{16}$    & Overflow\\
+\end{tabular}
+}\\\\
+There are 3 correct and 1 Overflow, therefor i will show single Mix element represent this above range.\\\\
+%65536 65536
+X = 4096, Y=61440\\
+\scalebox{0.9}{
+\begin{tabular}{lllll}
+Leftmost bottom: &  4096  + 61440  & = 65536                  & ,65536  is more then $2^{16}$    & Overflow\\
+Rightmost bottom:& (4096 + 4095)  + 61440 & = 69631           & ,69631  is more then $2^{16}$    & Overflow\\
+Leftmost upper:  & 4096   + (61440 + 4095) & = 69631          & ,69631  is more then $2^{16}$    & Overflow \\
+Rightmost upper: & (4096  + 4095)  + (61440 + 4095) & = 73726 & ,73726  is more then $2^{16}$    & Overflow\\
+\end{tabular}
+}\\\\
+There are 0 correct and 4 Overflow, therefor i will show single Overflow element represent this above range.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Leftmost bottom:  1+1 = 2, 2 is less then $2^{16}$ result of correct\\
+%Rightmost bottom: (1+4095)+1 = 4097, 4097 is less then $2^{16}$ result of correct\\
+%Leftmost upper\enskip\enskip\enskip:   1+(1+4095) = 4097, 4097 is less then $2^{16}$ result of correct\\
+%Rightmost upper\enskip\enskip:  (1+4095)+(1+4095) = 8194, 8194 is less then $2^{16}$ result of correct\\
+
+\subsection{Forward, Back \& Reset}
+Wrtie something about back and reset buttons 
+\newpage
+%\subsection{What?}
+%What we need basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division)
+%in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple)
+
+%programming languages represent those precisions such as the way in which it represented in mathematical notation?\\
+
+%What is required?\\
+%How we can achieve the desired?\\
+%Why this technique?
+
 \section{Implementation}
 In this section, I will explain the steps involved to implement CPBA application. The Implementation steps is split up into two different parts:
 \begin{itemize}
