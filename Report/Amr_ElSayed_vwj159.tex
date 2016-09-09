@@ -45,6 +45,21 @@ showstringspaces=false,
   \textsc{\Large{Closure Plots for Basic Arithmetics}}\\
   %\vspace{11.5cm}
 }
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
 \begin{document}
 
 %% Change `ku-farve` to `nat-farve` to use SCIENCE's old colors or
@@ -240,7 +255,8 @@ I decide to show 256 elements of this result at each stage, where each element r
     \caption{summarize form shows how each element represents in CPBA}
     \label{edges}
 \end{figure}\\
-The precision Half will have four stages. At the first stage width and height will be equal to 4095, at the second stage will be equal to 255, at the third stage will be equal to 15,  and at the fourth (last stage) will be be equal to 0.\\\\
+The Half-precision will have four stages. At the first stage width and height will be equal to 4095, at the second stage will be equal to 255, at the third stage will be equal to 15,  and at the fourth (last stage) will be be equal to 0.\\\\
+The Single-precision will have eight stages. At the first stage width and height will be equal to 268435455, at the second stage will be equal to 16777215, at the third stage will be equal to 1048575, at the fourth stage will be be equal to 65535, at the fifth stage will be be equal to 4095, at the sixth stage will be be equal to 255, at the seventh stage will be be equal to 15, and at the eighth stage (the last) will be be equal to 0\\\\
 The below examples is Illustrative examples to prove of concept in addition operation of half precision at first stage form:\\\\
 X = 4096, Y=53248\\
 \scalebox{0.9}{
@@ -281,8 +297,10 @@ There are 0 correct and 4 Overflow, therefor i will show single Overflow element
 %Rightmost upper\enskip\enskip:  (1+4095)+(1+4095) = 8194, 8194 is less then $2^{16}$ result of correct\\
 
 \subsection{Forward, Back \& Reset}
-Wrtie something about back and reset buttons 
-\newpage
+While there will be many stages whether for Half precision and Single precision, therefore the users need for possibility to have mobile option, that can let the users move forward to next stage, back to previous stage or jump backward to first stage (Reset).\\\\
+To move forward to next stage will be done when the user will click on the element, thereafter the element that it was clicked will be the first element of the next stage, and so on until width and height equal to zero, and hereby user has reached to the final stage.\\\\
+To move back to previous stage will be done by click on back button, that button will provide the possibility to go back to previous stage until width and height equal to value 4095 in Half-precision or value 268435455 in Single-precision.\\\\
+To reset or to jump back to first stage will be done by click on reset button, that button will assign width and height to 4095 in Half-precision or 268435455 in Single-precision.
 %\subsection{What?}
 %What we need basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division)
 %in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple)
@@ -294,11 +312,68 @@ Wrtie something about back and reset buttons
 %Why this technique?
 
 \section{Implementation}
-In this section, I will explain the steps involved to implement CPBA application. The Implementation steps is split up into two different parts:
-\begin{itemize}
-\item UI
-\item Back-end
-\end{itemize}
+In this section, I will explain the steps involved to implement CPBA application. The Implementation steps is split up into two parts (User Interface and Back-end)
+\subsection{UI}
+For the implementation of the user interface I have chosen to use Bootstrap\footnote{Bootstrap, a front-end framework for web development http://getbootstrap.com/} . Bootstrap is a front-end framework for web development, and helps me flesh out the user interface, ensuring that it looks the same no matter what browser the user is using to access CPBA application.\\\\
+In the UI, I have implemented two select option tag, one to define the available options for precisions, and the second one is to define the available options for arithmetic operations.\\
+The selection option for different precision has onchange attribute, that is assign to getPrecision() JavaScript function, that function is responsible to create array of the different dimensional. Those dimensional will be the width and height values. The HTML code for selec option is shown in the code snippet \ref{lst:Select option} below.\\
+\begin{lstlisting}[label={lst:Select option}, language=HTML, caption={Select option to precisions and arithmetic operations},]
+      <div class="col-md-4">
+        <font>Floating point precision</font>
+        <select id="precision" onchange="getPrecision();">      
+          <option value="16">Half    </option>
+          <option value="32">Single  </option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <font>Arithmetics operations</font>
+        <select id="operations" > 
+          <option value="addition">Addition</option>
+          <option value="subtraction">Subtraction</option>
+          <option value="multiplication">Multiplication</option>
+          <option value="division">Division</option>
+        </select>
+      </div>
+\end{lstlisting}
+
+I had definded button at the same div tag for the select option to get the value of the selected option. This button has attribute onclick, which is assign to getRequest(); and showService(); JavaScript functions. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section, but showService() function is responsible to show Back and Reset buttons. i had definded the style of those buttons to display:none; and will showService is called will change this style to block, thereby those buttons will be shown. The HTML code for selec option button is shown in the code snippet \ref{lst:Plot my requests} below, the HTML code for Back and Reset buttons is show in in the code snippet \ref{lst:select option button}, and the JavaScript code for showService() function is show in the code snippet \ref{lst:showService}.
+
+\begin{lstlisting}[label={lst:Plot my requests}, language=HTML, caption={Button to get the value of the select option and to display Back and Reset  buttons},]
+        <button type="button" class="btn btn-primary" onclick="getRequest();showService();" 
+          style="margin-top:1px;">
+          <strong color="">Plot my requests</strong>
+        </button>      
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:select option button}, language=HTML, caption={Button to get the value of the select option and to display Back and Reset  buttons},]
+    <div class="row" id="service" style="display:none;">
+      <div class="col-md-2 col-md-offset-10">
+        <div class="col-md-1" style="margin-right:10px;">
+        <!--getBack()-->
+          <button data-toggle="tooltip" data-placement="top" title="Back" type="button" 
+            class="btn btn-link btn-circle" onclick="getBack();"><!--getBack-->
+            <img style="width: 43px; height: 43px;margin:-11px 2px 0px -6px;" 
+              src="img/playback.ico">
+          </button>
+        </div>
+
+        <div class="col-md-1">
+          <button data-toggle="tooltip" data-placement="top" title="Reset" type="button" 
+            class="btn btn-link btn-circle" onclick="reset();">
+            <img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/reset.ico">
+          </button>
+        </div>
+      </div>
+    </div>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:showService}, language=Javascript, caption={showService function will change style of buttons to block},]
+      function showService() {
+        document.getElementById("service").style.display = "block";
+      }
+\end{lstlisting}
+
 \section{Testing}
 %\section{Future Development}
 

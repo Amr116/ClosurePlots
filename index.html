@@ -28,7 +28,9 @@
 
 	<!---->
 	<script type="text/javascript" src="js/charts.js"> </script>
+	<!--
 	<script type="text/javascript" src="js/interactWithChar.js"> </script>	
+	-->
 
 
 </head>
@@ -49,18 +51,14 @@
 			<div class="col-md-4">
 				<font color="">Floating point precision</font>
 				<select id="precision" onchange="getPrecision();">			
-					<option value="16">Half    </option><!-- half 16 bits -->
-					<option value="32">Single  </option><!-- single 32 bits -->
-					<!--
-					<option value="64">Double  </option><!-- double 64 bits --
-					<option value="128">Quadruple</option><!-- quad 128 bits -->
+					<option value="16">Half    </option>
+					<option value="32">Single  </option>
 				</select>
 			</div>
 
 			<div class="col-md-4">
 				<font color="">Arithmetics operations</font>
-				<select id="operations" ><!--
-					<option value="testTry">testTry</option>-->				
+				<select id="operations" >	
 					<option value="addition">Addition</option>
 					<option value="subtraction">Subtraction</option>
 					<option value="multiplication">Multiplication</option>
@@ -69,7 +67,7 @@
 			</div>
 
 			<div class="col-md-1"></div>			
-			<div class="col-md-2"><!--;showService();resetCounter();-->
+			<div class="col-md-2">
 			  <button type="button" class="btn btn-primary" onclick="getRequest();showService();" style="margin-top:1px;">
 			  	<strong color="">Plot my requests</strong>
 			  </button>
