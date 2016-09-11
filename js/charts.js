@@ -420,7 +420,7 @@ function drawChart(arg1, arg2) {
 		var selectedItemCol = chart.getSelection()[0].column;
 
 		if (selectedItemRow != null){
-			//alert(data.getValue(selectedItemRow, 0));
+
 			xValue = data.getValue(selectedItemRow, 0);
 			yValue = data.getValue(selectedItemRow, selectedItemCol);
 

@@ -553,6 +553,13 @@ function decBin(dec,length){
 \end{lstlisting}
 
 \subsubsection{function drawChart(arg1, arg2) }
+%Google chart tools are powerful, simple to use, and free.
+This function will be used to plotting the received data from (add, sub, mult, and divi functions). The function takes two arguments, the first argument is the desired display data, and the second argument is an array of legends to describe the shown data (e.g. correct, Overflow , Underflow, , Inexpressible, infinity, and mix). While the function will get different length of the second argument, so I need to check the length of the second argument to pass the right legend to the shown data. If the length of arg3 is equal to three, so the received data is from divi() function, and thereby the legend will refer to 4 different data ( Correct, Inexpressible, infinity, and Mix), otherwise the legend will refer to 3 different data (Correct, [Overflow, or Underflow], and Mix). Thereafter adds new rows to the data table, those rows are some number of arrays, that has been passed to the drawChart parameter. At line 28 variable chart is an object of class google.charts.Scatter at "chart\_div1" div, and at line 30 the data has been drawn.\\
+
+In the scope of drawChart function I have defined selectHandler() function, this function will allow user to interact with the shown data by click on the items, and thereby I get the x and y values of the clicked item, those values are assign to the global variables xValue and yValue. At line 51 I have defined variable vaild, and it's assign to the return value of checkIndex() function, this function check if the mobile variable has not run out of range to precArr length as shown in the snapped code \ref{lst:checkIndex}. If the return value of checkIndex is true, than increase the value of variable clickIndex by 1, and call getRequest() function.
+
+
+%Thereafter I call---Holds all the information we keep for a single column in a DataTable. This does not include all the values, which are kept in TableCells. 
 
 \begin{lstlisting}[label={lst:drawChart}, language=Javascript, caption={drawChart function will visualize the passed data to user.},]
 function drawChart(arg1, arg2) {
@@ -577,17 +584,10 @@ function drawChart(arg1, arg2) {
    	data.addRows(arg1);
     var options = {
     	chart: {
-    		title: ' Plotting the simulation of floating point with Basic Arithmetics',
-        	//subtitle: 'Based on precision 4 bits'
+    		title: ' Plotting the simulation of floating point with Basic Arithmetics'
      	},
      	width: 1150,
      	height: 500,
-     	explorer: {
-     		actions: ['dragToZoom', 'rightClickToReset'],
-        	axis: 'horizontal',
-        	keepInBounds: true,
-        	maxZoomIn: 4.0
-    	},
     };
     var chart = new google.charts.Scatter(document.getElementById('chart_div1'));
 
@@ -608,7 +608,7 @@ function drawChart(arg1, arg2) {
 		var selectedItemCol = chart.getSelection()[0].column;
 
 		if (selectedItemRow != null){
-			//alert(data.getValue(selectedItemRow, 0));
+
 			xValue = data.getValue(selectedItemRow, 0);
 			yValue = data.getValue(selectedItemRow, selectedItemCol);
 
@@ -616,12 +616,19 @@ function drawChart(arg1, arg2) {
 
 			if(valid){
 				clickIndex += 1;
-				//clickedX.push(xValue);
-				//clickedY.push(yValue);
 				getRequest();//xValue, yValue);
 			}
 		}
 	};
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:checkIndex}, language=Javascript, caption={check if the mobile variable has not run out of range to precArr length.},]
+/* checkIndex function is to check if the mobile variable 
+ * has not run out of range to precArr length. 
+ */
+function checkIndex(){
+	if(mobile < precArr.length){return true;}else{return false;}
 }
 \end{lstlisting}
 \subsubsection{function sub()}
@@ -829,6 +836,47 @@ function divi(){//xValue, yValue){
 	drawChart(rows, ['Inexpressible', 'infinity','Mix']);
 }
 \end{lstlisting}
+
+\subsubsection{function reset()}
+
+\begin{lstlisting}[label={lst:checkIndex}, language=Javascript, caption={reset function is to reset all the interactive action from user with chart, and get back to the first stage},]
+/* reset function is to reset all the interactive action from user with chart.
+ * set the mobile variable to zero index ( the start of precArr )
+ */
+function reset(){
+	mobile = 0;
+	xValue = null;
+	yValue = null;
+	clickIndex = 0;
+	getRequest();
+}
+\end{lstlisting}
+
+\subsubsection{function reset()}
+
+\begin{lstlisting}[label={lst:checkIndex}, language=Javascript, caption={getBack function provide to the user the previous stage of chart},]
+/* getBack function provide to the user the previous event of chart. 
+ * The function provide event points to the appropriate function (current )
+ */
+function getBack(){
+	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
+
+	if(clickIndex == 0 || clickIndex == 1){
+		xValue= null;
+		yValue=null;
+		clickIndex = 0;
+	}else{
+		clickIndex -= 1;
+		xValue=clickedX[clickIndex-1]; 
+		yValue=clickedY[clickIndex-1];
+		
+	}
+	getRequest();
+}
+\end{lstlisting}
+
+
+
 \section{Testing}
 %\section{Future Development}
 
