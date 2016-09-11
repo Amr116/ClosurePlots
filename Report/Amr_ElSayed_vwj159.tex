@@ -24,6 +24,7 @@ tabsize=2,
 numbers=left,
 showstringspaces=false,
 }
+
 \usepackage{fancyhdr} %header, footer
 \usepackage{hyperref}
 \usepackage{multirow}
@@ -316,8 +317,13 @@ In this section, I will explain the steps involved to implement CPBA application
 \subsection{UI}
 For the implementation of the user interface I have chosen to use Bootstrap\footnote{Bootstrap, a front-end framework for web development http://getbootstrap.com/} . Bootstrap is a front-end framework for web development, and helps me flesh out the user interface, ensuring that it looks the same no matter what browser the user is using to access CPBA application.\\\\
 In the UI, I have implemented two select option tag, one to define the available options for precisions, and the second one is to define the available options for arithmetic operations.\\
-The selection option for different precision has onchange attribute, that is assign to getPrecision() JavaScript function, that function is responsible to create array of the different dimensional. Those dimensional will be the width and height values. The HTML code for selec option is shown in the code snippet \ref{lst:Select option} below.\\
-\begin{lstlisting}[label={lst:Select option}, language=HTML, caption={Select option to precisions and arithmetic operations},]
+The selection option for different precision has onchange attribute, that is assign to getPrecision() JavaScript function, that function is responsible to create array of the different width and height values. The HTML code for selec option is shown in the code snippet \ref{lst:Select option} below.\\
+
+I had definded "Plot my requests" button tag at the same div tag for the select option to get the value of the selected option. This button has attribute onclick, which is assign to JavaScript functions getRequest(); and showService();. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section, but showService() function is responsible to show Back and Reset buttons, because those buttons are invisible until user has click on Plot my requests button. I had definded the style display of those buttons to none, so showService function will change style display to block instead of none, thereby those buttons will be shown in UI.\\
+The HTML code for "Plot my requests" button is shown in the code snippet \ref{lst:Plot my requests} below, the HTML code for Back and Reset buttons is show in in the code snippet \ref{lst:select option button}, and the JavaScript code for showService() function is show in the code snippet \ref{lst:showService}.\\
+
+\begin{lstlisting}[label={lst:Select option}, language=HTML, caption={Select option for precisions and arithmetic operations},]
+	<div class="row">
       <div class="col-md-4">
         <font>Floating point precision</font>
         <select id="precision" onchange="getPrecision();">      
@@ -337,16 +343,16 @@ The selection option for different precision has onchange attribute, that is ass
       </div>
 \end{lstlisting}
 
-I had definded button at the same div tag for the select option to get the value of the selected option. This button has attribute onclick, which is assign to getRequest(); and showService(); JavaScript functions. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section, but showService() function is responsible to show Back and Reset buttons. i had definded the style of those buttons to display:none; and will showService is called will change this style to block, thereby those buttons will be shown. The HTML code for selec option button is shown in the code snippet \ref{lst:Plot my requests} below, the HTML code for Back and Reset buttons is show in in the code snippet \ref{lst:select option button}, and the JavaScript code for showService() function is show in the code snippet \ref{lst:showService}.
 
-\begin{lstlisting}[label={lst:Plot my requests}, language=HTML, caption={Button to get the value of the select option and to display Back and Reset  buttons},]
+\begin{lstlisting}[label={lst:Plot my requests}, language=HTML, caption={Plot my requests button to get the value of the select option},]
         <button type="button" class="btn btn-primary" onclick="getRequest();showService();" 
           style="margin-top:1px;">
           <strong color="">Plot my requests</strong>
-        </button>      
+        </button>
+	</div>      
 \end{lstlisting}
 
-\begin{lstlisting}[label={lst:select option button}, language=HTML, caption={Button to get the value of the select option and to display Back and Reset  buttons},]
+\begin{lstlisting}[label={lst:select option button}, language=html, caption={Back and Reset buttons},]
     <div class="row" id="service" style="display:none;">
       <div class="col-md-2 col-md-offset-10">
         <div class="col-md-1" style="margin-right:10px;">
@@ -373,7 +379,456 @@ I had definded button at the same div tag for the select option to get the value
         document.getElementById("service").style.display = "block";
       }
 \end{lstlisting}
+Here is the last version to UI, that I had created for CPBA application. look at figure\ref{UI}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{layout}
+    \caption{CPBA application UI}
+    \label{UI}
+\end{figure}\\
+\subsection{Back-end}
+For the implementation of the back-end I have mentioned at design section that i will use javascript to implement the back-end functionality. The back-end are consisting of many functions, I will review these functions based on their order of the implementation to CPBA application.
+\subsubsection{getPrecision() function.}
+This function is called when the body of webpage has been loaded, and thereafter if the user has change the selec option to precision. getPrecision will get the value of precision select option, which is 16 for Half precision  or 32 for single precision. The function start with initialize the global precArr variable to empty array, and initialize the global mobile variable to 0. Thereafter assign variable temp the return value of base 2 to the exponent power of precision value ( 16 or 32).
+Now the function is ready to create the width and height value to the selected precision, and that is done by while loop as long as a specified condition ((temp/16) >= 1) is true. Inside the scope of while loop I divide the value of temp variable by 16 and, and then push the return value of temp -1 to precArr array. The while loop will create array of width and height values.\\
 
+The return value for precArr variable when precision is half will be \textbf{[4095, 255, 15, 0]}, and the return value for precArr when precision is Single will be \textbf{[268435455, 16777215, 1048575, 65535, 4095, 255, 15, 0]}.\\
+The JavaScript code for getPrecision() function is show in the code snippet\ref{lst:getPrecision}.\\
+\begin{lstlisting}[label={lst:getPrecision}, language=Javascript, caption={getPrecision function},]
+/* getPrecision Function is to create array of the different dimensional to chart.
+ * The function has to reset mobile variable to zero, which will point to the start of precArr.
+ * The function will be execute onload of the body tag and when a user changes the selected option of a <select> element.
+ */
+var mobile = 0;
+var precArr = [];
+
+function getPrecision(){
+	precArr = [];
+	mobile  = 0;
+	var temp= Math.pow(2, document.getElementById("precision").value);
+
+	while((temp / 16) >= 1){
+		temp /= 16;
+		precArr.push(temp-1); 
+	}
+}
+\end{lstlisting}
+
+\subsubsection{getRequest() function.} 
+This function is called when the user has clicked on "Plot my requests" button. The function start with define variable op and assign this variable to the value of select option "operations", which are (addition, subtraction, multiplication, or division). Thereafter define switch statement and evaluate variable "op " value to matching the value to a case clause, and executes function associated with that case.\\
+The JavaScript code for getPrecision() function is show in the code snippet\ref{lst:getRequest}.\\
+\begin{lstlisting}[label={lst:getRequest}, language=Javascript, caption={getPrecision function},]
+/*	getRequest function is to create object of the selected options
+ *	and call the appropriate function depending on user request.
+ */
+function getRequest(){
+	var op = document.getElementById("operations").value;
+	switch(op){
+		case "addition":
+			add();
+			break;
+		case "subtraction":
+			sub();
+			break;
+		case "multiplication":
+			mult();
+			break;
+		case "division":
+			divi();
+			break;
+		default:
+			alert('Something went wrong!\n'
+				+ 'Please contact the publisher and let the author know about the bug.\n'
+				+ 'amr11682@hotmail.com');
+			break;
+	}
+}
+\end{lstlisting}
+
+\subsubsection{function add()}
+The add() function is to calculate the sum of two variables or more in arithmetic operation , and to show the behaviour of this arithmetic operation ( Correct, overflow ).  It will be executed when it been called from function getRequest().\\
+The body of add() function starts with defining variable prec, this variable will be assign to value of precision selected option, thereafter defining variable  range, this variable will be assign to the return value of base 2 to the exponent power of prec value.
+The height and width variables are assign to value of precArr[mobile], where precArr and mobile have been created from getPrecision() function.
+Thereafter Initialize variable index to 0 and initialize varaible row to empty array. The variable index will be use to insert pecified item to array row. The variables f1 and f2 are defined to assign the values of X and Y to them after convert their values to binary format.\\
+
+The next variable is getPixel, this variable declare function expression in the current scope of add() function. getPixel will summarize 4 edges of 256 element at each stage based on height and width value. In the current scope of getPixel function I defining variable check, this variable declare function expression, this function checking the sum of items at each edge for the 4 edges to 256 elements, if the result of the edge is less than the value of range variable, so increase correct variable by 1,  otherwise increase the variable overflow by 1.\\
+
+The next step is to represent the result of summarized data, and that is done by checking if the value of correct variable is more then 0 and the value of overflow variable is equal to 0, so the summarized data will be shown to user as it is correct data, or if the value of overflow variable is more then 0 and the value of correct variable is equal to 0, so the summarized data will be shown to user as it is overflow data, other than that the summarized data will be shown to user as it is mix data (correct and overflow).\\
+
+At lines 40-42 of the snipped code, I had defined variables xV and yV, those variables will be assigned to the value of variables xValue and yValue. The variables xValue and yValue have been defined as global and have been initialized to null value as shown in the snapped code \ref{lst:xyvalue-global}, therefor at the first stage xV and yV will be assign to 0,  but if the user has clicked on an item of the represented data, so the values of this item will be assign to xValue and yValue variables and thereby xV and yV will be assign to xValue and yValue.\\
+
+The getFormat variable is declare function expression in the current scope of add() function. I had definf getFormat function with one parameter, this parameter will be passing with prec variable to decBin function \ref{lst:decBin}, and the return value of decBin is assign to variables f1 and f2, where those variables will represent the binary value of x and y items of the shown data.\\
+
+At lines 47-57 I had defind two for loop. The first loop will represent the x-axis items, and the second loop will represent the y-axis items.
+The first loop has 16 iteration, and in the beginning of the loop I started with assign variable x to the value of variable xV, and at each iteration the x value is updating to its value plus width value. Thereafter I call getFormat function with x value to get the binary value of x, so i can show it to user. The next variable is dicX, this variable is an object with two properties key and value, and it is defined like that to fit Google Chart API for represent the items. The value for v key is x value, and the value of f key is the binary value of f1 to f2.\\
+The second loop is defined in the body of the first loop, it has also 16 iteration. I started the same way as the previous loop, but this time with assign variable y to the value of variable yV, and at each iteration the y value is updating to its value plus height value. Thereafter I call getFormat function with y value to get the binary value of y, so i can show it to user. I had defined variable dicY as an object with two properties key and value. The value for v key is y value, and the value of f key is the binary value of f1 to f2. Now I can call getPixel to summarize the 4 edges, and that is done by passing variables x, y , height, width, dicX, and dicY in getPixel function.\\
+This two loop produce 256 elements, those elements have been inserted at row array at getPixel function, therefore at line 58 I called drawChart() function for represent the data to user. At the next subsection I will review and explain drawChart() \ref{lst:drawChart} function and how it works.\\
+%After a function expression has been stored in a variable, the variable can be used as a function:
+\begin{lstlisting}[label={lst:add}, language=Javascript, caption={add function},]
+// function to create the simulation of Arithmetics operation ( addition )
+function add(){
+	var prec  = parseInt(document.getElementById("precision").value);
+
+	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
+	var index = 0;
+	var rows  = [];
+
+	var f1; // X-axis data format 
+	var f2; // Y-axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
+		var correct = 0;
+		var overflow = 0;
+		
+		var check = function(x,y) {
+			if (x + y < range) { correct += 1; } else { overflow += 1; }	
+		}
+		check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+		check(x + width, y + height);
+		if (correct > 0 && overflow == 0) {
+	    	// Correct data
+			rows[index] = [dictX, dictY, null, null];
+
+		} else if(overflow > 0 && correct == 0) {
+			// Overflow data
+			rows[index] = [dictX, null, dictY, null];
+
+		} else {
+			// Mix data
+			rows[index] = [dictX, null, null, dictY];
+		}
+	}
+	var xV;
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+	
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+	//var x = 0
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		//var y = 0
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
+			index += 1;
+		}
+	}
+	drawChart(rows, ['Overflow', 'Mix']);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:xyvalue-global}, language=Javascript, caption={Global variables},]
+// Declare global variable, which will get their value from drawChart function, 
+// only if the user has interacted with chart ( click on (x,y) ). 
+var xValue = null;
+var yValue = null;
+
+var clickedX = [];
+var clickedY = [];
+var clickIndex = 0;
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:decBin}, language=Javascript, caption={Convert (Decimal to Binary) with specify length of the output},]
+/*	decBin function is to convert (Decimal to Binary) with specify length of the output.
+ *	The function take 2 arguments ( dec, length)
+ *	dec   : is the decimal number, which need to be convert to binary
+ *	length: is the desirable precision 
+ *	The function convert positive decimal as well as negative decimal 
+ */
+function decBin(dec,length){
+	var out = "";
+	while(length--)
+		out += (dec >> length ) & 1;
+	return out;
+}
+\end{lstlisting}
+
+\subsubsection{function drawChart(arg1, arg2) }
+
+\begin{lstlisting}[label={lst:drawChart}, language=Javascript, caption={drawChart function will visualize the passed data to user.},]
+function drawChart(arg1, arg2) {
+	// Define the chart to be drawn. 
+	var data = new google.visualization.DataTable();
+	data.addColumn('number', '');
+	data.addColumn('number', 'correct');
+	if (arg2.length == 3){
+		// numbers do not divide evenly  (Inexpressible) 
+		data.addColumn('number', arg2[0]);
+		// divide by zero
+		data.addColumn('number', arg2[1]);
+		// Mixed
+		data.addColumn('number', arg2[2]);
+	} else{
+		// Overflow or Underflow
+		data.addColumn('number', arg2[0]);
+		// Mixed
+		data.addColumn('number', arg2[1]);
+	}
+   
+   	data.addRows(arg1);
+    var options = {
+    	chart: {
+    		title: ' Plotting the simulation of floating point with Basic Arithmetics',
+        	//subtitle: 'Based on precision 4 bits'
+     	},
+     	width: 1150,
+     	height: 500,
+     	explorer: {
+     		actions: ['dragToZoom', 'rightClickToReset'],
+        	axis: 'horizontal',
+        	keepInBounds: true,
+        	maxZoomIn: 4.0
+    	},
+    };
+    var chart = new google.charts.Scatter(document.getElementById('chart_div1'));
+
+    chart.draw(data, google.charts.Scatter.convertOptions(options));
+ 
+
+	// Listen for the 'select' event, and call my function selectHandler() when
+	// the user selects something on the chart.
+
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+
+    // This function to get the index of the selected element of chart.
+	function selectHandler() {
+
+		mobile += 1;
+
+		var selectedItemRow = chart.getSelection()[0].row;
+		var selectedItemCol = chart.getSelection()[0].column;
+
+		if (selectedItemRow != null){
+			//alert(data.getValue(selectedItemRow, 0));
+			xValue = data.getValue(selectedItemRow, 0);
+			yValue = data.getValue(selectedItemRow, selectedItemCol);
+
+			var valid  = checkIndex();
+
+			if(valid){
+				clickIndex += 1;
+				//clickedX.push(xValue);
+				//clickedY.push(yValue);
+				getRequest();//xValue, yValue);
+			}
+		}
+	};
+}
+\end{lstlisting}
+\subsubsection{function sub()}
+\begin{lstlisting}[label={lst:sub}, language=Javascript, caption={sub function},]
+// function to create the simulation of Arithmetics operation ( subtraction )
+function sub(){//xValue, yValue){
+	var prec  = parseInt(document.getElementById("precision").value);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
+	var index = 0;
+	var rows  = [];
+
+	var f1; // axis data format 
+	var f2; // axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
+		var correct = 0;
+		var underflow = 0;
+			// correct logic
+			// format is:  x index , correct , overflow
+			if ((i-j) >= 0 & (i-j) < range){
+				rows[index] = [dictX, dictY, null];
+			// else overflow
+			}else{
+				rows[index] = [dictX, , dictY];
+			}
+
+
+		var check = function(x,y) {
+			if ((x - y) >=0 && (x - y) < range) { correct += 1; } else { underflow += 1; }	
+		}
+		check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+		check(x + width, y + height);
+		if (correct > 0 && underflow == 0) {
+	    	// Correct data
+			rows[index] = [dictX, dictY, null, null];
+
+		} else if(underflow > 0 && correct == 0) {
+			// Overflow data
+			rows[index] = [dictX, null, dictY, null];
+
+		} else {
+			// Mix data
+			rows[index] = [dictX, null, null, dictY];
+		}
+	}
+	var xV;
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+	
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+	//var x = 0
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		//var y = 0
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
+			index += 1;
+		}
+	}
+	drawChart(rows, ['Underflow', 'Mix']);
+}
+\end{lstlisting}
+
+\subsubsection{function mult()}
+\begin{lstlisting}[label={lst:mult}, language=Javascript, caption={mult function},]
+// function to create the simulation of Arithmetics operation ( multiplication )
+function mult(){//xValue, yValue){
+	var prec  = parseInt(document.getElementById("precision").value);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
+	var index = 0;
+	var rows  = [];
+
+	var f1; // axis data format 
+	var f2; // axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
+		var correct = 0;
+		var overflow = 0;
+
+		var check = function(x,y) {
+			if (x * y < range) { correct += 1; } else { overflow += 1; }	
+		}
+		check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+		check(x + width, y + height);
+		if (correct > 0 && overflow == 0) {
+	    	// Correct data
+			rows[index] = [dictX, dictY, null, null];
+
+		} else if(overflow > 0 && correct == 0) {
+			// Overflow data
+			rows[index] = [dictX, null, dictY, null];
+
+		} else {
+			// Mix data
+			rows[index] = [dictX, null, null, dictY];
+		}
+	}
+	var xV;
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+	
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+	
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		//var y = 0
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
+			index += 1;
+		}
+	}
+	drawChart(rows, ['Overflow', 'Mix']);
+}
+
+\end{lstlisting}
+
+\subsubsection{function divi()}
+\begin{lstlisting}[label={lst:divi}, language=Javascript, caption={divi function},]
+// function to create the simulation of Arithmetics operation ( division )
+function divi(){//xValue, yValue){
+	var prec  = parseInt(document.getElementById("precision").value);
+	// range to iteration (loop)
+	var range = Math.pow(2, prec);
+
+	var height= precArr[mobile];
+	var width = precArr[mobile];
+
+	var index = 0;
+	var rows  = [];
+
+	var f1; // axis data format 
+	var f2; // axis data format
+
+	var getPixel = function(x, y, height, width, dictX, dictY) {
+		var correct = 0;
+		var infi    = 0;
+		var Inexpressible = 0;
+
+		var check = function(x,y) {
+			if ((x/y) % 1 == 0) { correct += 1; }
+			else if(isNaN(x/y) || !(isFinite(x/y))) { infi += 1;}
+			else{ Inexpressible += 1; }	
+		}
+		check(x, y);
+		check(x, y + height);
+		check(x + width, y);
+		check(x + width, y + height);
+		if (correct > 0 && Inexpressible == 0 && infi == 0) {
+	    	// Correct data: does (1/3) which is 0.33.. mod 1  equal to zero
+			rows[index] = [dictX, dictY, null, null, null];
+
+		} else if(Inexpressible > 0 && correct == 0 && infi == 0) {
+			// Inexpressible data
+			rows[index] = [dictX, null, dictY, null, null];
+
+		}else if(infi > 0 && correct == 0 && Inexpressible == 0) {
+			// check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0
+			rows[index] = [dictX, null, null, dictY, null];
+
+		} else {
+			// Mix data
+			rows[index] = [dictX, null, null, null, dictY];
+		}
+	}
+	var xV;
+	var yV; 
+	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+	
+	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+	
+	for(var x = xV, i = 0; i < 16; i++, x += width+1){
+		getFormat(x);
+		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+	
+		for(var y = yV, j = 0; j < 16; j++, y += height+1){
+			getFormat(y);
+			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			getPixel(x, y, height, width, dictX, dictY);
+			index += 1;
+		}
+	}
+	drawChart(rows, ['Inexpressible', 'infinity','Mix']);
+}
+\end{lstlisting}
 \section{Testing}
 %\section{Future Development}
 

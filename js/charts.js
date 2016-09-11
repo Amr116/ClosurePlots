@@ -53,7 +53,7 @@ function getPrecision(){
 }
 
 
-// Declare global variable, which will get thier sign value from drawChart function, 
+// Declare global variable, which will get their value from drawChart function, 
 // only if the user has interacted with chart ( click on (x,y) ). 
 var xValue = null;
 var yValue = null;
@@ -109,9 +109,9 @@ function getRequest(){
 }
 
 // function to create the simulation of Arithmetics operation ( addition )
-function add(){//xValue, yValue){
+function add(){
 	var prec  = parseInt(document.getElementById("precision").value);
-	// range to iteration (loop)
+
 	var range = Math.pow(2, prec);
 
 	var height= precArr[mobile];
@@ -157,11 +157,11 @@ function add(){//xValue, yValue){
 	//var x = 0
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
 		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		var dictX = {v:x, f:'X: '+f1+' - '+f2};
 		//var y = 0
 		for(var y = yV, j = 0; j < 16; j++, y += height+1){
 			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			var dictY = {v:y, f:'Y: '+f1+' - '+f2};
 			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
@@ -227,11 +227,11 @@ function sub(){//xValue, yValue){
 	//var x = 0
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
 		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		var dictX = {v:x, f:'X: '+f1+' - '+f2};
 		//var y = 0
 		for(var y = yV, j = 0; j < 16; j++, y += height+1){
 			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			var dictY = {v:y, f:'Y: '+f1+' - '+f2};
 			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
@@ -288,11 +288,11 @@ function mult(){//xValue, yValue){
 	
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
 		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		var dictX = {v:x, f:'X: '+f1+' - '+f2};
 		//var y = 0
 		for(var y = yV, j = 0; j < 16; j++, y += height+1){
 			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			var dictY = {v:y, f:'Y: '+f1+' - '+f2};
 			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
@@ -354,11 +354,11 @@ function divi(){//xValue, yValue){
 	
 	for(var x = xV, i = 0; i < 16; i++, x += width+1){
 		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
+		var dictX = {v:x, f:'X: '+f1+' - '+f2};
 	
 		for(var y = yV, j = 0; j < 16; j++, y += height+1){
 			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+			var dictY = {v:y, f:'Y: '+f1+' - '+f2};
 			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
@@ -389,7 +389,7 @@ function drawChart(arg1, arg2) {
    	data.addRows(arg1);
     var options = {
     	chart: {
-    		title: ' Plotting the simulation of floating point with Basic Arithmetics',
+    		title: ' Plotting the behaviour of floating point with Basic Arithmetics',
         	//subtitle: 'Based on precision 4 bits'
      	},
      	width: 1150,
