@@ -3,6 +3,10 @@
  */
 google.charts.load('current', {packages: ['corechart','scatter']});
 
+function refresh(){
+	location.reload();
+}
+
 
 /*	decBin function is to convert (Decimal to Binary) with specify length of the output.
  *	The function take 2 arguments ( dec, length)
@@ -30,7 +34,6 @@ function reset(){
 	xValue = null;
 	yValue = null;
 	clickIndex = 0;
-	getRequest();
 }
 
 /* getPrecision Function is to create array of the different dimensional to chart.

@@ -157,10 +157,12 @@ The objective of CPBA application is to be visualization tool for illustrating t
 %The purpose of this project is to create a visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).\\
 
 \section{Overall Description}%عموما الوصف
-Floating-point arithmetic is considered an exciting subject for mant people, because the result of Floating-point arithmetic operations depend on the precision of Floating-point. This is rather surprising because the floating-point precision can be the reason to give different result from PCs to supercomputers, and also almost every language has a floating-point datatype, therefore the integration of two or more programming languages to develop a project depend on Floating-point arithmetic operations  will give surprising results.\\
+Floating point is the formulaic representation a real number, that include all the rational numbers, such as the integer (negative, postive) , and the fraction, and all the irrational numbers, such as square root or  transcendental numbers.\\
+
+Floating-point arithmetic is considered an exciting subject for many people, because the result of Floating-point arithmetic operations depend on the precision of Floating-point. This is rather surprising because the floating-point precision can be the reason to give different result. Almost every language has a floating-point datatype, therefore the use of two or more programming languages for some common arithmetic calculations to develop a project depend on Floating-point arithmetic operations will give surprising results, because these programming languages have different precisions and datatype to Floating-point, and as well from computer to another computer differs precision.\\
 %Floating-point arithmetic is considered an esoteric subject by many people. This is rather surprising because floating-point is ubiquitous in computer systems. Almost every language has a floating-point datatype, computers from PCs to supercomputers have floating-point accelerators, most compilers will be called upon to compile floating-point algorithms from time to time, and virtually every operating system must respond to floating-point exceptions such as Overflow, Undeflow, Infinity and Inexpressible.\\
 
-In computing\footnote{Computing is any goal-oriented activity requiring, benefiting from, or creating a mathematical sequence of steps known as an algorithm — e.g. through computers. Computing includes designing, developing and building hardware and software systems, processing, structuring, and managing various kinds of information, doing scientific research on and with computers, making computer systems behave intelligently, and creating and using communications and entertainment media.}, floating point is the formulaic representation that approximates a \textbf{real number}, that include all the rational numbers, such as the integer -5 and the fraction 4/3, and all the irrational numbers, such as $\sqrt{2}$ (1.41421356…, the square root of 2, an irrational algebraic number). Included within the irrationals are the transcendental numbers, such as $\pi$ (3.14159265…), so as to support a trade-off between range and precision. A number is, in general, represented approximately to a fixed number of significant digits (the significand) and scaled using an exponent in some fixed base.\\
+%In computing\footnote{Computing is any goal-oriented activity requiring, benefiting from, or creating a mathematical sequence of steps known as an algorithm — e.g. through computers. Computing includes designing, developing and building hardware and software systems, processing, structuring, and managing various kinds of information, doing scientific research on and with computers, making computer systems behave intelligently, and creating and using communications and entertainment media.}, floating point is the formulaic representation that approximates a \textbf{real number}, that include all the rational numbers, such as the integer -5 and the fraction 4/3, and all the irrational numbers, such as $\sqrt{2}$ (1.41421356…, the square root of 2, an irrational algebraic number). Included within the irrationals are the transcendental numbers, such as $\pi$ (3.14159265…), so as to support a trade-off between range and precision. A number is, in general, represented approximately to a fixed number of significant digits (the significand) and scaled using an exponent in some fixed base.\\
 
 The most popular code for representing real numbers is called the IEEE Floating-Point Standard, that have three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and need not be stored.\\
 %\textit{The sign} bit is as simple as it gets. 0 denotes a positive number, and 1 denotes a negative number. Flipping the value of this bit flips the sign of the number.\\
@@ -190,29 +192,29 @@ This software is based on the principle of float in the floating point, which is
 
 \section{Analysis}
 In this section we will be analysing the problem described above. The analysis will be focused on narrowing in special areas of the problem domain that will be central to designing and implementing a working prototype.
-\subsection{Different precision}% to represent a number
-%One obvious weakness when designing the application that is different precision to floating point. As human, we can represent those different precisions by their arithmetic definition.
-Different precision in floating point is one of the obvious shortcomings when designing the application, if we could not represent those precision with their actual digit length.\\
-We can see the mathematical notation to those precisions as:
+\subsection{Different Mathematical Notation}%precision}% to represent a number
+%One obvious weakness when designing the application that is different precision to floating point. As human, we can represent those different precisions by their arithmetic definition. 
+Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not represent those different precision with their actual mathematical notation.\\%length.\\
+%Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not represent those mathematical notation with their actual digit.\\%length.\\
+We can see below the mathematical notation for the four different precisions of Floating-point to CPBA.\\
 %Manual representation by human can represent those precisions as:
 \begin{itemize}
 \item{Half-precision is $2^{16}$}
-\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to 65535.}\end{itemize}
+\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\65535.}\end{itemize}%range between\\0 to 65535.}\end{itemize}
 \item{Single-precision is $2^{32}$}
-\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to 4294967295.}\end{itemize}
+\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\4294967295.}\end{itemize}%range between\\0 to 4294967295.}\end{itemize}
 \item{Double-precision is $2^{64}$}
-\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to 18446744073709551615.}\end{itemize}
+\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\18446744073709551615.}\end{itemize}%range between\\0 to 18446744073709551615.}\end{itemize}
 \item{Quadruple-precision is $2^{128}$}
-\begin{itemize}\item[]{The positive numbers for this precision is range between 0 to \\340282366920938463374607431768211455.}\end{itemize}
+\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\340282366920938463374607431768211455.}\end{itemize}%range between\\0 to 340282366920938463374607431768211455.}\end{itemize}
 \end{itemize}
 
 But, does programming languages represent those precisions such as the way in which it represented in mathematical notation?\\
-Some programming languages have maximum length of digit with different precisions, and if those digits has overflow the maximum length, then it representing in scientific notation or in rounding format\footnote{Rounding means making a number simpler but keeping its value close to what it was. }. This scientific notation will require redefining the length of those digit to be able to participation in arithmetic operations, otherwise we will get wrong results.\\\\
-The below table\ref{max}  showing represent digit length for different precisions to different languages. From this table we can see the similarities and differences in the representation of length for different precisions. This difference will be among the main reasons for choosing the design and implementation of this project.\\
+Some programming languages have maximum length of digit with different precisions, and if those digits has overflow the maximum length, then it representing in scientific notation or in rounding format\footnote{Rounding means making a number simpler but keeping its value close to what it was. }. This scientific notation will require redefining the length of those digit to be able to participation in arithmetic operations, otherwise we will get inconvenient results.\\\\
+The below table \textcolor{red}{1} showing represent mathematical notation for different precisions at different languages. At this table we can see the similarities and differences in the representation of length for different precisions. This difference will be among the main reasons for choosing the design and implementation of this project.\\
 \begin{table}[h]
-\centering
-\small
-\label{max}
+\scriptsize 
+%\centering
 \begin{tabular}{|c|c|c|c|}
 \hline
 \multirow{2}{*}{\diagbox[width=5em]{DP}{PL}}
@@ -223,16 +225,21 @@ Single    & 4294967296                  & 4294967296                            
 Double    & 18446744073709552000        & 18446744073709551616                    &  1.8446744073709552e+19 \\ \hline
 Quadruple & 3.402823669209385e+38       & 340282366920938463463374607431768211456 &  3.402823669209385e+38  \\ \hline
 \end{tabular}
-\caption{Representation of maximum digit length with different precisions at some programming language}
-\end{table}\\
+\label{tab:mathNo}
+\caption{Representation of mathematical notation to different precisions at some different programming language}
+\end{table}
 %Some of programming langauges have maximum length to represent digits with different precisions, until it gets to represent those numbers in scientific notation, and I will not be happy for that, because it will required some extra work to represent big numbers, and to do some arithmetic operation with scientific notation numbers.\\
 %fx. If we will take JavaScript as primary programming language to CPBA project, then we can see what is the maximum length to represent Double and Quadruple precisions, which are scientific notation numbers.
 
-\subsection{Viewport Size vs bit Pixel}% to represent a number
-The browser viewport is the size of the rectangle that a web page fills on your screen. It’s basically the size of the browser window, less the toolbars and scrollbars. It’s the bit of the screen we are actually using to show the webpage.\\
+\subsection{Rectangle Size vs Bit Pixel}% to represent a number
+%The browser viewport is the size of the rectangle that a web page fills on your screen. It’s basically the size of the browser window, less the toolbars and scrollbars. It’s the bit of the screen we are actually using to show the webpage.\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %But, how is possible the visualization tool for illustrating the behaviour of basic arithmetic operations can show all those elements in the screen.
-Is it possible the CPBA application to illustrating the behaviour of basic arithmetic operations in the viewport size !?\\
+%Is it possible the CPBA application to illustrating the behaviour of basic arithmetic operations in the viewport size !?\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least need two variables, that is mean if variable X and Y have Single precision, then we will need to represent the result of arithmetic operations  to X and Y, which will give us $65536^{2} = 4294967296$ element, that need to be apparent to user in the Viewport.
+The browser window is the rectangle that a web page fills on screen, that it’s basically the size of the browser window, less the toolbars and scrollbars. We will use this window to visualize and illustrating the behaviour of basic arithmetic of Floating-point, but does it possible CPBA application to illustrating the behaviour of this basic arithmetic operations at this window !?\\
+
 We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least two variables, that is mean if variables X and Y have Single precision, so we will need to represent the result of this arithmetic operations, which will give us $65536^{2} = 4294967296$ elements.\\\\
 This huge number of elements can not be shown in the Viewport while maintaining achieve a clear vision for each element separately. So we need some way to allow us to achieve a clear vision for each element and also allows the user to take advantage of this visualization tool for illustrating the behaviour of basic arithmetic operations.\\
 \section{Design}
@@ -245,7 +252,7 @@ Since this project should be web-based application, so i need to use HTML and CS
 %Since i decided on a web-based application i needed a server, and this presented some challenges of it's own.
 The above section (Analysis) I’ve discussed some of the problems that will confront us in the design and implementation of this project, therefore in the below subsection, i will re-presentation of these problems and explain my ideas for the design and implementation of the solution to these problems.\\
 \subsection{Arithmetic operations \& Different precision}
-The user need a simple way to illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) with different precision (Half, Single, Double, Quadruple), therefore the project should give the possibility for user to select and choice between different arithmetic operations and different precision. For this reason, i decided the front-end design of CPBA should include  two  <select> tags, which create a drop-down list, and thereby I collect user input from the selected option.
+The user need a simple way to illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) with different precision (Half, Single, Double, Quadruple), therefore the project should give the possibility for user to select and choice between different arithmetic operations and different precision. For this reason, i decided the front-end design of CPBA should include  two  <select> element, which create a drop-down list, and thereby I collect user input from the selected option.
 \subsection{Mathematical notation}
 where have been chosen javascript as primary programming language to the functionality of this project, because it will provide access possibility of user via online or offline, but does Javascript represent precisions such as the way in which it represent in mathematical notation. Unfortunately, The answer is No, because the maximum integer can be represent of JavaScript is $2^{31} -1$, or $2147483647$, otherwise the integer will be represent in scientific notation. That's why I decided to make CPBA is limited to precisions Half and Single only.
 \subsection{Elements}
@@ -315,13 +322,13 @@ To reset or to jump back to first stage will be done by click on reset button, t
 %Why this technique?
 
 \section{Implementation}
-In this section, I will explain the steps involved to implement CPBA application. The Implementation steps is split up into two parts (User Interface and Back-end)
+In this section, I will explain the steps involved to implement CPBA application. The Implementation steps is split up into two parts (User Interface-UI and Back-end)
 \subsection{UI}
 For the implementation of the user interface I have chosen to use Bootstrap\footnote{Bootstrap, a front-end framework for web development http://getbootstrap.com/} . Bootstrap is a front-end framework for web development, and helps me flesh out the user interface, ensuring that it looks the same no matter what browser the user is using to access CPBA application.\\\\
-In the UI, I have implemented two select option tag, one to define the available options for precisions, and the second one is to define the available options for arithmetic operations.\\
+In the UI, I have implemented two select option element, one to define the available options for precisions, and the second one is to define the available options for arithmetic operations.\\
 The selection option for different precision has onchange attribute, that is assign to getPrecision() JavaScript function, that function is responsible to create array of the different width and height values. The HTML code for selec option is shown in the code snippet \ref{lst:Select option} below.\\
 
-I had definded "Plot my requests" button tag at the same div tag for the select option to get the value of the selected option. This button has attribute onclick, which is assign to JavaScript functions getRequest(); and showService();. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section, but showService() function is responsible to show Back and Reset buttons, because those buttons are invisible until user has click on Plot my requests button. I had definded the style display of those buttons to none, so showService function will change style display to block instead of none, thereby those buttons will be shown in UI.\\
+I had definded "Plot my requests" button element at the same div element for the select option to get the value of the selected option. This button has attribute onclick, which is assign to JavaScript functions getRequest(); and showService();. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section, but showService() function is responsible to show Back and Reset buttons, because those buttons are invisible until user has click on Plot my requests button. I had definded the style display of those buttons to none, so showService function will change style display to block instead of none, thereby those buttons will be shown in UI.\\
 The HTML code for "Plot my requests" button is shown in the code snippet \ref{lst:Plot my requests} below, the HTML code for Back and Reset buttons is show in in the code snippet \ref{lst:select option button}, and the JavaScript code for showService() function is show in the code snippet \ref{lst:showService}.\\
 
 \begin{lstlisting}[label={lst:Select option}, language=HTML, caption={Select option for precisions and arithmetic operations},]
@@ -399,7 +406,7 @@ The JavaScript code for getPrecision() function is show in the code snippet\ref{
 \begin{lstlisting}[label={lst:getPrecision}, language=Javascript, caption={getPrecision function},]
 /* getPrecision Function is to create array of the different dimensional to chart.
  * The function has to reset mobile variable to zero, which will point to the start of precArr.
- * The function will be execute onload of the body tag and when a user changes the selected option of a <select> element.
+ * The function will be execute onload of the body element and when a user changes the selected option of a <select> element.
  */
 var mobile = 0;
 var precArr = [];
