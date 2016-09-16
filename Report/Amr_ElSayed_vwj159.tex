@@ -15,16 +15,7 @@
 \usepackage{listings} %algoritmer og programming language
 \usepackage{diagbox}
 \usepackage[titletoc,title]{appendix}
-\newcommand{\listappendicesname}{Appendices}
-\lstset{
-basicstyle=\ttfamily\small,
-columns=fullflexible,
-language=Python,
-tabsize=2,
-numbers=left,
-showstringspaces=false,
-}
-
+\usepackage{filecontents}
 \usepackage{fancyhdr} %header, footer
 \usepackage{hyperref}
 \usepackage{multirow}
@@ -35,6 +26,19 @@ showstringspaces=false,
 \usepackage{indentfirst}
 \usepackage{wrapfig}
 \usepackage{units}
+\usepackage{cite}
+\usepackage{paralist}
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+
+\newcommand{\listappendicesname}{Appendices}
+\lstset{
+basicstyle=\ttfamily\small,
+columns=fullflexible,
+language=Python,
+tabsize=2,
+numbers=left,
+showstringspaces=false,
+}
 \newcommand{\citat}[2]{\begin{justify}\textit{``#1''}\hspace{0.1cm}\footnote{#2}\end{justify}}
 \author{
  \textsc{\Large{Amr El Sayed}}\\
@@ -144,7 +148,7 @@ The second purpose is explain the requirement specifications for Closure Plots f
 This document is intended for readers who have studied Computer Science or similar, or are simply interested in the field of IT. Readers are assumed to have basic programming knowledge and some familiarity with web development technologies.
 
 \subsection{Project Scope}
-The software to be produced is a Closure Plots for Basic Arithmetics, which will be referred to as "CPBA" thorough this document.\\
+The software to be produced is a Closure Plots for Basic Arithmetics, which will be referred to as "CPBA" thorough this report.\\
 
 CPBA will allow students to learn about the behaviour of basic arithmetic operations in floating point arithmetic with different precision through interaction with UI. The CPBA will also allow the instructors and creative students to modify the variables in arithmetic operations to monitor behaviour of floating point.\\
 
@@ -159,12 +163,12 @@ The objective of CPBA application is to be visualization tool for illustrating t
 \section{Overall Description}%عموما الوصف
 Floating point is the formulaic representation a real number, that include all the rational numbers, such as the integer (negative, postive) , and the fraction, and all the irrational numbers, such as square root or  transcendental numbers.\\
 
-Floating-point arithmetic is considered an exciting subject for many people, because the result of Floating-point arithmetic operations depend on the precision of Floating-point. This is rather surprising because the floating-point precision can be the reason to give different result. Almost every language has a floating-point datatype, therefore the use of two or more programming languages for some common arithmetic calculations to develop a project depend on Floating-point arithmetic operations will give surprising results, because these programming languages have different precisions and datatype to Floating-point, and as well from computer to another computer differs precision.\\
+Floating-point arithmetic is considered an exciting subject for many people, because the result of Floating-point arithmetic operations depend on the precision of Floating-point. This is rather surprising because the floating-point precision can be the reason to give different result. Almost every language has a floating-point datatype, therefore the use of two or more programming languages for some common arithmetic calculations to develop a project depend on Floating-point arithmetic operations will give surprising results, because these programming languages have different precisions and datatype to Floating-point, and as well from computer to another computer differs precision. c.\ref{1}\\
 %Floating-point arithmetic is considered an esoteric subject by many people. This is rather surprising because floating-point is ubiquitous in computer systems. Almost every language has a floating-point datatype, computers from PCs to supercomputers have floating-point accelerators, most compilers will be called upon to compile floating-point algorithms from time to time, and virtually every operating system must respond to floating-point exceptions such as Overflow, Undeflow, Infinity and Inexpressible.\\
 
 %In computing\footnote{Computing is any goal-oriented activity requiring, benefiting from, or creating a mathematical sequence of steps known as an algorithm — e.g. through computers. Computing includes designing, developing and building hardware and software systems, processing, structuring, and managing various kinds of information, doing scientific research on and with computers, making computer systems behave intelligently, and creating and using communications and entertainment media.}, floating point is the formulaic representation that approximates a \textbf{real number}, that include all the rational numbers, such as the integer -5 and the fraction 4/3, and all the irrational numbers, such as $\sqrt{2}$ (1.41421356…, the square root of 2, an irrational algebraic number). Included within the irrationals are the transcendental numbers, such as $\pi$ (3.14159265…), so as to support a trade-off between range and precision. A number is, in general, represented approximately to a fixed number of significant digits (the significand) and scaled using an exponent in some fixed base.\\
 
-The most popular code for representing real numbers is called the IEEE Floating-Point Standard, that have three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and need not be stored.\\
+The most popular code for representing real numbers is called the IEEE Floating-Point Standard c.\ref{2}, that have three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and need not be stored.\\
 %\textit{The sign} bit is as simple as it gets. 0 denotes a positive number, and 1 denotes a negative number. Flipping the value of this bit flips the sign of the number.\\
 %\textit{The exponent} field needs to represent both positive and negative exponents. To do this, a bias is added to the actual exponent in order to get the stored exponent. For single-precision floats, this value is 127. Thus, an exponent of zero means that 127 is stored in the exponent field. A stored value of 200 indicates an exponent of (200-127), or 73. For reasons discussed later, exponents of -127 (all 0s) and +128 (all 1s) are reserved for special numbers. For double precision, the exponent field is 11 bits, and has a bias of 1023.
 
@@ -182,52 +186,66 @@ The most popular code for representing real numbers is called the IEEE Floating-
 
 \subsection{Product Perspective}% وجهة نظر المنتج
 A simple way to illustrating the behaviour of basic arithmetic operations, that is by someone sitting physically at a computer or with paper and write down the numbers and finish this calculation process. There are tools available, commercial or open source that support arithmetic operations to digits or binary numbers. Many Operating Systems and applications themselves come with calculator support those basic arithmetic operations. But unfortunately, all these tools usually require a person sitting physically at a computer writing down the numbers one by one.\\
-
-Thus the need for a web based application to be a visualization tool for illustrating the behaviour of basic arithmetic operations.
+\\Thus there is need for a web based application to be a visualization tool for illustrating the behaviour of basic arithmetic operations.
 
 \subsection{Product Features}% مواصفات المنتج
-The software is used mainly to illustrating the behaviour of basic arithmetic operations in floating point arithmetic with different precision of web based software so the user who is maintaining can access it from virtually any where.\\
+The mainly used of this software to illustrating the behaviour of basic arithmetic operations in Floating-Point arithmetic with different precision of web based software so the user who is maintaining can access it from virtually any where.\\
 
-This software is based on the principle of float in the floating point, which is derived from the fact that there is no fixed number of digits before and after the decimal point; that is, the decimal point can float, therefore the implementing of this project focuses on create a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and also create the infrastructure that will allow for future development to representing different code for floating point eg. IEEE Floating-Point Standard or something else on this approach.
-
+This software is based on the principle of float in the floating point, which is derived from the fact that there is no fixed number of digits before and after the decimal point; that is, the decimal point can float, therefore the implementing of this project focuses on create a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer with fixed-size of bit string, which refer to same size at precision (Half, Single, Double, Quadruple), and also create the infrastructure that will allow for future development to give the possibility to extend this project to illustrating the behaviour of decimal numbers, rational numbers, and all the irrational numbers in Floating-Point eg. IEEE Floating-Point Standard or something else on this approach.\\
+\\The idea of this project inspired from John L. Gustafson book \ref{3} (THE END of ERROR Unum Computing), where there is a graphical view to illustrating the behaviour of fixed-size representation for basic arithmetic operations as shows in figure. \ref{book}.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{book}
+    \caption{A graphical view of bit strings: Value and closure plots from THE END of ERROR Unum Computing book at page number 9}
+    \label{book}
+\end{figure}
+\newpage
 \section{Analysis}
 In this section we will be analysing the problem described above. The analysis will be focused on narrowing in special areas of the problem domain that will be central to designing and implementing a working prototype.
-\subsection{Different Mathematical Notation}%precision}% to represent a number
+\subsection{Fixed Bit String}%Different Mathematical Notation}%precision}% to represent a number
 %One obvious weakness when designing the application that is different precision to floating point. As human, we can represent those different precisions by their arithmetic definition. 
-Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not represent those different precision with their actual mathematical notation.\\%length.\\
+%====================================================================================================%
+%Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not %represent those different precision with their actual mathematical notation.\\%length.\\
+%====================================================================================================%
 %Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not represent those mathematical notation with their actual digit.\\%length.\\
-We can see below the mathematical notation for the four different precisions of Floating-point to CPBA.\\
+%====================================================================================================%
+%We can see below the mathematical notation for the four different precisions of Floating-point to CPBA.\\
+%====================================================================================================%
 %Manual representation by human can represent those precisions as:
-\begin{itemize}
-\item{Half-precision is $2^{16}$}
-\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\65535.}\end{itemize}%range between\\0 to 65535.}\end{itemize}
-\item{Single-precision is $2^{32}$}
-\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\4294967295.}\end{itemize}%range between\\0 to 4294967295.}\end{itemize}
-\item{Double-precision is $2^{64}$}
-\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\18446744073709551615.}\end{itemize}%range between\\0 to 18446744073709551615.}\end{itemize}
-\item{Quadruple-precision is $2^{128}$}
-\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\340282366920938463374607431768211455.}\end{itemize}%range between\\0 to 340282366920938463374607431768211455.}\end{itemize}
-\end{itemize}
+%====================================================================================================%
+%\begin{itemize}
+%\item{Half-precision is $2^{16}$}
+%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\65535.}\end{itemize}%range between\\0 to 65535.}\end{itemize}
+%\item{Single-precision is $2^{32}$}
+%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\4294967295.}\end{itemize}%range between\\0 to 4294967295.}\end{itemize}
+%\item{Double-precision is $2^{64}$}
+%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\18446744073709551615.}\end{itemize}%range between\\0 to 18446744073709551615.}\end{itemize}
+%\item{Quadruple-precision is $2^{128}$}
+%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\340282366920938463374607431768211455.}\end{itemize}%range between\\0 to 340282366920938463374607431768211455.}\end{itemize}
+%\end{itemize}
 
-But, does programming languages represent those precisions such as the way in which it represented in mathematical notation?\\
-Some programming languages have maximum length of digit with different precisions, and if those digits has overflow the maximum length, then it representing in scientific notation or in rounding format\footnote{Rounding means making a number simpler but keeping its value close to what it was. }. This scientific notation will require redefining the length of those digit to be able to participation in arithmetic operations, otherwise we will get inconvenient results.\\\\
-The below table \textcolor{red}{1} showing represent mathematical notation for different precisions at different languages. At this table we can see the similarities and differences in the representation of length for different precisions. This difference will be among the main reasons for choosing the design and implementation of this project.\\
-\begin{table}[h]
-\scriptsize 
+%But, does programming languages represent those precisions such as the way in which it represented in mathematical notation?\\
+%Some programming languages have maximum length of digit with different precisions, and if those digits has overflow the maximum length, then it %representing in scientific notation or in rounding format\footnote{Rounding means making a number simpler but keeping its value close to what it was. }. This scientific notation will require redefining the length of those digit to be able to participation in arithmetic operations, otherwise we will %get inconvenient results.\\\\
+%The below table \ref{mathNo} \textcolor{red}{1} showing represent mathematical notation for different precisions at different languages. At this table %we can see the similarities and differences in the representation of length for different precisions. This difference will be among the main reasons %for choosing the design and implementation of this project.\\
+
+%\begin{table}[h]
+%\label{mathNo}
+%\scriptsize 
 %\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-\multirow{2}{*}{\diagbox[width=5em]{DP}{PL}}
-          & \multirow{2}{*}{JavaScript} & \multirow{2}{*}{Python}                 &\multirow{2}{*} {GO} \\ 
-          &                             &                                         &   \\ \hline
-Half      & 65536                       & 65536                                   &  65536\\ \hline
-Single    & 4294967296                  & 4294967296                              &  4.294967296e+09 \\ \hline
-Double    & 18446744073709552000        & 18446744073709551616                    &  1.8446744073709552e+19 \\ \hline
-Quadruple & 3.402823669209385e+38       & 340282366920938463463374607431768211456 &  3.402823669209385e+38  \\ \hline
-\end{tabular}
-\label{tab:mathNo}
-\caption{Representation of mathematical notation to different precisions at some different programming language}
-\end{table}
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+%\multirow{2}{*}{\diagbox[width=5em]{DP}{PL}}
+%          & \multirow{2}{*}{JavaScript} & \multirow{2}{*}{Python}                 &\multirow{2}{*} {GO} \\ 
+%          &                             &                                         &   \\ \hline
+%Half      & 65536                       & 65536                                   &  65536\\ \hline
+%Single    & 4294967296                  & 4294967296                              &  4.294967296e+09 \\ \hline
+%Double    & 18446744073709552000        & 18446744073709551616                    &  1.8446744073709552e+19 \\ \hline
+%Quadruple & 3.402823669209385e+38       & 340282366920938463463374607431768211456 &  3.402823669209385e+38  \\ \hline
+%\end{tabular}
+
+%\caption{Representation of mathematical notation to different precisions at some different programming language}
+%\end{table}
+%====================================================================================================%
 %Some of programming langauges have maximum length to represent digits with different precisions, until it gets to represent those numbers in scientific notation, and I will not be happy for that, because it will required some extra work to represent big numbers, and to do some arithmetic operation with scientific notation numbers.\\
 %fx. If we will take JavaScript as primary programming language to CPBA project, then we can see what is the maximum length to represent Double and Quadruple precisions, which are scientific notation numbers.
 
@@ -238,7 +256,7 @@ Quadruple & 3.402823669209385e+38       & 34028236692093846346337460743176821145
 %Is it possible the CPBA application to illustrating the behaviour of basic arithmetic operations in the viewport size !?\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least need two variables, that is mean if variable X and Y have Single precision, then we will need to represent the result of arithmetic operations  to X and Y, which will give us $65536^{2} = 4294967296$ element, that need to be apparent to user in the Viewport.
-The browser window is the rectangle that a web page fills on screen, that it’s basically the size of the browser window, less the toolbars and scrollbars. We will use this window to visualize and illustrating the behaviour of basic arithmetic of Floating-point, but does it possible CPBA application to illustrating the behaviour of this basic arithmetic operations at this window !?\\
+The browser window is the rectangle that a web page fills on screen, that it’s basically the size of the browser window, less the toolbars and scrollbars \ref{4}. We will use this window to visualize and illustrating the behaviour of basic arithmetic of Floating-point, but does it possible CPBA application to illustrating the behaviour of this basic arithmetic operations at this window !?\\
 
 We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least two variables, that is mean if variables X and Y have Single precision, so we will need to represent the result of this arithmetic operations, which will give us $65536^{2} = 4294967296$ elements.\\\\
 This huge number of elements can not be shown in the Viewport while maintaining achieve a clear vision for each element separately. So we need some way to allow us to achieve a clear vision for each element and also allows the user to take advantage of this visualization tool for illustrating the behaviour of basic arithmetic operations.\\
@@ -887,6 +905,7 @@ function getBack(){
 
 
 \section{Testing}
+
 %\section{Future Development}
 
 %\section{Work progress}
@@ -894,14 +913,63 @@ function getBack(){
 
 \section{Conclusion}
 
+%hello \cite{Goldberg:1991:CSK:103162.103163}
+%c .\citep{Guo:2013:OPT:2445196.2445368}
+\newpage
+\section*{References}
+\begin{enumerate}[label={[\arabic*]}]
+\item \label{1}
+\scalebox{0.9}{
+\begin{tabular}{lll}
+  Author  &:& Goldberg, David\\
+  Title   &:& What Every Computer Scientist Should Know About Floating-point Arithmetic\\
+  Journal &:& ACM Comput. Surv.\\
+  date    &:& March 1991 
+\end{tabular}
+}
+\item \label{2}
+\scalebox{0.9}{
+\begin{tabular}{lll}
+  Author  &:& American National Standards Institute and Institute of Electrical and Electronice Engineers\\
+  Title   &:& IEEE Standard for Binary Floating-Point Arithmetic\\
+  Date    &:& 21.March 1985\\
+  url     &:& http://www.wellposed.com/standards-documents-cache/IEEE754-1985.pdf
+\end{tabular}
+}
+\item \label{3}
+\scalebox{0.9}{
+\begin{tabular}{lll}
+  Author  &:& John L. Gustafson\\
+  Title   &:& THE END of ERROR Unum Computing\\
+  V-Date  &:& 12.November 2014\\ 
+  ISBN    &:& International Standard Book Number-13: 978-1-4822-3987-4 (eBook - PDF)
+\end{tabular}
+}
+\item \label{4}
+\scalebox{0.9}{
+\begin{tabular}{lll}
+  Author  &:& James Royal-Lawson\\
+  Title   &:& What is my viewport size and pixel density?\\
+  Date    &:& 2013-05-05\\ 
+  url     &:& http://beantin.se/what-is-my-viewport-size-pixel-density
+\end{tabular}
+}
+\end{enumerate}
+
+%%\addcontentsline{toc}{section}{References}
+%\bibliographystyle{ieeer}
+%%\bibliographystyle{unsrtnat}
+%%\bibliography{ref}
+
 \section*{Footnotes}
 \begin{itemize}
 \item \url{http://steve.hollasch.net/cgindex/coding/ieeefloat.html}
 \end{itemize}
-\addcontentsline{toc}{section}{appendices}
-\appendix
-\begin{appendices}
+%\addcontentsline{toc}{section}{appendices}
+%\appendix
+%\begin{appendices}
 
-\end{appendices}
+%\end{appendices}
+
 
 \end{document}
