@@ -190,15 +190,6 @@ function sub(){//xValue, yValue){
 	var getPixel = function(x, y, height, width, dictX, dictY) {
 		var correct = 0;
 		var underflow = 0;
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i-j) >= 0 & (i-j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-
 
 		var check = function(x,y) {
 			if ((x - y) >=0 && (x - y) < range) { correct += 1; } else { underflow += 1; }	
@@ -365,7 +356,7 @@ function divi(){//xValue, yValue){
 			getPixel(x, y, height, width, dictX, dictY);
 			index += 1;
 		}
-	}
+	}                                 //divide by zero
 	drawChart(rows, ['Inexpressible', 'infinity','Mix']);
 }
 
@@ -431,27 +422,8 @@ function drawChart(arg1, arg2) {
 
 			if(valid){
 				clickIndex += 1;
-				//clickedX.push(xValue);
-				//clickedY.push(yValue);
-				getRequest();//xValue, yValue);
+				getRequest();
 			}
 		}
 	};
 }
-
-/*
-var param_1 = [];
-var param_2 = [];
-var idx = 0;
-function test(){
-	if(idx > 0){
-		drawChart(param_1[idx-1],param_2[idx-1]);
-		param_1.splice(idx-1);
-		param_2.splice(idx-1);
-		idx -= 1;
-	}else{
-		drawChart(param_1[0],param_2[0]);
-	}
-}
-
-*/

@@ -90,6 +90,7 @@ showstringspaces=false,
 \textbf{Year} &:& 2016\\\\
 \textbf{Pages} &:& \\\\
 \textbf{Github} &:& \url{https://github.com/Amr116/ClosurePlots}\\
+\textbf{Publishing site} &:& \url{https://amr116.github.io/ClosurePlots/}
 \end{tabular}
 \\\\\\\\\\\\\\
 \begin{center}{\huge\textbf{Certificate}}\end{center}
@@ -129,163 +130,79 @@ This is to certify that the work contained in the thesis entitled "Closure Plots
 
 \newpage
 \section{Introduction}
-I am a third year computer science student at the University of Copenhagen, I'm enrolled in the undergraduate (bachelor) part of the education. This report is the final product of a 1-block Project Outside the Course Scope. This report covers the development process of Closure Plots for Basic Arithmetics on those aspects of floating-point that have a direct impact on the result of arithmetic operations of computer systems.
-%designers of computer systems.
+I am a third year computer science student at the University of Copenhagen. I'm currently enrolled in the undergraduate (bachelor) part of the education. This report is the final product of a 1-block Project Outside the Course Scope. This report covers the development process of Closure Plots for Basic Arithmetics on the aspects of floating-point that have a direct impact on the result of arithmetic operations of computer systems.\\
 
-\subsection{Purpose}
-The purpose of this document is divided into two purposes:\\
+The main use of this software (Closure Plots for Basic Arithmetics which will be referred to as "CPBA" throughout this report.) is to illustrate the behaviour of basic arithmetic operations in Floating-Point arithmetic with different bit-width of web based software, so the user can access it virtually from anywhere.\\
 
-The first purpose is to describe the UI to Closure Plots for Basic Arithmetics application for instructors and Computer Science students at Department of Computer Science - University of Copenhagen, so they can easily interact with the application.\\
-
-The second purpose is explain the requirement specifications for Closure Plots for Basic Arithmetics application and explain the steps of implement this project to help the developers to further developing this application.
-
-
-%The purpose of this document is to describe the requirement specifications for Closure Plots for Basic Arithmetics application for instructors and Computer Science students at Department of Computer Science - University of Copenhagen, and to explain the steps of implement and design this project to help the developers to further developing this application.
-
-%help the developers to further developing the application, and also it will help instructors and Computer Science students at Department of Computer Science - University of Copenhagen to understand the application and how to interact with e.g. by adding some variables in the mathematical operations or understand the data presented in the application. %Closure Plots
-
-\subsection{Intended Audience and Reading Suggestions}
-This document is intended for readers who have studied Computer Science or similar, or are simply interested in the field of IT. Readers are assumed to have basic programming knowledge and some familiarity with web development technologies.
-
-\subsection{Project Scope}
-The software to be produced is a Closure Plots for Basic Arithmetics, which will be referred to as "CPBA" thorough this report.\\
-
-CPBA will allow students to learn about the behaviour of basic arithmetic operations in floating point arithmetic with different precision through interaction with UI. The CPBA will also allow the instructors and creative students to modify the variables in arithmetic operations to monitor behaviour of floating point.\\
-
-The objective of CPBA application is to be visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).\\
-
-
-
-%This paper covers the development process of Closure Plots for Basic Arithmetics on those aspects of floating-point that have a direct impact on designers of computer systems, and is intended for readers who have studied Computer Science or similar, or are simply interested in the field of IT. Readers are assumed to have basic programming knowledge and some familiarity with web development.\\
-
-%The purpose of this project is to create a visualization tool for illustrating the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple).\\
-
-\section{Overall Description}%عموما الوصف
-Floating point is the formulaic representation a real number, that include all the rational numbers, such as the integer (negative, postive) , and the fraction, and all the irrational numbers, such as square root or  transcendental numbers.\\
-
-Floating-point arithmetic is considered an exciting subject for many people, because the result of Floating-point arithmetic operations depend on the precision of Floating-point. This is rather surprising because the floating-point precision can be the reason to give different result. Almost every language has a floating-point datatype, therefore the use of two or more programming languages for some common arithmetic calculations to develop a project depend on Floating-point arithmetic operations will give surprising results, because these programming languages have different precisions and datatype to Floating-point, and as well from computer to another computer differs precision. c.\ref{1}\\
-%Floating-point arithmetic is considered an esoteric subject by many people. This is rather surprising because floating-point is ubiquitous in computer systems. Almost every language has a floating-point datatype, computers from PCs to supercomputers have floating-point accelerators, most compilers will be called upon to compile floating-point algorithms from time to time, and virtually every operating system must respond to floating-point exceptions such as Overflow, Undeflow, Infinity and Inexpressible.\\
-
-%In computing\footnote{Computing is any goal-oriented activity requiring, benefiting from, or creating a mathematical sequence of steps known as an algorithm — e.g. through computers. Computing includes designing, developing and building hardware and software systems, processing, structuring, and managing various kinds of information, doing scientific research on and with computers, making computer systems behave intelligently, and creating and using communications and entertainment media.}, floating point is the formulaic representation that approximates a \textbf{real number}, that include all the rational numbers, such as the integer -5 and the fraction 4/3, and all the irrational numbers, such as $\sqrt{2}$ (1.41421356…, the square root of 2, an irrational algebraic number). Included within the irrationals are the transcendental numbers, such as $\pi$ (3.14159265…), so as to support a trade-off between range and precision. A number is, in general, represented approximately to a fixed number of significant digits (the significand) and scaled using an exponent in some fixed base.\\
-
-The most popular code for representing real numbers is called the IEEE Floating-Point Standard c.\ref{2}, that have three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and need not be stored.\\
-%\textit{The sign} bit is as simple as it gets. 0 denotes a positive number, and 1 denotes a negative number. Flipping the value of this bit flips the sign of the number.\\
-%\textit{The exponent} field needs to represent both positive and negative exponents. To do this, a bias is added to the actual exponent in order to get the stored exponent. For single-precision floats, this value is 127. Thus, an exponent of zero means that 127 is stored in the exponent field. A stored value of 200 indicates an exponent of (200-127), or 73. For reasons discussed later, exponents of -127 (all 0s) and +128 (all 1s) are reserved for special numbers. For double precision, the exponent field is 11 bits, and has a bias of 1023.
-
-%the base for the scaling is normally two, ten, or sixteen. A number that can be represented exactly is of the following form:\\
-
-%This project is based on the principle of float in the floating point, which is derived from the fact that there is no fixed number of digits before and after the decimal point; that is, the decimal point can float, therefore the implementing of this project focuses on create a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and also create the infrastructure that will allow for future development to representing different code for floating point eg. IEEE Floating-Point Standard or something else on this approach.
-
-%There are also representations in which the number of digits before and after the decimal point is set, called fixed-pointrepresentations.\\
-
-%This report is divided into four parts ( Analysis, Design ,Implementation and Testing ).\\
-%For the analysis part, I will discuss the requirements that are needed to implement the project and compare to some of the technology, which can achieve the goals of this project, and to show the strengths and weaknesses of this technology.\\\\
-%For the design part, I will introduce tools and techniques that have been chosen to implement the project and to clarify whether it is possible to achieve all the objectives of this project through the chosen technologies.\\\\
-%For the implementation part, I will explain the method of execution to achieve the specification of this project based on the design part, and i will explain each function and method separately.\\\\
-%For the test part, I will an investigation conducted to provide with information about the quality of the product ( application ) with the intent of finding bugs (errors or other defects), and It would achieve the benefit of the development in the future.\\
-
-\subsection{Product Perspective}% وجهة نظر المنتج
-A simple way to illustrating the behaviour of basic arithmetic operations, that is by someone sitting physically at a computer or with paper and write down the numbers and finish this calculation process. There are tools available, commercial or open source that support arithmetic operations to digits or binary numbers. Many Operating Systems and applications themselves come with calculator support those basic arithmetic operations. But unfortunately, all these tools usually require a person sitting physically at a computer writing down the numbers one by one.\\
-\\Thus there is need for a web based application to be a visualization tool for illustrating the behaviour of basic arithmetic operations.
-
-\subsection{Product Features}% مواصفات المنتج
-The mainly used of this software to illustrating the behaviour of basic arithmetic operations in Floating-Point arithmetic with different precision of web based software so the user who is maintaining can access it from virtually any where.\\
-
-This software is based on the principle of float in the floating point, which is derived from the fact that there is no fixed number of digits before and after the decimal point; that is, the decimal point can float, therefore the implementing of this project focuses on create a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer with fixed-size of bit string, which refer to same size at precision (Half, Single, Double, Quadruple), and also create the infrastructure that will allow for future development to give the possibility to extend this project to illustrating the behaviour of decimal numbers, rational numbers, and all the irrational numbers in Floating-Point eg. IEEE Floating-Point Standard or something else on this approach.\\
-\\The idea of this project inspired from John L. Gustafson book \ref{3} (THE END of ERROR Unum Computing), where there is a graphical view to illustrating the behaviour of fixed-size representation for basic arithmetic operations as shows in figure. \ref{book}.\\
+This software is based on the principle of float in the floating point which is derived from the fact that there is no fixed number of digits before and after the decimal point. That is, the decimal point can float; therefore, the implementation of this project focuses on creating a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer with a fixed-size of bit string, which refer to the same size of bit-width (Half, Single, Double, Quadruple). Also, to create the infrastructure that will allow for future development; to make it possible to extend the project of illustrating the behaviour of decimal numbers, rational numbers, and all the irrational numbers in Floating-Point eg. IEEE Floating-Point Standard or something else with this approach.\\
+\\The idea of this project inspired from John L. Gustafson book \ref{3} (THE END of ERROR Unum Computing), where there is a graphical view of illustrating the behaviour of bit-width representation for basic arithmetic operations as shown in figure. \ref{book}.\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{book}
+    \includegraphics[height=9.7cm,width=0.7\textwidth]{book}
     \caption{A graphical view of bit strings: Value and closure plots from THE END of ERROR Unum Computing book at page number 9}
     \label{book}
 \end{figure}
 \newpage
+\subsection{Intended Audience and Reading Suggestions}
+This report is intended for readers who have studied Computer Science or similar, or are simply interested in the field of IT. Readers are assumed to have basic programming knowledge and some familiarity with web development technologies.
+
+\subsection{Purpose}
+The purpose of this report is divided into two purposes:\\
+
+The first purpose is to describe the UI to CPBA application for instructors and Computer Science students at the Department of Computer Science - University of Copenhagen, so they can easily interact with the application.\\
+
+The second purpose is to explain the requirement specifications for CPBA application and to explain the steps of implementing this project to help the developers to further develop the application.
+
+\subsection{Project Scope}
+CPBA will allow students to learn about the behaviour of basic arithmetic operations in floating point arithmetic with different Bit-Width through interaction with UI. The CPBA will also allow the instructors and creative students to modify the variables in arithmetic operations - to monitor behaviour of floating point.\\
+
+The objective of the CPBA application is to create a visualization tool that illustrates the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different bit-width (e.g. Half, Single, Double, Quadruple).\\
+
+\section{Overall Description}
+Floating point is the formulaic representation of a real number that includes all the rational numbers, such as the integer (negative, postive), the fraction, and all the irrational numbers, such as square root or  transcendental numbers.\\
+
+Floating-point arithmetic is a subject that is considered exciting for many people, because the result of Floating-point arithmetic operations depends on the bit-width of the Floating-point. This is rather surprising because the floating-point bit-width can be the reason why it gives a different result. Almost every programming language has a floating-point datatype. Therefore, the use of two or more programming languages (for some common arithmetic calculations to develop a project) depend on Floating-point arithmetic operations that can give surprising results. The reason for that is, these programming languages have different bit-width and Floating-point datatypes, and also, bit-width differs from one computer to another computer. c.\ref{1}\\
+
+The most popular code for representing real numbers is called the IEEE Floating-Point Standard c.\ref{2}, - it has three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and does not need to be stored.\\
+
+\subsection{Product Perspective}
+A simple way to illustrate the behaviour of basic arithmetic operations is to physically sit in front of a computer or with paper and write down the numbers and finish the calculation process. There are tools available, commercial or open source, that support arithmetic operations to digits or binary numbers. Many operating systems and applications come with calculator support with basic arithmetic operations. However, all these tools usually require a person physically sitting in front of a computer writing down the numbers one by one.\\
+\\Thus, there is a need for a web based application such as a visualization tool for illustrating the behaviour of basic arithmetic operations.
+
 \section{Analysis}
-In this section we will be analysing the problem described above. The analysis will be focused on narrowing in special areas of the problem domain that will be central to designing and implementing a working prototype.
-\subsection{Fixed Bit String}%Different Mathematical Notation}%precision}% to represent a number
-%One obvious weakness when designing the application that is different precision to floating point. As human, we can represent those different precisions by their arithmetic definition. 
-%====================================================================================================%
-%Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not %represent those different precision with their actual mathematical notation.\\%length.\\
-%====================================================================================================%
-%Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not represent those mathematical notation with their actual digit.\\%length.\\
-%====================================================================================================%
-%We can see below the mathematical notation for the four different precisions of Floating-point to CPBA.\\
-%====================================================================================================%
-%Manual representation by human can represent those precisions as:
-%====================================================================================================%
-%\begin{itemize}
-%\item{Half-precision is $2^{16}$}
-%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\65535.}\end{itemize}%range between\\0 to 65535.}\end{itemize}
-%\item{Single-precision is $2^{32}$}
-%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\4294967295.}\end{itemize}%range between\\0 to 4294967295.}\end{itemize}
-%\item{Double-precision is $2^{64}$}
-%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\18446744073709551615.}\end{itemize}%range between\\0 to 18446744073709551615.}\end{itemize}
-%\item{Quadruple-precision is $2^{128}$}
-%\begin{itemize}\item[]{The positive mathematical notation for this precision is:\\340282366920938463374607431768211455.}\end{itemize}%range between\\0 to 340282366920938463374607431768211455.}\end{itemize}
-%\end{itemize}
+In this section I will give an analysis of the problem described above. The analysis will focus on narrowing in special areas of the problem domain that will be central to designing and implementing a working prototype.
+\subsection{Fixed Bit String}
 
-%But, does programming languages represent those precisions such as the way in which it represented in mathematical notation?\\
-%Some programming languages have maximum length of digit with different precisions, and if those digits has overflow the maximum length, then it %representing in scientific notation or in rounding format\footnote{Rounding means making a number simpler but keeping its value close to what it was. }. This scientific notation will require redefining the length of those digit to be able to participation in arithmetic operations, otherwise we will %get inconvenient results.\\\\
-%The below table \ref{mathNo} \textcolor{red}{1} showing represent mathematical notation for different precisions at different languages. At this table %we can see the similarities and differences in the representation of length for different precisions. This difference will be among the main reasons %for choosing the design and implementation of this project.\\
 
-%\begin{table}[h]
-%\label{mathNo}
-%\scriptsize 
-%\centering
-%\begin{tabular}{|c|c|c|c|}
-%\hline
-%\multirow{2}{*}{\diagbox[width=5em]{DP}{PL}}
-%          & \multirow{2}{*}{JavaScript} & \multirow{2}{*}{Python}                 &\multirow{2}{*} {GO} \\ 
-%          &                             &                                         &   \\ \hline
-%Half      & 65536                       & 65536                                   &  65536\\ \hline
-%Single    & 4294967296                  & 4294967296                              &  4.294967296e+09 \\ \hline
-%Double    & 18446744073709552000        & 18446744073709551616                    &  1.8446744073709552e+19 \\ \hline
-%Quadruple & 3.402823669209385e+38       & 340282366920938463463374607431768211456 &  3.402823669209385e+38  \\ \hline
-%\end{tabular}
+\subsection{Rectangle Size vs Bit Pixel}
+The browser window is the rectangle that a web page fills on screen - it is basically the size of the browser window, without the toolbars and scrollbars \ref{4}. I will use this window to visualize and illustrate the behaviour of basic arithmetic of Floating-point. But is it possible for the CPBA application to illustrate the behaviour of this basic arithmetic operations in this window !?\\
 
-%\caption{Representation of mathematical notation to different precisions at some different programming language}
-%\end{table}
-%====================================================================================================%
-%Some of programming langauges have maximum length to represent digits with different precisions, until it gets to represent those numbers in scientific notation, and I will not be happy for that, because it will required some extra work to represent big numbers, and to do some arithmetic operation with scientific notation numbers.\\
-%fx. If we will take JavaScript as primary programming language to CPBA project, then we can see what is the maximum length to represent Double and Quadruple precisions, which are scientific notation numbers.
-
-\subsection{Rectangle Size vs Bit Pixel}% to represent a number
-%The browser viewport is the size of the rectangle that a web page fills on your screen. It’s basically the size of the browser window, less the toolbars and scrollbars. It’s the bit of the screen we are actually using to show the webpage.\\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%But, how is possible the visualization tool for illustrating the behaviour of basic arithmetic operations can show all those elements in the screen.
-%Is it possible the CPBA application to illustrating the behaviour of basic arithmetic operations in the viewport size !?\\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least need two variables, that is mean if variable X and Y have Single precision, then we will need to represent the result of arithmetic operations  to X and Y, which will give us $65536^{2} = 4294967296$ element, that need to be apparent to user in the Viewport.
-The browser window is the rectangle that a web page fills on screen, that it’s basically the size of the browser window, less the toolbars and scrollbars \ref{4}. We will use this window to visualize and illustrating the behaviour of basic arithmetic of Floating-point, but does it possible CPBA application to illustrating the behaviour of this basic arithmetic operations at this window !?\\
-
-We want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) to integer number with different precision (Half, Single, Double, Quadruple), and to do those calculations we need at least two variables, that is mean if variables X and Y have Single precision, so we will need to represent the result of this arithmetic operations, which will give us $65536^{2} = 4294967296$ elements.\\\\
-This huge number of elements can not be shown in the Viewport while maintaining achieve a clear vision for each element separately. So we need some way to allow us to achieve a clear vision for each element and also allows the user to take advantage of this visualization tool for illustrating the behaviour of basic arithmetic operations.\\
+I want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) with integer numbers that have different bit-width (Half, Single, Double, Quadruple). To do these calculations I need at least two variables. That is, if the variables X and Y have Single bit-width I have to represent the result of this arithmetic operations, which results in $65536^{2} = 4294967296$ elements.\\\\
+This huge number of elements can not be shown in the Viewport while maintaining a clear vision for each element separately. So I need some way to allow us to achieve a clear vision for each element, and also allow the user to take advantage of this visualization tool for illustrating the behaviour of basic arithmetic operations.\\
 \section{Design}
-To make this application easily accessible for the students, I decided that it should be web-based: meaning that it should be accessed via internet by using a standard web browser or students can get to the project files from  a physical source (e.g. flash memory). This way there would be no need to distribute the program and all of the required packages for it to run, which we would need if i had to make a program that was not web-based. By making the application web-based, I ensure the accessibility of it for most, if not all, users.
+I decided that it should be web-based so the application is easily accessible for students. In other words, it should be accessed via the internet by using a standard web browser or students can access the project files from a physical source (e.g. flash memory). This way there is no need for distributing the program and all the required packages for it to run, which I would need if I had to make a program that was not web-based. By making the application web-based I ensure its accessibility for most, if not all users.
 The solution will not target mobile/tablet users specifically.\\
 
-Since this project should be web-based application, so i need to use HTML and CSS, because they are two of the core technologies for building Web pages, but to build the functionality of this project i can choose between many programming languages, but only JavaScript is the only ones that fit the CPBA requirement, because users can get access to CPBA via internet or offline if they get the project like physical source.\\\\
-%To make this application easily accessible for the students, I decided that it should be web-based: meaning that it should be accessed via internet by using a standard web browser. This way there would be no need to distribute the program and all of the required packages for it to run, which we would need if we had to make a program that was not web-based. By making the application web-based, I ensure the accessibility of it for most, if not all, users. The solution will not target mobile/tablet users specifically, but they should be able to use the website nonetheless.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Since i decided on a web-based application i needed a server, and this presented some challenges of it's own.
-The above section (Analysis) I’ve discussed some of the problems that will confront us in the design and implementation of this project, therefore in the below subsection, i will re-presentation of these problems and explain my ideas for the design and implementation of the solution to these problems.\\
-\subsection{Arithmetic operations \& Different precision}
-The user need a simple way to illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) with different precision (Half, Single, Double, Quadruple), therefore the project should give the possibility for user to select and choice between different arithmetic operations and different precision. For this reason, i decided the front-end design of CPBA should include  two  <select> element, which create a drop-down list, and thereby I collect user input from the selected option.
+Now that the project is a web-based application I need to use HTML and CSS - seeing that they are the two core technologies for building Web pages. However, to build the functionality of this project I can choose between many programming languages, but JavaScript is the only one that fits the CPBA requirements; This way the users can access the CPBA online, and offline if they get the project from a physical source.\\
+
+I discussed some of the problems that I will be confronted with in the design and implementation of the project in the above section (Analysis). Therefore, in the below subsection I will present the problems mentioned above and explain my ideas for the design and implementation of the solution to the problems.
+\subsection{Arithmetic operations \& Different bit-width}
+The user needs a simple way to illustrate the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) with different bit-width (Half, Single, Double, Quadruple). Therefore, the project should make it possible for users to select and choose between different arithmetic operations and different bit-width. For this reason, I've decided that the front-end design of CPBA should include  two  <select> elements which create a drop-down list, and thereby I collect user input from the selected option.
 \subsection{Mathematical notation}
-where have been chosen javascript as primary programming language to the functionality of this project, because it will provide access possibility of user via online or offline, but does Javascript represent precisions such as the way in which it represent in mathematical notation. Unfortunately, The answer is No, because the maximum integer can be represent of JavaScript is $2^{31} -1$, or $2147483647$, otherwise the integer will be represent in scientific notation. That's why I decided to make CPBA is limited to precisions Half and Single only.
+Since I have chosen javascript as the primary programming language to the functionality of this project, it will provide access for the user whether it be online or offline. But does Javascript represent bit-width such as the way in which it represent in mathematical notation? Unfortunately, The answer is No because the maximum integer represented in JavaScript is $2^{31} -1$, or $2147483647$, otherwise the integer will be represented in scientific notation. That's why I decided to make CPBA is limited to bit-width Half and Single only.
 \subsection{Elements}
-To represent precisions Half and Single, that will give huge number of elements, which need to be shown in viewport, but to represent all those elements at once will not give the possibility to users to see and illustrating the behaviour of basic arithmetic operations, therefore in CPBA I need to summarize the those elements to miniature form.\\
-This form differs from precision to other precision in the number of stages. In other words for example in addition operation for precision Half, we have $2^{16}$ element for variable X and $2^{16}$ for variable Y, so the sum of those two variables is $2^{32}$ elements.\\
-I decide to show 256 elements of this result at each stage, where each element represents 4 edges from the real results as shows in figure \ref{edges}.\\
+Representing fixed bit string equal to the length of bit string at bit-width Half and Single would produce huge number of elements. Those numbers would need to be shown in viewport, but to represent all those elements at once will not make it possible for users to see and illustrate the behaviour of basic arithmetic operations. Therefore, the CPBA application needs to summarize those elements to miniature form.\\
+Those miniature forms differ from one bit-width to another bit-width in the number of stages. In other words, for example at the addition operation to two variables of bit-width Half, that have $2^{16}$ elements for variable X and $2^{16}$ for variable Y, so the sum of those two variables is $2^{32}$ elements.\\\\
+I decided to show 256 elements of this result at each stage, where each element represents 4 edges from the real results as shown in figure \ref{edges}.\\
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{edges}
     \caption{summarize form shows how each element represents in CPBA}
     \label{edges}
 \end{figure}\\
-The Half-precision will have four stages. At the first stage width and height will be equal to 4095, at the second stage will be equal to 255, at the third stage will be equal to 15,  and at the fourth (last stage) will be be equal to 0.\\\\
-The Single-precision will have eight stages. At the first stage width and height will be equal to 268435455, at the second stage will be equal to 16777215, at the third stage will be equal to 1048575, at the fourth stage will be be equal to 65535, at the fifth stage will be be equal to 4095, at the sixth stage will be be equal to 255, at the seventh stage will be be equal to 15, and at the eighth stage (the last) will be be equal to 0\\\\
-The below examples is Illustrative examples to prove of concept in addition operation of half precision at first stage form:\\\\
+The Half-bit-width will have four stages. At the first stage width and height will be equal to 4095, at the second stage they will be equal to 255, at the third stage they will be equal to 15,  and at the fourth (last stage) they will be be equal to 0.\\\\
+The Single-bit-width will have eight stages. At the first stage width and height will be equal to 268435455, at the second stage they will be equal to 16777215, at the third stage they will be equal to 1048575, at the fourth stage they will be be equal to 65535, at the fifth stage they will be be equal to 4095, at the sixth stage they will be be equal to 255, at the seventh stage they will be be equal to 15, and at the eighth stage (the last one) they will be be equal to 0\\\\
+The below examples is illustrative examples to prove the concept of the addition operation with half bit-width at first stage form:\\\\
 X = 4096, Y=53248\\
 \scalebox{0.9}{
 \begin{tabular}{lllll}
@@ -316,97 +233,30 @@ Leftmost upper:  & 4096   + (61440 + 4095) & = 69631          & ,69631  is more 
 Rightmost upper: & (4096  + 4095)  + (61440 + 4095) & = 73726 & ,73726  is more then $2^{16}$    & Overflow\\
 \end{tabular}
 }\\\\
-There are 0 correct and 4 Overflow, therefor i will show single Overflow element represent this above range.  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%Leftmost bottom:  1+1 = 2, 2 is less then $2^{16}$ result of correct\\
-%Rightmost bottom: (1+4095)+1 = 4097, 4097 is less then $2^{16}$ result of correct\\
-%Leftmost upper\enskip\enskip\enskip:   1+(1+4095) = 4097, 4097 is less then $2^{16}$ result of correct\\
-%Rightmost upper\enskip\enskip:  (1+4095)+(1+4095) = 8194, 8194 is less then $2^{16}$ result of correct\\
+There are 0 correct and 4 Overflow, therefore, i will show single Overflow element representing this above range. 
 
 \subsection{Forward, Back \& Reset}
-While there will be many stages whether for Half precision and Single precision, therefore the users need for possibility to have mobile option, that can let the users move forward to next stage, back to previous stage or jump backward to first stage (Reset).\\\\
-To move forward to next stage will be done when the user will click on the element, thereafter the element that it was clicked will be the first element of the next stage, and so on until width and height equal to zero, and hereby user has reached to the final stage.\\\\
-To move back to previous stage will be done by click on back button, that button will provide the possibility to go back to previous stage until width and height equal to value 4095 in Half-precision or value 268435455 in Single-precision.\\\\
-To reset or to jump back to first stage will be done by click on reset button, that button will assign width and height to 4095 in Half-precision or 268435455 in Single-precision.
-%\subsection{What?}
-%What we need basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division)
-%in floating point arithmetic with different precision (e.g., Half, Single, Double, Quadruple)
+Since there will be many stages, whether it be for Half bit-width or Single bit-width. Therefore, users need  to an mobility option, that can let the users move forward to next stage, back to previous stage or jump backward to first stage (Reset). \\
 
-%programming languages represent those precisions such as the way in which it represented in mathematical notation?\\
+For achieving the mobility options to the user, I must provide a tool that allows the user to interact with presented data and the stages. This tools can be buttons, those buttons have to be available to user on UI.\\
 
-%What is required?\\
-%How we can achieve the desired?\\
-%Why this technique?
+To move forward to the next stage the user has to click on the element, thereafter, the clicked element will be the first element of the next stage, and so on until width and height are equal to zero. And, hereby the user has reached the final stage.\\\
+
+To move back to previous stage the user clicks on the back button - that button will provide the option of going back to the previous stage until width and height are equal to value 4095 in Half-bit-width or value 268435455 in Single-bit-width.\\
+
+To reset or to jump back to the first stage will be done by clicking on reset button - that button will assign width and height to 4095 in Half-bit-width or 268435455 in Single-bit-width.
 
 \section{Implementation}
-In this section, I will explain the steps involved to implement CPBA application. The Implementation steps is split up into two parts (User Interface-UI and Back-end)
+In this section I will explain the involved steps of the CPBA application's implementation. The Implementation steps are split into two parts (User Interface-UI and Back-end)
 \subsection{UI}
-For the implementation of the user interface I have chosen to use Bootstrap\footnote{Bootstrap, a front-end framework for web development http://getbootstrap.com/} . Bootstrap is a front-end framework for web development, and helps me flesh out the user interface, ensuring that it looks the same no matter what browser the user is using to access CPBA application.\\\\
-In the UI, I have implemented two select option element, one to define the available options for precisions, and the second one is to define the available options for arithmetic operations.\\
-The selection option for different precision has onchange attribute, that is assign to getPrecision() JavaScript function, that function is responsible to create array of the different width and height values. The HTML code for selec option is shown in the code snippet \ref{lst:Select option} below.\\
+For the implementation of the user interface I have chosen to use Bootstrap\footnote{Bootstrap, a front-end framework for web development \ref{http://getbootstrap.com/}}. Bootstrap is a front-end framework for web development, and helps me flesh out the user interface, ensuring that it looks the same no matter what browser the user is using to access the CPBA application.\\\\
+In the UI I have implemented two select option elements, one to define the available options for bit-width, and the second one is to define the available options for arithmetic operations.\\
+The selection option element for the different bit-width has the onchange attribute that assigns to getBit-Width() JavaScript function - that function is responsible for creating arrays of the different width and height values. The HTML code for select option is shown in the code snippet \ref{lst:Select option} at Appendix section \ref{app:A}.\\
 
-I had definded "Plot my requests" button element at the same div element for the select option to get the value of the selected option. This button has attribute onclick, which is assign to JavaScript functions getRequest(); and showService();. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section, but showService() function is responsible to show Back and Reset buttons, because those buttons are invisible until user has click on Plot my requests button. I had definded the style display of those buttons to none, so showService function will change style display to block instead of none, thereby those buttons will be shown in UI.\\
-The HTML code for "Plot my requests" button is shown in the code snippet \ref{lst:Plot my requests} below, the HTML code for Back and Reset buttons is show in in the code snippet \ref{lst:select option button}, and the JavaScript code for showService() function is show in the code snippet \ref{lst:showService}.\\
+I defined "Plot my requests" button element at the same div element for the select option to get the value of the selected option. This button has attribute onclick, which is to assign to JavaScript functions getRequest(); and showService();. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section. But showService() function is responsible for showing Back and Reset buttons, because those buttons are invisible until the user has clicked on Plot my requests button. I assigned the style display of those buttons to "none", thereby showService() will assign style display to "block" instead of none, thereby those buttons will be shown in UI.\\
+The HTML code for "Plot my requests" button is shown in the code snippet \ref{lst:Plot my requests} at Appendix section \ref{app:A}, the HTML code for Back and Reset buttons is shown in the code snippet \ref{lst:select option button}, and the JavaScript code for showService() function is shown in the code snippet \ref{lst:showService} at Appendix section \ref{app:A}.\\
 
-\begin{lstlisting}[label={lst:Select option}, language=HTML, caption={Select option for precisions and arithmetic operations},]
-	<div class="row">
-      <div class="col-md-4">
-        <font>Floating point precision</font>
-        <select id="precision" onchange="getPrecision();">      
-          <option value="16">Half    </option>
-          <option value="32">Single  </option>
-        </select>
-      </div>
-
-      <div class="col-md-4">
-        <font>Arithmetics operations</font>
-        <select id="operations" > 
-          <option value="addition">Addition</option>
-          <option value="subtraction">Subtraction</option>
-          <option value="multiplication">Multiplication</option>
-          <option value="division">Division</option>
-        </select>
-      </div>
-\end{lstlisting}
-
-
-\begin{lstlisting}[label={lst:Plot my requests}, language=HTML, caption={Plot my requests button to get the value of the select option},]
-        <button type="button" class="btn btn-primary" onclick="getRequest();showService();" 
-          style="margin-top:1px;">
-          <strong color="">Plot my requests</strong>
-        </button>
-	</div>      
-\end{lstlisting}
-
-\begin{lstlisting}[label={lst:select option button}, language=html, caption={Back and Reset buttons},]
-    <div class="row" id="service" style="display:none;">
-      <div class="col-md-2 col-md-offset-10">
-        <div class="col-md-1" style="margin-right:10px;">
-        <!--getBack()-->
-          <button data-toggle="tooltip" data-placement="top" title="Back" type="button" 
-            class="btn btn-link btn-circle" onclick="getBack();"><!--getBack-->
-            <img style="width: 43px; height: 43px;margin:-11px 2px 0px -6px;" 
-              src="img/playback.ico">
-          </button>
-        </div>
-
-        <div class="col-md-1">
-          <button data-toggle="tooltip" data-placement="top" title="Reset" type="button" 
-            class="btn btn-link btn-circle" onclick="reset();">
-            <img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/reset.ico">
-          </button>
-        </div>
-      </div>
-    </div>
-\end{lstlisting}
-
-\begin{lstlisting}[label={lst:showService}, language=Javascript, caption={showService function will change style of buttons to block},]
-      function showService() {
-        document.getElementById("service").style.display = "block";
-      }
-\end{lstlisting}
-Here is the last version to UI, that I had created for CPBA application. look at figure\ref{UI}
+Here is the last version of UI that I created for the CPBA application. look at figure\ref{UI}
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{layout}
@@ -414,507 +264,70 @@ Here is the last version to UI, that I had created for CPBA application. look at
     \label{UI}
 \end{figure}\\
 \subsection{Back-end}
-For the implementation of the back-end I have mentioned at design section that i will use javascript to implement the back-end functionality. The back-end are consisting of many functions, I will review these functions based on their order of the implementation to CPBA application.
-\subsubsection{getPrecision() function.}
-This function is called when the body of webpage has been loaded, and thereafter if the user has change the selec option to precision. getPrecision will get the value of precision select option, which is 16 for Half precision  or 32 for single precision. The function start with initialize the global precArr variable to empty array, and initialize the global mobile variable to 0. Thereafter assign variable temp the return value of base 2 to the exponent power of precision value ( 16 or 32).
-Now the function is ready to create the width and height value to the selected precision, and that is done by while loop as long as a specified condition ((temp/16) >= 1) is true. Inside the scope of while loop I divide the value of temp variable by 16 and, and then push the return value of temp -1 to precArr array. The while loop will create array of width and height values.\\
+In the design section I described that I would use javascript to implement the back-end functionality. The back-end consists of many functions, I will review these functions based on their order of the implementation to the CPBA application.
+\subsubsection{getBit-Width() function.}
+The first call occurs when the body of the webpage has been loaded. The second call occurs when the user changes the select option to bit-width. getbit-width receives the value of bit-width select option, which is 16 for Half bit-width or 32 for single bit-width. The function starts by initializing the global precArr variable to empty array, and initializing the global mobile variable to 0. Thereafter, assigns variable temp the return value of base 2 to the exponent power of bit-width value ( 16 or 32).
+Now the function is ready to create the width and height value to the selected bit-width, and that is done by a while loop as long as a specified condition ((temp/16) >= 1) is true. Inside the scope of while loop I divide the value of temp variable by 16, and then push the return value of temp -1 to precArr array. The while loop will create array of width and height values.\\
 
-The return value for precArr variable when precision is half will be \textbf{[4095, 255, 15, 0]}, and the return value for precArr when precision is Single will be \textbf{[268435455, 16777215, 1048575, 65535, 4095, 255, 15, 0]}.\\
-The JavaScript code for getPrecision() function is show in the code snippet\ref{lst:getPrecision}.\\
-\begin{lstlisting}[label={lst:getPrecision}, language=Javascript, caption={getPrecision function},]
-/* getPrecision Function is to create array of the different dimensional to chart.
- * The function has to reset mobile variable to zero, which will point to the start of precArr.
- * The function will be execute onload of the body element and when a user changes the selected option of a <select> element.
- */
-var mobile = 0;
-var precArr = [];
+The return value for precArr variable when bit-width is half will be \textit{[4095, 255, 15, 0]}, and the return value for precArr when bit-width is Single will be \textit{[268435455, 16777215, 1048575, 65535, 4095, 255, 15, 0]}.\\
 
-function getPrecision(){
-	precArr = [];
-	mobile  = 0;
-	var temp= Math.pow(2, document.getElementById("precision").value);
-
-	while((temp / 16) >= 1){
-		temp /= 16;
-		precArr.push(temp-1); 
-	}
-}
-\end{lstlisting}
+The JavaScript code for getBit-Width() function is shown in the code snippet\ref{lst:getBit-Width} at Appendix section \ref{app:A}.\\
 
 \subsubsection{getRequest() function.} 
-This function is called when the user has clicked on "Plot my requests" button. The function start with define variable op and assign this variable to the value of select option "operations", which are (addition, subtraction, multiplication, or division). Thereafter define switch statement and evaluate variable "op " value to matching the value to a case clause, and executes function associated with that case.\\
-The JavaScript code for getPrecision() function is show in the code snippet\ref{lst:getRequest}.\\
-\begin{lstlisting}[label={lst:getRequest}, language=Javascript, caption={getPrecision function},]
-/*	getRequest function is to create object of the selected options
- *	and call the appropriate function depending on user request.
- */
-function getRequest(){
-	var op = document.getElementById("operations").value;
-	switch(op){
-		case "addition":
-			add();
-			break;
-		case "subtraction":
-			sub();
-			break;
-		case "multiplication":
-			mult();
-			break;
-		case "division":
-			divi();
-			break;
-		default:
-			alert('Something went wrong!\n'
-				+ 'Please contact the publisher and let the author know about the bug.\n'
-				+ 'amr11682@hotmail.com');
-			break;
-	}
-}
-\end{lstlisting}
+This function is called when the user has clicked on the "Plot my requests" button. The function starts with defining a variable "op" and assigning this variable to the value of select option "operations", which are addition, subtraction, multiplication, or division. Thereafter, it defines a switch statement and evaluates variable "op " value to match the value to a case clause, and executes function associated with that case.\\
+The JavaScript code for getBit-Width() function is shown in the code snippet\ref{lst:getRequest} at Appendix section \ref{app:A}.\\
 
 \subsubsection{function add()}
-The add() function is to calculate the sum of two variables or more in arithmetic operation , and to show the behaviour of this arithmetic operation ( Correct, overflow ).  It will be executed when it been called from function getRequest().\\
-The body of add() function starts with defining variable prec, this variable will be assign to value of precision selected option, thereafter defining variable  range, this variable will be assign to the return value of base 2 to the exponent power of prec value.
-The height and width variables are assign to value of precArr[mobile], where precArr and mobile have been created from getPrecision() function.
-Thereafter Initialize variable index to 0 and initialize varaible row to empty array. The variable index will be use to insert pecified item to array row. The variables f1 and f2 are defined to assign the values of X and Y to them after convert their values to binary format.\\
+The add() function calculates the sum of two variables or more in arithmetic operation. Also, it shows the behaviour of this arithmetic operation ( Correct, overflow ). It will be executed when it's called by function getRequest().\\
+The body of add() function starts with a variable prec definition, this variable will be assigned to the value of the bit-width selected option. Thereafter, a variable range is defined - this variable will be assigned to the return value of base 2 to the exponent power of prec value.
+The height and width variables are assigned to the values of precArr[mobile], where precArr and mobile have been created from getBit-Width() function.
+Thereafter, variable index 0 is intialized to 0, and variable row is initialized to an empty array. The variable index will be used to insert specified items to array row. The variables f1 and f2 are defined to assign the values of X and Y to them after their values have been converted to binary format.\\
 
-The next variable is getPixel, this variable declare function expression in the current scope of add() function. getPixel will summarize 4 edges of 256 element at each stage based on height and width value. In the current scope of getPixel function I defining variable check, this variable declare function expression, this function checking the sum of items at each edge for the 4 edges to 256 elements, if the result of the edge is less than the value of range variable, so increase correct variable by 1,  otherwise increase the variable overflow by 1.\\
+The next variable is getPixel, this variable declares a function expression in the current scope of add() function. getPixel will summarize 4 edges of 256 elements at each stage based on height and width value. In the current scope of getPixel function I define variable check. This variable declares a function expression - the function checks the sum of items at each edge for the 4 edges of 256 elements: if the result of the edge is less than the value of range variable the correct variable is increased by 1,  otherwise the variable overflow is increased by 1.\\
 
-The next step is to represent the result of summarized data, and that is done by checking if the value of correct variable is more then 0 and the value of overflow variable is equal to 0, so the summarized data will be shown to user as it is correct data, or if the value of overflow variable is more then 0 and the value of correct variable is equal to 0, so the summarized data will be shown to user as it is overflow data, other than that the summarized data will be shown to user as it is mix data (correct and overflow).\\
+The next step is to represent the result of the summarized data, and that is done by checking if the value of the correct variable is greater than 0 and the value of overflow variable is equal to 0, so the summarized data will be shown to user as it is correct data. Or, if the value of overflow variable is greater than 0 and the value of correct variable is equal to 0, so the summarized data will be shown to the user as it is overflow data. Other than that, the summarized data will be shown to the user as it is mixed data (correct and overflow).\\
 
-At lines 40-42 of the snipped code, I had defined variables xV and yV, those variables will be assigned to the value of variables xValue and yValue. The variables xValue and yValue have been defined as global and have been initialized to null value as shown in the snapped code \ref{lst:xyvalue-global}, therefor at the first stage xV and yV will be assign to 0,  but if the user has clicked on an item of the represented data, so the values of this item will be assign to xValue and yValue variables and thereby xV and yV will be assign to xValue and yValue.\\
+At lines 40-42 of the snipped code, I defined variables xV and yV, those variables will be assigned to the value of variables xValue and yValue. The variables xValue and yValue have been defined as global and have been initialized to null value as shown in the snapped code \ref{lst:xyvalue-global} at Appendix section \ref{app:A}. Therefore, at the first stage xV and yV will be assigned to 0. However, if the user clicks on an item of the represented data, the values of this item will be assigned to xValue and yValue variables and thereby xV and yV will be assigned to xValue and yValue.\\
 
-The getFormat variable is declare function expression in the current scope of add() function. I had definf getFormat function with one parameter, this parameter will be passing with prec variable to decBin function \ref{lst:decBin}, and the return value of decBin is assign to variables f1 and f2, where those variables will represent the binary value of x and y items of the shown data.\\
+The getFormat variable is a declare function expression in the current scope of add() function. I defined getFormat function with one parameter, this parameter passes from prec variable to the decBin function \ref{lst:decBin}, and the return value of decBin is assigned to the variables f1 and f2, where those variables will represent the binary value of x and y items of the shown data.\\
 
-At lines 47-57 I had defind two for loop. The first loop will represent the x-axis items, and the second loop will represent the y-axis items.
-The first loop has 16 iteration, and in the beginning of the loop I started with assign variable x to the value of variable xV, and at each iteration the x value is updating to its value plus width value. Thereafter I call getFormat function with x value to get the binary value of x, so i can show it to user. The next variable is dicX, this variable is an object with two properties key and value, and it is defined like that to fit Google Chart API for represent the items. The value for v key is x value, and the value of f key is the binary value of f1 to f2.\\
-The second loop is defined in the body of the first loop, it has also 16 iteration. I started the same way as the previous loop, but this time with assign variable y to the value of variable yV, and at each iteration the y value is updating to its value plus height value. Thereafter I call getFormat function with y value to get the binary value of y, so i can show it to user. I had defined variable dicY as an object with two properties key and value. The value for v key is y value, and the value of f key is the binary value of f1 to f2. Now I can call getPixel to summarize the 4 edges, and that is done by passing variables x, y , height, width, dicX, and dicY in getPixel function.\\
-This two loop produce 256 elements, those elements have been inserted at row array at getPixel function, therefore at line 58 I called drawChart() function for represent the data to user. At the next subsection I will review and explain drawChart() \ref{lst:drawChart} function and how it works.\\
-%After a function expression has been stored in a variable, the variable can be used as a function:
-\begin{lstlisting}[label={lst:add}, language=Javascript, caption={add function},]
-// function to create the simulation of Arithmetics operation ( addition )
-function add(){
-	var prec  = parseInt(document.getElementById("precision").value);
-
-	var range = Math.pow(2, prec);
-
-	var height= precArr[mobile];
-	var width = precArr[mobile];
-
-	var index = 0;
-	var rows  = [];
-
-	var f1; // X-axis data format 
-	var f2; // Y-axis data format
-
-	var getPixel = function(x, y, height, width, dictX, dictY) {
-		var correct = 0;
-		var overflow = 0;
-		
-		var check = function(x,y) {
-			if (x + y < range) { correct += 1; } else { overflow += 1; }	
-		}
-		check(x, y);
-		check(x, y + height);
-		check(x + width, y);
-		check(x + width, y + height);
-		if (correct > 0 && overflow == 0) {
-	    	// Correct data
-			rows[index] = [dictX, dictY, null, null];
-
-		} else if(overflow > 0 && correct == 0) {
-			// Overflow data
-			rows[index] = [dictX, null, dictY, null];
-
-		} else {
-			// Mix data
-			rows[index] = [dictX, null, null, dictY];
-		}
-	}
-	var xV;
-	var yV; 
-	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
-	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	
-	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
-	//var x = 0
-	for(var x = xV, i = 0; i < 16; i++, x += width+1){
-		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
-		//var y = 0
-		for(var y = yV, j = 0; j < 16; j++, y += height+1){
-			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
-			getPixel(x, y, height, width, dictX, dictY);
-			index += 1;
-		}
-	}
-	drawChart(rows, ['Overflow', 'Mix']);
-}
-\end{lstlisting}
-
-\begin{lstlisting}[label={lst:xyvalue-global}, language=Javascript, caption={Global variables},]
-// Declare global variable, which will get their value from drawChart function, 
-// only if the user has interacted with chart ( click on (x,y) ). 
-var xValue = null;
-var yValue = null;
-
-var clickedX = [];
-var clickedY = [];
-var clickIndex = 0;
-\end{lstlisting}
-
-\begin{lstlisting}[label={lst:decBin}, language=Javascript, caption={Convert (Decimal to Binary) with specify length of the output},]
-/*	decBin function is to convert (Decimal to Binary) with specify length of the output.
- *	The function take 2 arguments ( dec, length)
- *	dec   : is the decimal number, which need to be convert to binary
- *	length: is the desirable precision 
- *	The function convert positive decimal as well as negative decimal 
- */
-function decBin(dec,length){
-	var out = "";
-	while(length--)
-		out += (dec >> length ) & 1;
-	return out;
-}
-\end{lstlisting}
+At lines 47-57 I define two for loops. The first loop represents the x-axis items, and the second loop represents the y-axis items.
+The first loop has 16 iterations, and in the beginning of the loop I started by assigning variable x to the value of variable xV. And, at each iteration the x value is updated to its value plus width value. Thereafter, I call getFormat function with x value to get the binary value of x, so i can show it to the user. The next variable is dicX, this variable is an object with two properties key and value, and it is defined like that to fit Google Chart API to represent the items. The value for v key is x value, and the value of f key is the binary value of f1 to f2.\\
+The second loop is defined in the body of the first loop, it also has 16 iterations. I started the same way as the previous loop, but this time it assigns variable y to the value of variable yV, and at each iteration the y value updates to its value plus height value. Thereafter, I call getFormat function with y value to get the binary value of y so i can show it to the user. I defined variable dicY as an object with two properties key and value. The value for v key is y value, and the value of f key is the binary value of f1 to f2. Now I can call getPixel to summarize the 4 edges, and that is done by passing variables x, y , height, width, dicX, and dicY to the getPixel function.\\
+This two loop produces 256 elements, those elements were inserted at row array at getPixel function, therefore, at line 58 I called drawChart() function to visualize the data for the user. At the next subsection I will review and explain drawChart() \ref{lst:drawChart} function and how it works.\\
 
 \subsubsection{function drawChart(arg1, arg2) }
-%Google chart tools are powerful, simple to use, and free.
-This function will be used to plotting the received data from (add, sub, mult, and divi functions). The function takes two arguments, the first argument is the desired display data, and the second argument is an array of legends to describe the shown data (e.g. correct, Overflow , Underflow, , Inexpressible, infinity, and mix). While the function will get different length of the second argument, so I need to check the length of the second argument to pass the right legend to the shown data. If the length of arg3 is equal to three, so the received data is from divi() function, and thereby the legend will refer to 4 different data ( Correct, Inexpressible, infinity, and Mix), otherwise the legend will refer to 3 different data (Correct, [Overflow, or Underflow], and Mix). Thereafter adds new rows to the data table, those rows are some number of arrays, that has been passed to the drawChart parameter. At line 28 variable chart is an object of class google.charts.Scatter at "chart\_div1" div, and at line 30 the data has been drawn.\\
+This function plots the received data from add, sub, mult, and divi functions. The function takes two arguments, the first argument is the desired display data, and the second argument is an array of legends to describe the shown data (e.g. correct, Overflow, Underflow, Inexpressible, infinity, and mix). While the function will get different lengths in the second argument, I need to check the length of the second argument to pass the right legend to the shown data. If the length of arg2 is equal to three the received data is from divi() function, and thereby the legend will refer to 4 different data ( Correct, Inexpressible, Infinity, and Mix). Otherwise the legend will refer to 3 different data (Correct, (Overflow or Underflow), and Mix). Thereafter, adds new rows to the data table - the rows are arrays that have been passed to the drawChart parameter. Line 21 is to configure the options of the chart, where I defined the char title, width and height. At line 28 variable chart is an object of class google.charts.Scatter,  where "chart\_div1" div is used to contain the chart drawn.\\
 
-In the scope of drawChart function I have defined selectHandler() function, this function will allow user to interact with the shown data by click on the items, and thereby I get the x and y values of the clicked item, those values are assign to the global variables xValue and yValue. At line 51 I have defined variable vaild, and it's assign to the return value of checkIndex() function, this function check if the mobile variable has not run out of range to precArr length as shown in the snapped code \ref{lst:checkIndex}. If the return value of checkIndex is true, than increase the value of variable clickIndex by 1, and call getRequest() function.
+In the scope of drawChart function I have defined selectHandler() function, this function will allow users to interact with the shown data by clicking on the items, and thereby I get the x and y values of the clicked item. Those values are assigned to the global variables xValue and yValue. At line 51 I have defined variable valid, and it's assigned to the return value of checkIndex() function. This function checks if the mobile variable has not run out of range to precArr length as shown in the snapped code \ref{lst:checkIndex} at Appendix section \ref{app:A}. If the return value of checkIndex is true then increase the value of variable clickIndex by 1, and call getRequest() function.
 
-
-%Thereafter I call---Holds all the information we keep for a single column in a DataTable. This does not include all the values, which are kept in TableCells. 
-
-\begin{lstlisting}[label={lst:drawChart}, language=Javascript, caption={drawChart function will visualize the passed data to user.},]
-function drawChart(arg1, arg2) {
-	// Define the chart to be drawn. 
-	var data = new google.visualization.DataTable();
-	data.addColumn('number', '');
-	data.addColumn('number', 'correct');
-	if (arg2.length == 3){
-		// numbers do not divide evenly  (Inexpressible) 
-		data.addColumn('number', arg2[0]);
-		// divide by zero
-		data.addColumn('number', arg2[1]);
-		// Mixed
-		data.addColumn('number', arg2[2]);
-	} else{
-		// Overflow or Underflow
-		data.addColumn('number', arg2[0]);
-		// Mixed
-		data.addColumn('number', arg2[1]);
-	}
-   
-   	data.addRows(arg1);
-    var options = {
-    	chart: {
-    		title: ' Plotting the simulation of floating point with Basic Arithmetics'
-     	},
-     	width: 1150,
-     	height: 500,
-    };
-    var chart = new google.charts.Scatter(document.getElementById('chart_div1'));
-
-    chart.draw(data, google.charts.Scatter.convertOptions(options));
- 
-
-	// Listen for the 'select' event, and call my function selectHandler() when
-	// the user selects something on the chart.
-
-    google.visualization.events.addListener(chart, 'select', selectHandler);
-
-    // This function to get the index of the selected element of chart.
-	function selectHandler() {
-
-		mobile += 1;
-
-		var selectedItemRow = chart.getSelection()[0].row;
-		var selectedItemCol = chart.getSelection()[0].column;
-
-		if (selectedItemRow != null){
-
-			xValue = data.getValue(selectedItemRow, 0);
-			yValue = data.getValue(selectedItemRow, selectedItemCol);
-
-			var valid  = checkIndex();
-
-			if(valid){
-				clickIndex += 1;
-				getRequest();//xValue, yValue);
-			}
-		}
-	};
-}
-\end{lstlisting}
-
-\begin{lstlisting}[label={lst:checkIndex}, language=Javascript, caption={check if the mobile variable has not run out of range to precArr length.},]
-/* checkIndex function is to check if the mobile variable 
- * has not run out of range to precArr length. 
- */
-function checkIndex(){
-	if(mobile < precArr.length){return true;}else{return false;}
-}
-\end{lstlisting}
 \subsubsection{function sub()}
-\begin{lstlisting}[label={lst:sub}, language=Javascript, caption={sub function},]
-// function to create the simulation of Arithmetics operation ( subtraction )
-function sub(){//xValue, yValue){
-	var prec  = parseInt(document.getElementById("precision").value);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-
-	var height= precArr[mobile];
-	var width = precArr[mobile];
-
-	var index = 0;
-	var rows  = [];
-
-	var f1; // axis data format 
-	var f2; // axis data format
-
-	var getPixel = function(x, y, height, width, dictX, dictY) {
-		var correct = 0;
-		var underflow = 0;
-			// correct logic
-			// format is:  x index , correct , overflow
-			if ((i-j) >= 0 & (i-j) < range){
-				rows[index] = [dictX, dictY, null];
-			// else overflow
-			}else{
-				rows[index] = [dictX, , dictY];
-			}
-
-
-		var check = function(x,y) {
-			if ((x - y) >=0 && (x - y) < range) { correct += 1; } else { underflow += 1; }	
-		}
-		check(x, y);
-		check(x, y + height);
-		check(x + width, y);
-		check(x + width, y + height);
-		if (correct > 0 && underflow == 0) {
-	    	// Correct data
-			rows[index] = [dictX, dictY, null, null];
-
-		} else if(underflow > 0 && correct == 0) {
-			// Overflow data
-			rows[index] = [dictX, null, dictY, null];
-
-		} else {
-			// Mix data
-			rows[index] = [dictX, null, null, dictY];
-		}
-	}
-	var xV;
-	var yV; 
-	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
-	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	
-	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
-	//var x = 0
-	for(var x = xV, i = 0; i < 16; i++, x += width+1){
-		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
-		//var y = 0
-		for(var y = yV, j = 0; j < 16; j++, y += height+1){
-			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
-			getPixel(x, y, height, width, dictX, dictY);
-			index += 1;
-		}
-	}
-	drawChart(rows, ['Underflow', 'Mix']);
-}
-\end{lstlisting}
+The sub() function \ref{lst:sub} calculates the subtraction of two variables or more in arithmetic operation. And, the function is to show the behaviour of this arithmetic operation ( Correct, Underflow ). The function will be executed when it's called from function getRequest() \ref{lst:getRequest}. The sub() function has the same definition like the add() function \ref{lst:add} except the logic for check() function.\\
+\\At the scope of sub() function, the check() function checks if the result of left expression subtract the right-side expression for the items at the four edges of 256 elements. If the result is greater than zero and the result is less than or equal to range variable the correct variable increased by 1. Otherwise the variable underflow is increased by 1 as shown in the snapped code \ref{lst:sub} lines 20-22 at Appendix section \ref{app:A}.\\
 
 \subsubsection{function mult()}
-\begin{lstlisting}[label={lst:mult}, language=Javascript, caption={mult function},]
-// function to create the simulation of Arithmetics operation ( multiplication )
-function mult(){//xValue, yValue){
-	var prec  = parseInt(document.getElementById("precision").value);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-
-	var height= precArr[mobile];
-	var width = precArr[mobile];
-
-	var index = 0;
-	var rows  = [];
-
-	var f1; // axis data format 
-	var f2; // axis data format
-
-	var getPixel = function(x, y, height, width, dictX, dictY) {
-		var correct = 0;
-		var overflow = 0;
-
-		var check = function(x,y) {
-			if (x * y < range) { correct += 1; } else { overflow += 1; }	
-		}
-		check(x, y);
-		check(x, y + height);
-		check(x + width, y);
-		check(x + width, y + height);
-		if (correct > 0 && overflow == 0) {
-	    	// Correct data
-			rows[index] = [dictX, dictY, null, null];
-
-		} else if(overflow > 0 && correct == 0) {
-			// Overflow data
-			rows[index] = [dictX, null, dictY, null];
-
-		} else {
-			// Mix data
-			rows[index] = [dictX, null, null, dictY];
-		}
-	}
-	var xV;
-	var yV; 
-	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
-	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	
-	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
-	
-	for(var x = xV, i = 0; i < 16; i++, x += width+1){
-		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
-		//var y = 0
-		for(var y = yV, j = 0; j < 16; j++, y += height+1){
-			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
-			getPixel(x, y, height, width, dictX, dictY);
-			index += 1;
-		}
-	}
-	drawChart(rows, ['Overflow', 'Mix']);
-}
-
-\end{lstlisting}
+The mult() function \ref{lst:mult} calculates the multiplication of two variables in arithmetic operation. And, the function is to show the behaviour of this arithmetic operation ( Correct or Overflow ). The function will be executed when it's called from function getRequest() \ref{lst:getRequest}. The mult() function has the same definition like the add() \ref{lst:add}, and sub() \ref{lst:sub} functions except the logic for check() function.\\
+\\At the scope of mult() function, the check() function checks if the result of left-side expression multiplication the right-side expression for the items at the four edges of 256 elements. If the result is less than range variable the correct variable increased by 1. Otherwise the variable overflow is increased by 1 as shown in the snapped code \ref{lst:mult} lines 20-22 at Appendix section \ref{app:A}.\\
 
 \subsubsection{function divi()}
-\begin{lstlisting}[label={lst:divi}, language=Javascript, caption={divi function},]
-// function to create the simulation of Arithmetics operation ( division )
-function divi(){//xValue, yValue){
-	var prec  = parseInt(document.getElementById("precision").value);
-	// range to iteration (loop)
-	var range = Math.pow(2, prec);
-
-	var height= precArr[mobile];
-	var width = precArr[mobile];
-
-	var index = 0;
-	var rows  = [];
-
-	var f1; // axis data format 
-	var f2; // axis data format
-
-	var getPixel = function(x, y, height, width, dictX, dictY) {
-		var correct = 0;
-		var infi    = 0;
-		var Inexpressible = 0;
-
-		var check = function(x,y) {
-			if ((x/y) % 1 == 0) { correct += 1; }
-			else if(isNaN(x/y) || !(isFinite(x/y))) { infi += 1;}
-			else{ Inexpressible += 1; }	
-		}
-		check(x, y);
-		check(x, y + height);
-		check(x + width, y);
-		check(x + width, y + height);
-		if (correct > 0 && Inexpressible == 0 && infi == 0) {
-	    	// Correct data: does (1/3) which is 0.33.. mod 1  equal to zero
-			rows[index] = [dictX, dictY, null, null, null];
-
-		} else if(Inexpressible > 0 && correct == 0 && infi == 0) {
-			// Inexpressible data
-			rows[index] = [dictX, null, dictY, null, null];
-
-		}else if(infi > 0 && correct == 0 && Inexpressible == 0) {
-			// check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0
-			rows[index] = [dictX, null, null, dictY, null];
-
-		} else {
-			// Mix data
-			rows[index] = [dictX, null, null, null, dictY];
-		}
-	}
-	var xV;
-	var yV; 
-	if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
-	if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
-	
-	var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
-	
-	for(var x = xV, i = 0; i < 16; i++, x += width+1){
-		getFormat(x);
-		var dictX = {v:x, f:'X: '+f1+' to '+f2};
-	
-		for(var y = yV, j = 0; j < 16; j++, y += height+1){
-			getFormat(y);
-			var dictY = {v:y, f:'Y: '+f1+' to '+f2};
-			getPixel(x, y, height, width, dictX, dictY);
-			index += 1;
-		}
-	}
-	drawChart(rows, ['Inexpressible', 'infinity','Mix']);
-}
-\end{lstlisting}
+The divi() function \ref{lst:divi} calculates the division of two variables in arithmetic operation. And, the function is to show the behaviour of this arithmetic operation (Correct, Inexpressible "Numbers do not divide evently", Infinity "Numbers divide by zero" ). The function will be executed when it's called from function getRequest() \ref{lst:getRequest}. The divi() function has the same definition like the add() \ref{lst:add}, sub() \ref{lst:sub}, and mult() \ref{lst:mult} functions except the logic for check() function.\\
+\\At the scope of divi() function, the check() function checks if the result of left-side expression divide by the right-side expression modulus 1 is equal to zero for the items at the four edges of 256 elements. If the condition is true the correct variable increased by 1, else if left-side  expression divide by right-side expression is Not a Number (e.g. 0/0) or left-side expression divide by right-side expression is not finite (e.g. 1/0, 2/0 , .., n/0), then the fini variable increased by 1. Otherwise the variable Inexpressible increased by 1 as shown in the snapped code \ref{lst:mult} lines 21-26 at Appendix section \ref{app:A}.\\
 
 \subsubsection{function reset()}
+The purpose of reset() \ref{lst:reset} function is to reset chart and go back to first stage to show the previous data at this stage. The function reset() begins by reassign variable mobile value to zero, thereafter reassign global variables xValue and yValue values to null, and at last reassign variable clickIndex value to zero, then it call getRequest() function. The onclick event occurs when the user clicks on reset button at UI, then 
+the reset() function will be execute.\\
+The reset() function will be execute when onclick event occurs while the user clicks on reset button at UI. The code for reset function can see at \ref{lst:reset} at the Appendix section \ref{app:A}.
 
-\begin{lstlisting}[label={lst:checkIndex}, language=Javascript, caption={reset function is to reset all the interactive action from user with chart, and get back to the first stage},]
-/* reset function is to reset all the interactive action from user with chart.
- * set the mobile variable to zero index ( the start of precArr )
- */
-function reset(){
-	mobile = 0;
-	xValue = null;
-	yValue = null;
-	clickIndex = 0;
-	getRequest();
-}
-\end{lstlisting}
-
-\subsubsection{function reset()}
-
-\begin{lstlisting}[label={lst:checkIndex}, language=Javascript, caption={getBack function provide to the user the previous stage of chart},]
-/* getBack function provide to the user the previous event of chart. 
- * The function provide event points to the appropriate function (current )
- */
-function getBack(){
-	if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
-
-	if(clickIndex == 0 || clickIndex == 1){
-		xValue= null;
-		yValue=null;
-		clickIndex = 0;
-	}else{
-		clickIndex -= 1;
-		xValue=clickedX[clickIndex-1]; 
-		yValue=clickedY[clickIndex-1];
-		
-	}
-	getRequest();
-}
-\end{lstlisting}
-
+\subsubsection{function getBack()}
 
 
 \section{Testing}
 
+
 %\section{Future Development}
-
 %\section{Work progress}
-
-
 \section{Conclusion}
 
-%hello \cite{Goldberg:1991:CSK:103162.103163}
-%c .\citep{Guo:2013:OPT:2445196.2445368}
 \newpage
 \section*{References}
 \begin{enumerate}[label={[\arabic*]}]
@@ -964,12 +377,506 @@ function getBack(){
 \section*{Footnotes}
 \begin{itemize}
 \item \url{http://steve.hollasch.net/cgindex/coding/ieeefloat.html}
+\item \url{https://developers.google.com/chart/}
+\item \url{http://getbootstrap.com/}
 \end{itemize}
-%\addcontentsline{toc}{section}{appendices}
-%\appendix
-%\begin{appendices}
 
-%\end{appendices}
+\newpage
+\section{Appendix} \label{app:A} %Appendices
+\begin{lstlisting}[label={lst:Select option}, language=HTML, caption={Select option for bit-width and arithmetic operations},]
+  <div class="row">
+      <div class="col-md-4">
+        <font>Floating point bit-width</font>
+        <select id="bit-width" onchange="getBit-Width();">      
+          <option value="16">Half    </option>
+          <option value="32">Single  </option>
+        </select>
+      </div>
 
+      <div class="col-md-4">
+        <font>Arithmetics operations</font>
+        <select id="operations" > 
+          <option value="addition">Addition</option>
+          <option value="subtraction">Subtraction</option>
+          <option value="multiplication">Multiplication</option>
+          <option value="division">Division</option>
+        </select>
+      </div>
+\end{lstlisting}
+
+
+\begin{lstlisting}[label={lst:Plot my requests}, language=HTML, caption={Plot my requests button to get the value of the select option},]
+        <button type="button" class="btn btn-primary" onclick="getRequest();showService();" 
+          style="margin-top:1px;">
+          <strong color="">Plot my requests</strong>
+        </button>
+  </div>      
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:select option button}, language=html, caption={Back and Reset buttons},]
+    <div class="row" id="service" style="display:none;">
+      <div class="col-md-2 col-md-offset-10">
+        <div class="col-md-1" style="margin-right:10px;">
+        <!--getBack()-->
+          <button data-toggle="tooltip" data-placement="top" title="Back" type="button" 
+            class="btn btn-link btn-circle" onclick="getBack();"><!--getBack-->
+            <img style="width: 43px; height: 43px;margin:-11px 2px 0px -6px;" 
+              src="img/playback.ico">
+          </button>
+        </div>
+
+        <div class="col-md-1">
+          <button data-toggle="tooltip" data-placement="top" title="Reset" type="button" 
+            class="btn btn-link btn-circle" onclick="reset();">
+            <img style="width: 43px; height: 43px;margin:-12px 2px 0px -7px;" src="img/reset.ico">
+          </button>
+        </div>
+      </div>
+    </div>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:showService}, language=Javascript, caption={showService function will change style of buttons to block},]
+      function showService() {
+        document.getElementById("service").style.display = "block";
+      }
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:getBit-Width}, language=Javascript, caption={getBit-Width function},]
+/* getBit-wWidth Function is to create array of the different dimensional to chart.
+ * The function has to reset mobile variable to zero, which will point to the start of precArr.
+ * The function will be execute onload of the body element and when a user changes the selected 
+ * option of a <select> element.
+ */
+var mobile = 0;
+var precArr = [];
+
+function getBit-Width(){
+  precArr = [];
+  mobile  = 0;
+  var temp= Math.pow(2, document.getElementById("bit-width").value);
+
+  while((temp / 16) >= 1){
+    temp /= 16;
+    precArr.push(temp-1); 
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:getRequest}, language=Javascript, caption={getRequest function},]
+/*  getRequest function is to create object of the selected options
+ *  and call the appropriate function depending on user request.
+ */
+function getRequest(){
+  var op = document.getElementById("operations").value;
+  switch(op){
+    case "addition":
+      add();
+      break;
+    case "subtraction":
+      sub();
+      break;
+    case "multiplication":
+      mult();
+      break;
+    case "division":
+      divi();
+      break;
+    default:
+      alert('Something went wrong!\n'
+        + 'Please contact the publisher and let the author know about the bug.\n'
+        + 'amr11682@hotmail.com');
+      break;
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:add}, language=Javascript, caption={add function},]
+// function to create the simulation of Arithmetics operation ( addition )
+function add(){
+  var prec  = parseInt(document.getElementById("bit-width").value);
+
+  var range = Math.pow(2, prec);
+
+  var height= precArr[mobile];
+  var width = precArr[mobile];
+
+  var index = 0;
+  var rows  = [];
+
+  var f1; // X-axis data format 
+  var f2; // Y-axis data format
+
+  var getPixel = function(x, y, height, width, dictX, dictY) {
+    var correct = 0;
+    var overflow = 0;
+    
+    var check = function(x,y) {
+      if (x + y < range) { correct += 1; } else { overflow += 1; }  
+    }
+    check(x, y);
+    check(x, y + height);
+    check(x + width, y);
+    check(x + width, y + height);
+    if (correct > 0 && overflow == 0) {
+        // Correct data
+      rows[index] = [dictX, dictY, null, null];
+
+    } else if(overflow > 0 && correct == 0) {
+      // Overflow data
+      rows[index] = [dictX, null, dictY, null];
+
+    } else {
+      // Mix data
+      rows[index] = [dictX, null, null, dictY];
+    }
+  }
+  var xV;
+  var yV; 
+  if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+  if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+  
+  var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+  //var x = 0
+  for(var x = xV, i = 0; i < 16; i++, x += width+1){
+    getFormat(x);
+    var dictX = {v:x, f:'X: '+f1+' to '+f2};
+    //var y = 0
+    for(var y = yV, j = 0; j < 16; j++, y += height+1){
+      getFormat(y);
+      var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+      getPixel(x, y, height, width, dictX, dictY);
+      index += 1;
+    }
+  }
+  drawChart(rows, ['Overflow', 'Mix']);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:xyvalue-global}, language=Javascript, caption={Global variables},]
+// Declare global variable, which will get their value from drawChart function, 
+// only if the user has interacted with chart ( click on (x,y) ). 
+var xValue = null;
+var yValue = null;
+
+var clickedX = [];
+var clickedY = [];
+var clickIndex = 0;
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:decBin}, language=Javascript, caption={Convert (Decimal to Binary) with specify length of the output},]
+/*  decBin function is to convert (Decimal to Binary) with specify length of the output.
+ *  The function take 2 arguments ( dec, length)
+ *  dec   : is the decimal number, which need to be convert to binary
+ *  length: is the desirable bit-width. 
+ *  The function convert positive decimal as well as negative decimal 
+ */
+function decBin(dec,length){
+  var out = "";
+  while(length--)
+    out += (dec >> length ) & 1;
+  return out;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:drawChart}, language=Javascript, caption={drawChart function will visualize the passed data to user.},]
+function drawChart(arg1, arg2) {
+  // Define the chart to be drawn. 
+  var data = new google.visualization.DataTable();
+  data.addColumn('number', '');
+  data.addColumn('number', 'correct');
+  if (arg2.length == 3){
+    // numbers do not divide evenly  (Inexpressible) 
+    data.addColumn('number', arg2[0]);
+    // divide by zero
+    data.addColumn('number', arg2[1]);
+    // Mixed
+    data.addColumn('number', arg2[2]);
+  } else{
+    // Overflow or Underflow
+    data.addColumn('number', arg2[0]);
+    // Mixed
+    data.addColumn('number', arg2[1]);
+  }
+   
+    data.addRows(arg1);
+    var options = {
+      chart: {
+        title: ' Plotting the simulation of floating point with Basic Arithmetics'
+      },
+      width: 1150,
+      height: 500,
+    };
+    var chart = new google.charts.Scatter(document.getElementById('chart_div1'));
+
+    chart.draw(data, google.charts.Scatter.convertOptions(options));
+ 
+
+  // Listen for the 'select' event, and call my function selectHandler() when
+  // the user selects something on the chart.
+
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+
+    // This function to get the index of the selected element of chart.
+  function selectHandler() {
+
+    mobile += 1;
+
+    var selectedItemRow = chart.getSelection()[0].row;
+    var selectedItemCol = chart.getSelection()[0].column;
+
+    if (selectedItemRow != null){
+
+      xValue = data.getValue(selectedItemRow, 0);
+      yValue = data.getValue(selectedItemRow, selectedItemCol);
+
+      var valid  = checkIndex();
+
+      if(valid){
+        clickIndex += 1;
+        getRequest();//xValue, yValue);
+      }
+    }
+  };
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:checkIndex}, language=Javascript, caption={check if the mobile variable has not run out of range to precArr length.},]
+/* checkIndex function is to check if the mobile variable 
+ * has not run out of range to precArr length. 
+ */
+function checkIndex(){
+  if(mobile < precArr.length){return true;}else{return false;}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:sub}, language=Javascript, caption={sub function},]
+// function to create the simulation of Arithmetics operation ( subtraction )
+function sub(){//xValue, yValue){
+  var prec  = parseInt(document.getElementById("bit-width").value);
+  // range to iteration (loop)
+  var range = Math.pow(2, prec);
+
+  var height= precArr[mobile];
+  var width = precArr[mobile];
+
+  var index = 0;
+  var rows  = [];
+
+  var f1; // axis data format 
+  var f2; // axis data format
+
+  var getPixel = function(x, y, height, width, dictX, dictY) {
+    var correct = 0;
+    var underflow = 0;
+
+    var check = function(x,y) {
+      if ((x - y) >=0 && (x - y) < range) { correct += 1; } else { underflow += 1; }  
+    }
+    check(x, y);
+    check(x, y + height);
+    check(x + width, y);
+      check(x + width, y + height);
+        console.log(x,y,correct, underflow, dictX, dictY, index);
+      if (correct > 0 && underflow == 0) {
+        // Correct data
+      rows[index] = [dictX, dictY, null, null];
+
+    } else if(underflow > 0 && correct == 0) {
+      // Overflow data
+      rows[index] = [dictX, null, dictY, null];
+
+    } else {
+      // Mix data
+      rows[index] = [dictX, null, null, dictY];
+    }
+  }
+  var xV;
+  var yV; 
+  if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+  if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+  
+  var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+  //var x = 0
+  for(var x = xV, i = 0; i < 16; i++, x += width+1){
+    getFormat(x);
+    var dictX = {v:x, f:'X: '+f1+' - '+f2};
+    //var y = 0
+    for(var y = yV, j = 0; j < 16; j++, y += height+1){
+      getFormat(y);
+      var dictY = {v:y, f:'Y: '+f1+' - '+f2};
+      getPixel(x, y, height, width, dictX, dictY);
+      index += 1;
+    }
+  }
+  drawChart(rows, ['Underflow', 'Mix']);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:mult}, language=Javascript, caption={mult function},]
+// function to create the simulation of Arithmetics operation ( multiplication )
+function mult(){//xValue, yValue){
+  var prec  = parseInt(document.getElementById("bit-width").value);
+  // range to iteration (loop)
+  var range = Math.pow(2, prec);
+
+  var height= precArr[mobile];
+  var width = precArr[mobile];
+
+  var index = 0;
+  var rows  = [];
+
+  var f1; // axis data format 
+  var f2; // axis data format
+
+  var getPixel = function(x, y, height, width, dictX, dictY) {
+    var correct = 0;
+    var overflow = 0;
+
+    var check = function(x,y) {
+      if (x * y < range) { correct += 1; } else { overflow += 1; }  
+    }
+    check(x, y);
+    check(x, y + height);
+    check(x + width, y);
+    check(x + width, y + height);
+    if (correct > 0 && overflow == 0) {
+        // Correct data
+      rows[index] = [dictX, dictY, null, null];
+
+    } else if(overflow > 0 && correct == 0) {
+      // Overflow data
+      rows[index] = [dictX, null, dictY, null];
+
+    } else {
+      // Mix data
+      rows[index] = [dictX, null, null, dictY];
+    }
+  }
+  var xV;
+  var yV; 
+  if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+  if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+  
+  var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+  
+  for(var x = xV, i = 0; i < 16; i++, x += width+1){
+    getFormat(x);
+    var dictX = {v:x, f:'X: '+f1+' to '+f2};
+    //var y = 0
+    for(var y = yV, j = 0; j < 16; j++, y += height+1){
+      getFormat(y);
+      var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+      getPixel(x, y, height, width, dictX, dictY);
+      index += 1;
+    }
+  }
+  drawChart(rows, ['Overflow', 'Mix']);
+}
+
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:divi}, language=Javascript, caption={divi function},]
+// function to create the simulation of Arithmetics operation ( division )
+function divi(){//xValue, yValue){
+  var prec  = parseInt(document.getElementById("bit-width").value);
+  // range to iteration (loop)
+  var range = Math.pow(2, prec);
+
+  var height= precArr[mobile];
+  var width = precArr[mobile];
+
+  var index = 0;
+  var rows  = [];
+
+  var f1; // axis data format 
+  var f2; // axis data format
+
+  var getPixel = function(x, y, height, width, dictX, dictY) {
+    var correct = 0;
+    var infi    = 0;
+    var Inexpressible = 0;
+
+    var check = function(x,y) {
+      if ((x/y) % 1 == 0) { correct += 1; }
+      // Check if the result if NAN (e.g. 0/0) or the result is Infinity (e.g. 1/0, 2/0, ...)
+      else if(isNaN(x/y) || !(isFinite(x/y))) { infi += 1;}
+      else{ Inexpressible += 1; } 
+    }
+    check(x, y);
+    check(x, y + height);
+    check(x + width, y);
+    check(x + width, y + height);
+    if (correct > 0 && Inexpressible == 0 && infi == 0) {
+        // Correct data: does (1/3) which is 0.33.. mod 1  equal to zero
+      rows[index] = [dictX, dictY, null, null, null];
+
+    } else if(Inexpressible > 0 && correct == 0 && infi == 0) {
+      // Inexpressible data
+      rows[index] = [dictX, null, dictY, null, null];
+
+    }else if(infi > 0 && correct == 0 && Inexpressible == 0) {
+      // check if is NAN eg. 0/0  or is Infinity(not finite)  eg. 1/0 , 1000/0
+      rows[index] = [dictX, null, null, dictY, null];
+
+    } else {
+      // Mix data
+      rows[index] = [dictX, null, null, null, dictY];
+    }
+  }
+  var xV;
+  var yV; 
+  if(xValue == null && yValue == null){xV=0; yV=0;}else{xV = xValue; yV = yValue;}
+  if(clickIndex > 0){clickedX.push(xV);clickedY.push(yV);}
+  
+  var getFormat = function(param){f1 = decBin(param, prec); f2 = decBin(param+height, prec);}
+  
+  for(var x = xV, i = 0; i < 16; i++, x += width+1){
+    getFormat(x);
+    var dictX = {v:x, f:'X: '+f1+' to '+f2};
+  
+    for(var y = yV, j = 0; j < 16; j++, y += height+1){
+      getFormat(y);
+      var dictY = {v:y, f:'Y: '+f1+' to '+f2};
+      getPixel(x, y, height, width, dictX, dictY);
+      index += 1;
+    }
+  }
+  drawChart(rows, ['Inexpressible', 'infinity','Mix']);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:reset}, language=Javascript, caption={reset function is to reset all the interactive action from user with chart, and get back to the first stage},]
+/* reset function is to reset all the interactive action from user with chart.
+ * set the mobile variable to zero index ( the start of precArr )
+ */
+function reset(){
+  mobile = 0;
+  xValue = null;
+  yValue = null;
+  clickIndex = 0;
+  getRequest();
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:getBack}, language=Javascript, caption={getBack function provide to the user the previous stage of chart},]
+/* getBack function provide to the user the previous event of chart. 
+ * The function provide event points to the appropriate function (current )
+ */
+function getBack(){
+  if(mobile != 0){ mobile -= 1;}else{ mobile = 0;}
+
+  if(clickIndex == 0 || clickIndex == 1){
+    xValue= null;
+    yValue=null;
+    clickIndex = 0;
+  }else{
+    clickIndex -= 1;
+    xValue=clickedX[clickIndex-1]; 
+    yValue=clickedY[clickIndex-1];
+    
+  }
+  getRequest();
+}
+\end{lstlisting}
 
 \end{document}
