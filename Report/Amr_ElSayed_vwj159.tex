@@ -88,7 +88,7 @@ showstringspaces=false,
 \textbf{Practical Supervisor} &:& Oleksandr Shturmov\\\\
 \textbf{Period} &:& Block 5\\\\
 \textbf{Year} &:& 2016\\\\
-\textbf{Pages} &:& \\\\
+\textbf{Pages} &:& 29\\\\
 \textbf{Github} &:& \url{https://github.com/Amr116/ClosurePlots}\\
 \textbf{Publishing site} &:& \url{https://amr116.github.io/ClosurePlots/}
 \end{tabular}
@@ -101,7 +101,7 @@ This is to certify that the work contained in the thesis entitled "Closure Plots
 \begin{tabular}{ l l l c r l l l}\\
     %~\ ~\ ~\ ~\   %~\ ~\ 
     \textbf{General Supervisor} & & & & & & \textbf{Practical Supervisor} \\
-    Michael Kirkedal Thmosen & & & & & & Oleksandr Shturmov\\
+    Michael Kirkedal Thomsen & & & & & & Oleksandr Shturmov\\
     m.kirkedal@di.ku.dk & & & & & & oleks@di.ku.dk\\
     Department of Computer Science (DIKU) & & & & & & Department of Computer Science (DIKU)\\
     University of Copenhagen & & & & & & University of Copenhagen\\
@@ -317,7 +317,7 @@ This function is called when the user has clicked on the "Plot my requests" butt
 The JavaScript code for getBit-Width() function is shown in the code snippet\ref{lst:getRequest} at Appendix section \ref{app:A}.\\
 
 \subsubsection{function add()}
-The add() function calculates the sum of two variables or more in arithmetic operation. Also, it shows the behaviour of this arithmetic operation ( Correct, overflow ). It will be executed when it's called by function getRequest().\\
+The add() function calculates the sum of two variables in arithmetic operation. Also, it shows the behaviour of this arithmetic operation ( Correct, overflow ). It will be executed when it's called by function getRequest().\\
 The body of add() function starts with a variable prec definition, this variable will be assigned to the value of the bit-width selected option. Thereafter, a variable range is defined - this variable will be assigned to the return value of base 2 to the exponent power of prec value.
 The height and width variables are assigned to the values of precArr[mobile], where precArr and mobile have been created from getBit-Width() function.
 Thereafter, variable index 0 is intialized to 0, and variable row is initialized to an empty array. The variable index will be used to insert specified items to array row. The variables f1 and f2 are defined to assign the values of X and Y to them after their values have been converted to binary format.\\
@@ -341,7 +341,7 @@ This function plots the received data from add, sub, mult, and divi functions. T
 In the scope of drawChart function I have defined selectHandler() function, this function will allow users to interact with the shown data by clicking on the items, and thereby I get the x and y values of the clicked item. Those values are assigned to the global variables xValue and yValue. At line 51 I have defined variable valid, and it's assigned to the return value of checkIndex() function. This function checks if the mobile variable has not run out of range to precArr length as shown in the snapped code \ref{lst:checkIndex} at Appendix section \ref{app:A}. If the return value of checkIndex is true then increase the value of variable clickIndex by 1, and call getRequest() function.
 
 \subsubsection{function sub()}
-The sub() function \ref{lst:sub} calculates the subtraction of two variables or more in arithmetic operation. And, the function is to show the behaviour of this arithmetic operation ( Correct, Underflow ). The function will be executed when it's called from function getRequest() \ref{lst:getRequest}. The sub() function has the same definition like the add() function \ref{lst:add} except the logic for check() function.\\
+The sub() function \ref{lst:sub} calculates the subtraction of two variables in arithmetic operation. And, the function is to show the behaviour of this arithmetic operation ( Correct, Underflow ). The function will be executed when it's called from function getRequest() \ref{lst:getRequest}. The sub() function has the same definition like the add() function \ref{lst:add} except the logic for check() function.\\
 \\At the scope of sub() function, the check() function checks if the result of left expression subtract the right-side expression for the items at the four edges of 256 elements. If the result is greater than zero and the result is less than or equal to range variable the correct variable increased by 1. Otherwise the variable underflow is increased by 1 as shown in the snapped code \ref{lst:sub} lines 20-22 at Appendix section \ref{app:A}.\\
 
 \subsubsection{function mult()}
@@ -370,6 +370,17 @@ I have tested the reset button and it do the reset functionality as how it shoul
 %\section{Future Development}
 %\section{Work progress}
 \section{Conclusion}
+In this report I have presented an idea for an application that can illustrate the behaviour of basic arithmetic operations in Floating-Point arithmetic with different bit-width, so the students of the Department of Computer Science - University of Copenhagen can learn and interact with this application.\\
+
+The primary goal to this project was to reproduce the graphical view from John L. Gustafson book (THE END of ERROR Unum Computing) that illustrating the behaviour of bit-width representation for basic arithmetic operations.\\
+
+I decided to use CSS, HTML5, and JavaScript as the technologies that were needed to develop the application, and for the data visualization, i have used Google Chart.\\
+
+I had implemented this application so that it can to be easily accessed via the internet by using a standard web browser or students can access the application files from a physical source.\\
+
+I had implemented a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer with a fixed-size of bit string, which refer to the same size of bit-width (Half $2^{16}$ , Single $2^{32}$), and also i had explained why i couldn't implemented for  bit-width( Double $2^{64}$ , Quadruple $2^{128}$)\\
+
+For the future development, even I didn't explained how it's possible to extend this project with some other arithmetic operation or illustrating the behaviour of decimal numbers, rational numbers, and all the irrational numbers in Floating-Point, but i strongly beleive that the implementation of this project might be useful for  future development to fit some other arithmetic operation and fit some other real numbers.
 
 \newpage
 \section*{References}
