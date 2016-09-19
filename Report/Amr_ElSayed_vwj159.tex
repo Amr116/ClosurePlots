@@ -134,8 +134,9 @@ I am a third year computer science student at the University of Copenhagen. I'm 
 
 The main use of this software (Closure Plots for Basic Arithmetics which will be referred to as "CPBA" throughout this report.) is to illustrate the behaviour of basic arithmetic operations in Floating-Point arithmetic with different bit-width of web based software, so the user can access it virtually from anywhere.\\
 
-This software is based on the principle of float in the floating point which is derived from the fact that there is no fixed number of digits before and after the decimal point. That is, the decimal point can float; therefore, the implementation of this project focuses on creating a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer with a fixed-size of bit string, which refer to the same size of bit-width (Half, Single, Double, Quadruple). Also, to create the infrastructure that will allow for future development; to make it possible to extend the project of illustrating the behaviour of decimal numbers, rational numbers, and all the irrational numbers in Floating-Point eg. IEEE Floating-Point Standard or something else with this approach.\\
+This software is based on the principle of float in the floating point which is derived from the fact that there is no fixed number of digits before and after the decimal point. That is, the decimal point can float. Therefore, the objective of the CPBA application is to create a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer with a fixed-size of bit string, which refer to the same size of bit-width (Half $2^{16}$, Single $2^{32}$, Double $2^{64}$, Quadruple $2^{128}$ ). Also, to create the infrastructure that will allow for future development to make it possible to extend the project of illustrating the behaviour of decimal numbers, rational numbers, and all the irrational numbers in Floating-Point eg. IEEE Floating-Point Standard or something else with this approach.\\
 \\The idea of this project inspired from John L. Gustafson book \ref{3} (THE END of ERROR Unum Computing), where there is a graphical view of illustrating the behaviour of bit-width representation for basic arithmetic operations as shown in figure. \ref{book}.\\
+%the implementation of this project focuses on creating a visualization tool for illustrating the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) to integer with a fixed-size of bit string, which refer to the same size of bit-width (Half $2^{16}$, Single $2^{32}$, Double $2^{64}$, Quadruple $2^{128}$ ). Also, to create the infrastructure that will allow for future development to make it possible to extend the project of illustrating the behaviour of decimal numbers, rational numbers, and all the irrational numbers in Floating-Point eg. IEEE Floating-Point Standard or something else with this approach.\\
 \begin{figure}[h]
     \centering
     \includegraphics[height=9.7cm,width=0.7\textwidth]{book}
@@ -154,44 +155,68 @@ The first purpose is to describe the UI to CPBA application for instructors and 
 The second purpose is to explain the requirement specifications for CPBA application and to explain the steps of implementing this project to help the developers to further develop the application.
 
 \subsection{Project Scope}
-CPBA will allow students to learn about the behaviour of basic arithmetic operations in floating point arithmetic with different Bit-Width through interaction with UI. The CPBA will also allow the instructors and creative students to modify the variables in arithmetic operations - to monitor behaviour of floating point.\\
+CPBA will allow students to learn about the behaviour of basic arithmetic operations in floating point arithmetic with different Bit-Width through interaction with UI. The CPBA will also allow the instructors and creative students to modify the variables in arithmetic operations to monitor behaviour of floating point.%\\
+%The objective of the CPBA application is to create a visualization tool that illustrates the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different bit-width (e.g. Half, Single, Double, Quadruple).\\
 
-The objective of the CPBA application is to create a visualization tool that illustrates the behaviour of basic arithmetic operations (e.g., Addition, Subtraction, Multiplication, Division) in floating point arithmetic with different bit-width (e.g. Half, Single, Double, Quadruple).\\
-
-\section{Overall Description}
+\section{Overall Description}\label{Overall Description}
 Floating point is the formulaic representation of a real number that includes all the rational numbers, such as the integer (negative, postive), the fraction, and all the irrational numbers, such as square root or  transcendental numbers.\\
 
 Floating-point arithmetic is a subject that is considered exciting for many people, because the result of Floating-point arithmetic operations depends on the bit-width of the Floating-point. This is rather surprising because the floating-point bit-width can be the reason why it gives a different result. Almost every programming language has a floating-point datatype. Therefore, the use of two or more programming languages (for some common arithmetic calculations to develop a project) depend on Floating-point arithmetic operations that can give surprising results. The reason for that is, these programming languages have different bit-width and Floating-point datatypes, and also, bit-width differs from one computer to another computer. c.\ref{1}\\
 
-The most popular code for representing real numbers is called the IEEE Floating-Point Standard c.\ref{2}, - it has three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and does not need to be stored.\\
+The most popular code for representing real numbers is called the IEEE Floating-Point Standard c.\ref{2}, it has three basic components: the sign, the exponent, and the mantissa. The mantissa is composed of the fraction and an implicit leading digit. The exponent base (2) is implicit and does not need to be stored.\\
 
 \subsection{Product Perspective}
 A simple way to illustrate the behaviour of basic arithmetic operations is to physically sit in front of a computer or with paper and write down the numbers and finish the calculation process. There are tools available, commercial or open source, that support arithmetic operations to digits or binary numbers. Many operating systems and applications come with calculator support with basic arithmetic operations. However, all these tools usually require a person physically sitting in front of a computer writing down the numbers one by one.\\
 \\Thus, there is a need for a web based application such as a visualization tool for illustrating the behaviour of basic arithmetic operations.
 
 \section{Analysis}
-In this section I will give an analysis of the problem described above. The analysis will focus on narrowing in special areas of the problem domain that will be central to designing and implementing a working prototype.
+In this section I will give an analysis of the problem described above. The analysis will focus on narrowing in special areas of the problem domain that will be central to designing \ref{Design} and implementing \ref{Implementation} a working prototype.
 \subsection{Fixed Bit String}
+There is obvious weakness when designing CPBA application, this weakness is the ability of the programming languages to represent integer number. The humans capable of representing unlimited integer number, but the situation is different to programming languages.  As I mentioned in section "Overall description" \ref{Overall Description}, Almost every programming language has a floating-point datatype. Therefore, table \ref{mathNo} shown the maximum integer that can be represent at some web development technologies.\\
+\begin{table}[h]
+\label{mathNo}
+\scriptsize 
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\multirow{2}{*}{\diagbox[width=8em]{Bit-width}{PL}}
+                   & \multirow{2}{*}{JavaScript} & \multirow{2}{*}{Python}                 &\multirow{2}{*} {GO} \\ 
+                   &                             &                                         &   \\ \hline
+$2^{16}$      & 65536                       & 65536                                   &  65536\\ \hline%Half ~\ ~\ ~\ ~\ ~\ 
+$2^{32}$    & 4294967296                  & 4294967296                              &  4.294967296e+09 \\ \hline%Single~\ ~\ ~\ ~\ 
+$2^{64}$    & 18446744073709552000        & 18446744073709551616                    &  1.8446744073709552e+19 \\ \hline%Double ~\ ~\ ~\ 
+$2^{128}$ & 3.402823669209385e+38       & 340282366920938463463374607431768211456 &  3.402823669209385e+38  \\ \hline%Quadruple ~\ 
+\end{tabular}
+\caption{Representation of integer from some programming languages}
+\end{table}\\
+From the above table \ref{mathNo}, I can see maximum integer can be exactly represented is in bit-width single, but for double and quadruple the integer has been represented as rounding numbers or in scientific notation.
 
+%integer which cannot be exactly represented
+
+%is incapable
+%There is obvious weakness when designing CPBA application, this weakness is the size of bit-width. The humans capable of representing unlimited size of bit-width to integer, because 
+
+%by their arithmetic notation definition.\\
+
+%Different mathematical notation for floating point precision is one of the obvious shortcomings for designing CPBA application, if we could not represent those different precision with their actual mathematical notation.
 
 \subsection{Rectangle Size vs Bit Pixel}
-The browser window is the rectangle that a web page fills on screen - it is basically the size of the browser window, without the toolbars and scrollbars \ref{4}. I will use this window to visualize and illustrate the behaviour of basic arithmetic of Floating-point. But is it possible for the CPBA application to illustrate the behaviour of this basic arithmetic operations in this window !?\\
+The browser window is the rectangle that a web page fills on screen. It is basically the size of the browser window, without the toolbars and scrollbars \ref{4}. I will use this window to visualize and illustrate the behaviour of basic arithmetic of Floating-point. But is it possible for the CPBA application to illustrate the behaviour of this basic arithmetic operations in this window !?\\
 
-I want to calculate arithmetic operations (e.g. Addition, Subtraction, Multiplication, Division) with integer numbers that have different bit-width (Half, Single, Double, Quadruple). To do these calculations I need at least two variables. That is, if the variables X and Y have Single bit-width I have to represent the result of this arithmetic operations, which results in $65536^{2} = 4294967296$ elements.\\\\
-This huge number of elements can not be shown in the Viewport while maintaining a clear vision for each element separately. So I need some way to allow us to achieve a clear vision for each element, and also allow the user to take advantage of this visualization tool for illustrating the behaviour of basic arithmetic operations.\\
-\section{Design}
+I want to calculate arithmetic operations with integer numbers that have different bit-width. To do these calculations I need at least two variables. That is, if the variables X and Y have Half bit-width I have to represent the result of this arithmetic operations, which results in $65536^{2} = 4294967296$ elements. This huge number of elements can not be shown in the browser window while maintaining a clear vision for each element separately. So I need some way to allow me to achieve a clear vision for each element, and also allow the user to take advantage of this visualization tool for illustrating the behaviour of basic arithmetic operations.\\
+\section{Design}\label{Design}
 I decided that it should be web-based so the application is easily accessible for students. In other words, it should be accessed via the internet by using a standard web browser or students can access the project files from a physical source (e.g. flash memory). This way there is no need for distributing the program and all the required packages for it to run, which I would need if I had to make a program that was not web-based. By making the application web-based I ensure its accessibility for most, if not all users.
 The solution will not target mobile/tablet users specifically.\\
 
-Now that the project is a web-based application I need to use HTML and CSS - seeing that they are the two core technologies for building Web pages. However, to build the functionality of this project I can choose between many programming languages, but JavaScript is the only one that fits the CPBA requirements; This way the users can access the CPBA online, and offline if they get the project from a physical source.\\
+Now that the project is a web-based application I need to use HTML and CSS - seeing that they are the two core technologies for building Web pages. However, to build the functionality of this project I can choose between many programming languages, but JavaScript is the only one that fits the CPBA requirements. This way the users can access the CPBA online, and offline if they get the project from a physical source.\\
 
 I discussed some of the problems that I will be confronted with in the design and implementation of the project in the above section (Analysis). Therefore, in the below subsection I will present the problems mentioned above and explain my ideas for the design and implementation of the solution to the problems.
 \subsection{Arithmetic operations \& Different bit-width}
-The user needs a simple way to illustrate the behaviour of basic arithmetic operations (Addition, Subtraction, Multiplication, Division) with different bit-width (Half, Single, Double, Quadruple). Therefore, the project should make it possible for users to select and choose between different arithmetic operations and different bit-width. For this reason, I've decided that the front-end design of CPBA should include  two  <select> elements which create a drop-down list, and thereby I collect user input from the selected option.
+The user needs a simple way to illustrate the behaviour of basic arithmetic operations with different bit-width. Therefore, the project should make it possible for users to select and choose between different arithmetic operations and different bit-width. For this reason, I've decided that the front-end design of CPBA should include  two  <select> elements which create a drop-down list, and thereby I collect user input from the selected option.
 \subsection{Mathematical notation}
-Since I have chosen javascript as the primary programming language to the functionality of this project, it will provide access for the user whether it be online or offline. But does Javascript represent bit-width such as the way in which it represent in mathematical notation? Unfortunately, The answer is No because the maximum integer represented in JavaScript is $2^{31} -1$, or $2147483647$, otherwise the integer will be represented in scientific notation. That's why I decided to make CPBA is limited to bit-width Half and Single only.
+Since I have chosen javascript as the primary programming language to the functionality of this project, it will provide access for the user whether it be online or offline. But does Javascript represent bit-width such as the way in which it represent in mathematical notation? Unfortunately, The answer is No because the maximum integer represented in JavaScript is $2^{53}+1$. Otherwise the integer will be represented in scientific notation. That's why I decided to make CPBA is limited to bit-width Half and Single only.
 \subsection{Elements}
-Representing fixed bit string equal to the length of bit string at bit-width Half and Single would produce huge number of elements. Those numbers would need to be shown in viewport, but to represent all those elements at once will not make it possible for users to see and illustrate the behaviour of basic arithmetic operations. Therefore, the CPBA application needs to summarize those elements to miniature form.\\
+Representing fixed bit string equal to the length of bit string at bit-width Half and Single would produce huge number of elements. Those numbers would need to be shown in the browser window, but to represent all those elements at once will not make it possible for users to see and illustrate the behaviour of basic arithmetic operations. Therefore, the CPBA application needs to summarize those elements to miniature form.\\
 Those miniature forms differ from one bit-width to another bit-width in the number of stages. In other words, for example at the addition operation to two variables of bit-width Half, that have $2^{16}$ elements for variable X and $2^{16}$ for variable Y, so the sum of those two variables is $2^{32}$ elements.\\\\
 I decided to show 256 elements of this result at each stage, where each element represents 4 edges from the real results as shown in figure \ref{edges}.\\
 \begin{figure}[h]
@@ -200,9 +225,9 @@ I decided to show 256 elements of this result at each stage, where each element 
     \caption{summarize form shows how each element represents in CPBA}
     \label{edges}
 \end{figure}\\
-The Half-bit-width will have four stages. At the first stage width and height will be equal to 4095, at the second stage they will be equal to 255, at the third stage they will be equal to 15,  and at the fourth (last stage) they will be be equal to 0.\\\\
-The Single-bit-width will have eight stages. At the first stage width and height will be equal to 268435455, at the second stage they will be equal to 16777215, at the third stage they will be equal to 1048575, at the fourth stage they will be be equal to 65535, at the fifth stage they will be be equal to 4095, at the sixth stage they will be be equal to 255, at the seventh stage they will be be equal to 15, and at the eighth stage (the last one) they will be be equal to 0\\\\
-The below examples is illustrative examples to prove the concept of the addition operation with half bit-width at first stage form:\\\\
+The bit-width Half will have four stages. At the first stage width and height will be equal to 4095, at the second stage they will be equal to 255, at the third stage they will be equal to 15,  and at the fourth (last stage) they will be be equal to 0.\\\\
+The bit-width Single will have eight stages. At the first stage width and height will be equal to 268435455, at the second stage they will be equal to 16777215, at the third stage they will be equal to 1048575, at the fourth stage they will be be equal to 65535, at the fifth stage they will be be equal to 4095, at the sixth stage they will be be equal to 255, at the seventh stage they will be be equal to 15, and at the eighth stage (the last one) they will be be equal to 0\\\\
+The below examples is illustrative examples to prove the concept of the addition operation with bit-width Half at first stage form:\\\\
 X = 4096, Y=53248\\
 \scalebox{0.9}{
 \begin{tabular}{lllll}
@@ -236,27 +261,27 @@ Rightmost upper: & (4096  + 4095)  + (61440 + 4095) & = 73726 & ,73726  is more 
 There are 0 correct and 4 Overflow, therefore, i will show single Overflow element representing this above range. 
 
 \subsection{Forward, Back \& Reset}
-Since there will be many stages, whether it be for Half bit-width or Single bit-width. Therefore, users need  to an mobility option, that can let the users move forward to next stage, back to previous stage or jump backward to first stage (Reset). \\
+Since there will be many stages, whether it be for bit-width Half or bit-width Single. Therefore, users need  to an mobility option, that can let the users move forward to next stage, back to previous stage or jump backward to first stage (Reset). \\
 
 For achieving the mobility options to the user, I must provide a tool that allows the user to interact with presented data and the stages. This tools can be buttons, those buttons have to be available to user on UI.\\
 
 To move forward to the next stage the user has to click on the element, thereafter, the clicked element will be the first element of the next stage, and so on until width and height are equal to zero. And, hereby the user has reached the final stage.\\\
 
-To move back to previous stage the user clicks on the back button - that button will provide the option of going back to the previous stage until width and height are equal to value 4095 in Half-bit-width or value 268435455 in Single-bit-width.\\
+To move back to previous stage the user clicks on the back button, that button will provide the option of going back to the previous stage until width and height are equal to value 4095 in bit-width Half or value 268435455 in bit-width Single.\\
 
-To reset or to jump back to the first stage will be done by clicking on reset button - that button will assign width and height to 4095 in Half-bit-width or 268435455 in Single-bit-width.
+To reset or to jump back to the first stage will be done by clicking on reset button, that button will assign width and height to 4095 in bit-width Half or 268435455 in bit-width Single.
 
-\section{Implementation}
+\section{Implementation}\label{Implementation}
 In this section I will explain the involved steps of the CPBA application's implementation. The Implementation steps are split into two parts (User Interface-UI and Back-end)
 \subsection{UI}
 For the implementation of the user interface I have chosen to use Bootstrap\footnote{Bootstrap, a front-end framework for web development \ref{http://getbootstrap.com/}}. Bootstrap is a front-end framework for web development, and helps me flesh out the user interface, ensuring that it looks the same no matter what browser the user is using to access the CPBA application.\\\\
 In the UI I have implemented two select option elements, one to define the available options for bit-width, and the second one is to define the available options for arithmetic operations.\\
-The selection option element for the different bit-width has the onchange attribute that assigns to getBit-Width() JavaScript function - that function is responsible for creating arrays of the different width and height values. The HTML code for select option is shown in the code snippet \ref{lst:Select option} at Appendix section \ref{app:A}.\\
+The selection option element for the different bit-width has the onchange attribute that assigns to getBit-Width() JavaScript function, that function is responsible for creating arrays of the different width and height values. The HTML code for select option is shown in the code snippet \ref{lst:Select option} at Appendix section \ref{app:A}.\\
 
 I defined "Plot my requests" button element at the same div element for the select option to get the value of the selected option. This button has attribute onclick, which is to assign to JavaScript functions getRequest(); and showService();. getRequest() function will get the value of the selected option and I will explain this function clearly at the Back-end section. But showService() function is responsible for showing Back and Reset buttons, because those buttons are invisible until the user has clicked on Plot my requests button. I assigned the style display of those buttons to "none", thereby showService() will assign style display to "block" instead of none, thereby those buttons will be shown in UI.\\
 The HTML code for "Plot my requests" button is shown in the code snippet \ref{lst:Plot my requests} at Appendix section \ref{app:A}, the HTML code for Back and Reset buttons is shown in the code snippet \ref{lst:select option button}, and the JavaScript code for showService() function is shown in the code snippet \ref{lst:showService} at Appendix section \ref{app:A}.\\
 
-Here is the last version of UI that I created for the CPBA application. look at figure\ref{UI}
+Figure\ref{UI} show the last version of UI that I created for the CPBA application.
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{layout}
@@ -264,14 +289,28 @@ Here is the last version of UI that I created for the CPBA application. look at 
     \label{UI}
 \end{figure}\\
 \subsection{Back-end}
-In the design section I described that I would use javascript to implement the back-end functionality. The back-end consists of many functions, I will review these functions based on their order of the implementation to the CPBA application.
+In the design section I described that I would use javascript to implement the back-end functionality. The back-end consists of many functions, I will review these functions based on their order of the implementation to the CPBA application. But, before the review of these functions, i would like to show the outline of implementation the arithmetic operations.\\
+\\The arithmetic operations at this project will have same algorithms for implementation except checking the behaviour of variables (correct, overflow, underflow, inexpressible, infinity). The below steps describing the algorithm for implementing those arithmetic operations.
+\begin{enumerate}
+\item Get the requested bit-width. For two reasons:
+  \begin{enumerate}
+    \item Define array of the values for width and height.
+    \item Assign the requested bit-width to variable. 
+  \end{enumerate}
+\item Get the requested arithmetic operation. So I can call the appropriate function.
+\item Check the x and y values.
+\item Summarize the edges for elements at each stage based on height and width value.
+\item Check the behaviour of elements at the edges.
+\item Represent the binary value of the summarize elements.
+\item Visualize the data
+\end{enumerate}
+
 \subsubsection{getBit-Width() function.}
 The first call occurs when the body of the webpage has been loaded. The second call occurs when the user changes the select option to bit-width. getbit-width receives the value of bit-width select option, which is 16 for Half bit-width or 32 for single bit-width. The function starts by initializing the global precArr variable to empty array, and initializing the global mobile variable to 0. Thereafter, assigns variable temp the return value of base 2 to the exponent power of bit-width value ( 16 or 32).
 Now the function is ready to create the width and height value to the selected bit-width, and that is done by a while loop as long as a specified condition ((temp/16) >= 1) is true. Inside the scope of while loop I divide the value of temp variable by 16, and then push the return value of temp -1 to precArr array. The while loop will create array of width and height values.\\
 
 The return value for precArr variable when bit-width is half will be \textit{[4095, 255, 15, 0]}, and the return value for precArr when bit-width is Single will be \textit{[268435455, 16777215, 1048575, 65535, 4095, 255, 15, 0]}.\\
-
-The JavaScript code for getBit-Width() function is shown in the code snippet\ref{lst:getBit-Width} at Appendix section \ref{app:A}.\\
+\\The JavaScript code for getBit-Width() function is shown in the code snippet\ref{lst:getBit-Width} at Appendix section \ref{app:A}.\\
 
 \subsubsection{getRequest() function.} 
 This function is called when the user has clicked on the "Plot my requests" button. The function starts with defining a variable "op" and assigning this variable to the value of select option "operations", which are addition, subtraction, multiplication, or division. Thereafter, it defines a switch statement and evaluates variable "op " value to match the value to a case clause, and executes function associated with that case.\\
@@ -316,13 +355,13 @@ The divi() function \ref{lst:divi} calculates the division of two variables in a
 \subsubsection{function reset()}
 The purpose of reset() \ref{lst:reset} function is to reset chart and go back to first stage to show the previous data at this stage. The function reset() begins by reassign variable mobile value to zero, thereafter reassign global variables xValue and yValue values to null, and at last reassign variable clickIndex value to zero, then it call getRequest() function. The onclick event occurs when the user clicks on reset button at UI, then 
 the reset() function will be execute.\\
-The reset() function will be execute when onclick event occurs while the user clicks on reset button at UI. The code for reset function can see at \ref{lst:reset} at the Appendix section \ref{app:A}.
+The reset() function will be execute when onclick event occurs while the user clicks on reset button at UI. The code for reset function shown in the snapped code \ref{lst:reset} at the Appendix section \ref{app:A}.
 
 \subsubsection{function getBack()}
-
+The purpose of getBack() \ref{lst:getBack} function is to allow user to move back to the previous stage, if and only if the user has moved forward. The implementation of this function is based on stack (Last In First Out), where selectHandler() \ref{lst:drawChart} function allow users to interact with the shown data and move forward by clicking on the items, so I save the clicked value of x to array clickedX and save the clicked value of y to clickedY. But, when user clicks on getBack button at UI (onclick event occurs), than getBack() function will be executed and global variable xValue will be assign to last item at clickedX array, and yValue will be assign to last item at clickedY array. To keep track the last elements of clickedX and clickedY, I had defined variable clickIndex, that point to the last index of clickedX and clickedY arrays at selectHandler() function. The clickIndex variable value is increasing by 1 when user clicks on data elements, and it is decreasing by 1 when user clicks on getBack button.
 
 \section{Testing}
-
+In this section I will give some screenshots of the tests that I have done to the CPBA application and explain these screenshots.
 
 %\section{Future Development}
 %\section{Work progress}

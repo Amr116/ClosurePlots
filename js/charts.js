@@ -3,10 +3,6 @@
  */
 google.charts.load('current', {packages: ['corechart','scatter']});
 
-function refresh(){
-	location.reload();
-}
-
 
 /*	decBin function is to convert (Decimal to Binary) with specify length of the output.
  *	The function take 2 arguments ( dec, length)
