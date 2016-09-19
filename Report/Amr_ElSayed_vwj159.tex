@@ -114,14 +114,14 @@ This is to certify that the work contained in the thesis entitled "Closure Plots
 %University of Copenhagen
 %\end{center}
 \end{center}
-\newpage
-\section{Abstract}
+%\newpage
+%\section{Abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %As computer systems continue to grow rapidly in both complexity and scale, developers need tools to help them understand the behavior and performance of these systems.  While information visualization is a promising technique, most existing computer systems visualizations have focused on very specific problems and data sources, limiting their applicability.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %However, simulations with rounded arithmetic are simply guesses and guidance, not proof of anything.\\
 %The floating point has computation lacks mathematical rigor, and the simulations with rounded arithmetic are simply guesses and guidance, not proof of anything, and since a rounded number is by definition the substitution of an incorrect number for the correct one. Therefore The purpose of " Closure Plots for Basic Arithmetics"  is to create visualization tool for illustrate basic arithmetics simulation to floating point during, and then highlight the bits lacks to those elementary operations.\\
-\section*{Resume}
+%\section*{Resume}
 
 \newpage
 \begin{center}
@@ -361,7 +361,11 @@ The reset() function will be execute when onclick event occurs while the user cl
 The purpose of getBack() \ref{lst:getBack} function is to allow user to move back to the previous stage, if and only if the user has moved forward. The implementation of this function is based on stack (Last In First Out), where selectHandler() \ref{lst:drawChart} function allow users to interact with the shown data and move forward by clicking on the items, so I save the clicked value of x to array clickedX and save the clicked value of y to clickedY. But, when user clicks on getBack button at UI (onclick event occurs), than getBack() function will be executed and global variable xValue will be assign to last item at clickedX array, and yValue will be assign to last item at clickedY array. To keep track the last elements of clickedX and clickedY, I had defined variable clickIndex, that point to the last index of clickedX and clickedY arrays at selectHandler() function. The clickIndex variable value is increasing by 1 when user clicks on data elements, and it is decreasing by 1 when user clicks on getBack button.
 
 \section{Testing}
-In this section I will give some screenshots of the tests that I have done to the CPBA application and explain these screenshots.
+In this section I will give some screenshots of the tests that I have done to the CPBA application and explain these screenshots.\\
+At Figure\ref{offline} I have tested the possibility that the users can access the CPBA at offline mode. And, yes the users can access the CPBA application, if they get the application from a physical source, because the stylesheet of bootstrap will be delivered with the application.\\\\
+At Figures\ref{half-add} \ref{half-sub} \ref{half-mult} \ref{half-div} I have tested if the users can select bit-width half to (Addition, Subtraction, Multiplication, Division) operations. And, as we can see at those figures, when the user select half bit-width and the arithmetic operations, and thereafter the user can click on "Plot my requests" button and the data will be shown in the center of browser window. As well as, if users chose single bit-width as shown at Figures \ref{single-add} \ref{single-sub} \ref{single-mult} \ref{single-div}.\\\\
+I have also tested, if the user can interact with the chart, and clicked on some elements. As we can see at figure \ref{first-stage}, this figure refers to the first stage for Half bit-width and arithmatic operation addition. The chart show the first element at x-axis is 0 and the last element is little bit more than 64k (k refers to  thousand). I have hovered over the last element to x-axis, which is also the first element to y-axis, we can see the Pop-up windows show x value is range of 1111000000000000 - 1111111111111111, and y value is range of 0000000000000000 - 0000111111111111. And, By click on this element we moved to the next stage as shown in figure \ref{second-stage}. At the second stage by hover over the last element to x-axis we can see the Pop-up windows show the value of x is range of 1111111100000000 - 1111111111111111, and y value is range of 0000000000000000 - 0000000011111111. Again, By click on this element we moved to the next stage as shown in figure \ref{third-stage}.At the third stage by hover over the last element to x-axis we can see the Pop-up windows show the value of x is range of 1111111111110000 - 1111111111111111, and y value is range of 0000000000000000 - 0000000000001111. Lastly, By click on this element we moved to the next stage as shown in figure \ref{last-stage}.At the this stage we are at last stage by hover over the last element to x-axis we can see the Pop-up windows show the value of x is range of 1111111111111111 - 1111111111111111, and y value is range of 0000000000000000 - 0000000000000000.\\
+I have tested the reset button and it do the reset functionality as how it should be, where the chart has been moved to its first stage. I have also tested the getBack button, but it has bug.\\
 
 %\section{Future Development}
 %\section{Work progress}
@@ -917,5 +921,85 @@ function getBack(){
   getRequest();
 }
 \end{lstlisting}
-
+\newpage
+\section*{Figures}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{offline}
+    \caption{offline-mode}
+    \label{offline}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{half-add}
+    \caption{addition operation with bit-width Half}
+    \label{half-add}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{half-sub}
+    \caption{Subtraction operation with bit-width Half}
+    \label{half-sub}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{half-mult}
+    \caption{Multiplication operation with bit-width Half}
+    \label{half-mult}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{half-div}
+    \caption{Division operation with bit-width Half}
+    \label{half-div}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{single-add}
+    \caption{addition operation with bit-width single}
+    \label{single-add}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{single-sub}
+    \caption{Subtraction operation with bit-width single}
+    \label{single-sub}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{single-mult}
+    \caption{Multiplication operation with bit-width single}
+    \label{single-mult}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{single-divi}
+    \caption{Division operation with bit-width single}
+    \label{single-div}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{first-stage-half-add}
+    \caption{The first stage at the chart with bit-width Half to the addition operation}
+    \label{first-stage}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{second-stage-half-add}
+    \caption{The second stage at the chart with bit-width Half to the addition operation}
+    \label{second-stage}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{third-stage-half-add}
+    \caption{The third stage at the chart with bit-width Half to the addition operation }
+    \label{third-stage}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{last-stage-half-add}
+    \caption{The last stage at the chart with bit-width Half to the addition operation }
+    \label{last-stage}
+\end{figure}
 \end{document}
